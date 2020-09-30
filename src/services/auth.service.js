@@ -1,9 +1,7 @@
-import axios from "axios";
 import { feathersApp } from "../store/index";
 import useRecoilValue from "recoil";
 import { useHistory } from "react-router-dom";
 
-const API_URL = "http://localhost:3030/authentication/";
 const feathersAppInstance = useRecoilValue(feathersApp);
 let history = useHistory();
 

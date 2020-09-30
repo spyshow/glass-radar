@@ -1,9 +1,8 @@
 import React from "react";
 import { Form, Input, Checkbox, SubmitButton, ResetButton } from "formik-antd";
 import { Formik } from "formik";
-import {  Row, Col } from "antd";
+import { Row, Col } from "antd";
 import * as Yup from "yup";
-
 
 import {
   UserOutlined,
@@ -13,12 +12,6 @@ import {
 } from "@ant-design/icons";
 
 import "./FormContainer.styles.css";
-
-
-
-
-
-
 
 //form validation
 const LoginSchema = Yup.object().shape({
@@ -42,24 +35,9 @@ const layout = {
   },
 };
 
-
 // form submiting
 
-const onSubmit = async (values) => {
-  try {
-    // First try to log in with an existing JWT
-    return await app.reAuthenticate();
-  } catch (error) {
-    // If that errors, log in with email/password
-    // Here we would normally show a login page
-    // to get the login information
-    return await app.authenticate({
-      strategy: 'local',
-      email: values.email,
-      password: values.password
-    });
-  }
-}
+const onSubmit = async (values) => {};
 
 const FormContainer = () => {
   return (
@@ -67,6 +45,7 @@ const FormContainer = () => {
       <Formik
         initialValues={{ username: "", password: "", remember: false }}
         validationSchema={LoginSchema}
+        onSubmit={onSubmit}
         render={({ errors, touched }) => (
           <Form {...layout} className="form">
             <Form.Item name="username" label="Username">
