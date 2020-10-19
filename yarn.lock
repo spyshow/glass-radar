@@ -3938,6 +3938,11 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
+deep-diff@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-1.0.2.tgz#afd3d1f749115be965e89c63edc7abb1506b9c26"
+  integrity sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==
+
 deep-equal@^1.0.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.1.1.tgz#b5c98c942ceffaf7cb051e24e1434a25a2e6076a"
@@ -4872,6 +4877,14 @@ fb-watchman@^2.0.0:
   integrity sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==
   dependencies:
     bser "2.1.1"
+
+figbird@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/figbird/-/figbird-0.8.1.tgz#c2c05c2cc462061267c59479b28ad52a844256ce"
+  integrity sha512-3sBqe4ROViaSDI/9UI16zabyxtQdu8yCC3f2b6XF5U4rJS0MQQtC6pXFjst+KNX9UDNDrZkTRMb0j4DYeqt3WA==
+  dependencies:
+    sift "^13.2.0"
+    tiny-atom "^5.0.0-pre.2"
 
 figgy-pudding@^3.5.1:
   version "3.5.1"
@@ -10411,6 +10424,11 @@ side-channel@^1.0.2:
     es-abstract "^1.17.0-next.1"
     object-inspect "^1.7.0"
 
+sift@^13.2.0:
+  version "13.3.5"
+  resolved "https://registry.yarnpkg.com/sift/-/sift-13.3.5.tgz#de08275e1427731e1fe25192f88786e38bbfa89e"
+  integrity sha512-apSwBXO0Xpl7zGb26xwq7KGre9/WwyzMxUv0zmI6mLpDJQGOX+CynBgKDaSrn+AXuAuiS4orQo1ty6bU+OEN/Q==
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -11071,6 +11089,13 @@ timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
+
+tiny-atom@^5.0.0-pre.2:
+  version "5.0.0-pre.2"
+  resolved "https://registry.yarnpkg.com/tiny-atom/-/tiny-atom-5.0.0-pre.2.tgz#0b85746b96cfae3ae3bfc192c0942e9ef9a26728"
+  integrity sha512-OB4w64q9sOaZfh8ZvI8h39pgPHF6bpcUoSmViBEfdiBEH04mn2rqmgFHuFW+ssaOl2U0F4cmAiZqY80o9l/bKA==
+  dependencies:
+    deep-diff "^1.0.2"
 
 tiny-invariant@^1.0.2:
   version "1.1.0"

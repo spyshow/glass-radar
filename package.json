@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.6.5",
     "axios": "^0.20.0",
+    "figbird": "^0.8.1",
     "formik": "^2.1.5",
     "formik-antd": "^2.0.1",
     "react": "^16.13.1",
