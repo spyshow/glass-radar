@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import feathers from "@feathersjs/feathers";
-import socketio from "@feathersjs/socketio-client";
+import feathers from "@feathersjs/client";
+//import socketio from "@feathersjs/socketio-client";
 import io from "socket.io-client";
-import auth from "@feathersjs/authentication-client";
+//import auth from "@feathersjs/authentication-client";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute.component";
 import { Provider } from "figbird";
 import "./App.css";
@@ -11,18 +11,31 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard.component";
 import Login from "./pages/Login/Login.component";
 
-const socket = io("http://localhost:3030/");
+const socket = io("http://localhost:3030/", {
+  transports: ["websocket"],
+  forceNew: true,
+});
 const app = feathers();
 
-app.configure(socketio(socket));
+app.configure(feathers.socketio(socket));
 app.configure(
-  auth({
-    storageKey: "auth",
+  feathers.authentication({
+    storage: window.localStorage,
+    storageKey: "accessToken",
   })
 );
+
 //app.configure(feathers.hooks("authentication"));
 
 function App() {
+  try {
+    app.reAuthenticate();
+    console.log("authing");
+  } catch {
+    app
+      .handleError("FeathersError", "authenticate")
+      .then(() => console.log("not auth"));
+  }
   return (
     <Provider feathers={app}>
       <BrowserRouter>
