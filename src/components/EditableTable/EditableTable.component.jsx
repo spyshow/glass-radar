@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import {
   Table,
   Input,
+  DatePicker,
   InputNumber,
   Popconfirm,
   Form,
@@ -15,7 +16,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "figbird";
 
 import openNotification from "../Notification/Notification.component";
-import "./Table.styles.css";
+import "./EditableTable.styles.css";
 const { Option } = Select;
 
 function tagRender(props) {
@@ -34,6 +35,10 @@ function tagRender(props) {
   );
 }
 
+let filterOption = (input, option) => {
+  return option.name.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+};
+
 const EditableCell = ({
   editing,
   dataIndex,
@@ -44,9 +49,9 @@ const EditableCell = ({
   children,
   options,
   mode,
+  filter,
   ...restProps
 }) => {
-  console.log(mode, options);
   let inputNode;
   switch (inputType) {
     case "number":
@@ -54,6 +59,9 @@ const EditableCell = ({
       break;
     case "text":
       inputNode = <Input />;
+      break;
+    case "date":
+      inputNode = <DatePicker format="DD/MM/YYYY" />;
       break;
     case "select":
       inputNode = (
@@ -63,6 +71,11 @@ const EditableCell = ({
           mode={mode}
           style={{ width: "100%" }}
           showArrow
+          showSearch={filter ? true : false}
+          optionFilterProp={filter ? "child" : null}
+          filterOption={
+            filter ? (input, option) => filterOption(input, option) : null
+          }
         ></Select>
       );
       break;
@@ -96,7 +109,6 @@ const EditableCell = ({
 const EditableTable = ({ originData, originColumns, service }) => {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
-  let [loading, setLoading] = useState(false);
   const { status, patch, remove } = useMutation(service);
 
   const isEditing = (record) => record.id === editingKey;
@@ -109,12 +121,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
     form.setFieldsValue(returnedRecored);
     setEditingKey(record.id);
   };
-
-  useEffect(() => {
-    if (status === "loading") {
-      setLoading = true;
-    }
-  }, [status]);
 
   const handleDelete = async (record) => {
     await remove(record.id).then((record) => {
@@ -164,7 +170,8 @@ const EditableTable = ({ originData, originColumns, service }) => {
             }}
           >
             <a
-              href="javascript:;"
+              // eslint-disable-next-line no-script-url
+              href="javascript:void;"
               onClick={() => handleSave(record)}
               style={{
                 marginRight: 8,
@@ -202,7 +209,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    console.log(col);
     if (!col.editable) {
       return col;
     }
@@ -215,12 +221,13 @@ const EditableTable = ({ originData, originColumns, service }) => {
         mode: col.mode,
         title: col.title,
         editing: isEditing(record),
+        filter: col.filter,
         options: col.dataType === "select" ? col.options : null,
       }),
     };
   });
   return (
-    <Spin spinning={loading}>
+    <Spin spinning={status === "loading" ? true : false}>
       <Form form={form} component={false}>
         <Table
           components={{
