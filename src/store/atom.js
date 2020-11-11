@@ -9,3 +9,8 @@ export const loginAlarmState = atom({
   key: "loginAlarm",
   default: "",
 });
+
+export const machinesStatusState = atom({
+  key: "machineStatus",
+  default: [],
+});

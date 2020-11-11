@@ -1,2 +1,2 @@
-export { sidebarCollapsedState } from "./atom";
+export { sidebarCollapsedState, machinesStatusState } from "./atom";
 //export {  } from "./selector";
