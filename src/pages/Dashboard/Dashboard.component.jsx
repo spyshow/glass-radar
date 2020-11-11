@@ -9,6 +9,7 @@ import {
   TeamOutlined,
   UserOutlined,
   ApartmentOutlined,
+  CopyOutlined,
 } from "@ant-design/icons";
 import { useRecoilState } from "recoil";
 import { useHover } from "@react-aria/interactions";
@@ -25,6 +26,7 @@ import openNotification from "../../components/Notification/Notification.compone
 import { sidebarCollapsedState } from "../../store/index";
 import Machines from "../Machines/Machines.component";
 import Users from "../Users/Users.component";
+import Jobs from "../Jobs/Jobs.components";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -62,6 +64,10 @@ const Dashboard = () => {
     {
       path: "/dashboard/users",
       component: () => <Users />,
+    },
+    {
+      path: "/dashboard/jobs",
+      component: () => <Jobs />,
     },
   ];
 
@@ -120,7 +126,9 @@ const Dashboard = () => {
                 <Menu.Item key="11" icon={<TeamOutlined />}>
                   <Link to="/dashboard/users">Users</Link>
                 </Menu.Item>
-                <Menu.Item key="12">Alex</Menu.Item>
+                <Menu.Item key="12" icon={<CopyOutlined />}>
+                  <Link to="/dashboard/jobs">Jobs</Link>
+                </Menu.Item>
               </SubMenu>
             ) : null}
           </Menu>
