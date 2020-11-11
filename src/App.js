@@ -29,7 +29,7 @@ app.configure(
 
 function App() {
   try {
-    app.reAuthenticate();
+    app.reAuthenticate(true);
     console.log("authing");
   } catch {
     app
