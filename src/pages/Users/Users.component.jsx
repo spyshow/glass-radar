@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import { PageHeader, Button, Modal, Row, Col, Tag } from "antd";
 import { useFind, useMutation } from "figbird";
 import { getTimeZones } from "@vvo/tzdb";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  SubmitButton,
-  ResetButton,
-} from "formik-antd";
+import { Form, Input, Select, SubmitButton, ResetButton } from "formik-antd";
 import {
   UserOutlined,
   TeamOutlined,
   MailOutlined,
   LockOutlined,
-  SolutionOutlined,
-  FieldTimeOutlined,
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -24,23 +15,20 @@ import openNotification from "../../components/Notification/Notification.compone
 
 import "./Users.styles.css";
 
-import Table from "../../components/Table/Table.component";
-
-const { Option } = Select;
+import EditableTable from "../../components/EditableTable/EditableTable.component";
 
 //generate timezone array of objects
 const timezoneArray = () => {
   let timezones = getTimeZones();
   let tz = timezones.map((item) => {
     return {
-      value: item.name,
-      name: `${item.name}(${item.rawOffsetInMinutes / 60}:00)`,
+      value: `${item.name} (${item.rawOffsetInMinutes / 60}:00)`,
+      name: `${item.name} (${item.rawOffsetInMinutes / 60}:00)`,
     };
   });
   return tz;
 };
 const timezones = timezoneArray();
-
 //options for the user's roles
 const options = {
   roles: [
@@ -126,6 +114,7 @@ let columns = [
     options: options["timezone"],
     width: "15%",
     editable: true,
+    filter: true,
   },
 ];
 
@@ -245,10 +234,16 @@ function Users() {
               </Form.Item>
               <Form.Item name="timezone" label="Time Zone">
                 <Select
+                  showSearch
+                  optionFilterProp="child"
+                  placeholder="Select a timezone"
                   name="timezone"
                   style={{ width: "100%" }}
                   value={values.timezone}
                   options={options.timezone}
+                  filterOption={(input, option) =>
+                    option.name.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
                 ></Select>
               </Form.Item>
               <Row>
@@ -267,7 +262,7 @@ function Users() {
       {originData.status === "loading" ? (
         <div />
       ) : (
-        <Table
+        <EditableTable
           originData={originData}
           originColumns={columns}
           service="users"

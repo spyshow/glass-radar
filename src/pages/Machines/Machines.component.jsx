@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageHeader, Button, Modal, Row, Col } from "antd";
+import { PageHeader, Button, Modal, Row, Col, Table, Space } from "antd";
 import { useFind, useMutation } from "figbird";
 import {
   Form,
@@ -11,6 +11,8 @@ import {
 } from "formik-antd";
 import {
   TagOutlined,
+  StopOutlined,
+  CaretRightOutlined,
   FieldBinaryOutlined,
   LinkOutlined,
   ClusterOutlined,
@@ -20,10 +22,11 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import openNotification from "../../components/Notification/Notification.component";
+import MachineStatus from "../../components/MachineStatus/MachineStatus.component";
 
 import "./Machines.styles.css";
 
-import Table from "../../components/Table/Table.component";
+import EditableTable from "../../components/EditableTable/EditableTable.component";
 
 const { Option } = Select;
 
@@ -151,14 +154,83 @@ const LoginSchema = Yup.object().shape({
 function Machines() {
   const { create } = useMutation("machines");
   const formRef = React.useRef(null);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalAddMachineVisible, setAddMachineModalVisible] = useState(false);
+  const [modalMachineStatusVisible, setMachineStatusModalVisible] = useState(
+    false
+  );
   const originData = useFind("machines");
+  console.log(originData.data);
   const onSubmit = async (values) => {
     create(values).then(() => {
       openNotification("success", "Machine added succesfully!");
-      setModalVisible(false);
+      setAddMachineModalVisible(false);
     });
   };
+
+  let machineStatusColumn = [
+    {
+      title: "Name",
+      dataType: "text",
+      dataIndex: "machine_name",
+      key: "name",
+    },
+    {
+      title: "Line",
+      dataType: "text",
+      dataIndex: "machine_line",
+      key: "line",
+    },
+    {
+      title: "Initilaization",
+      key: "initilaization",
+      dataIndex: "initilaization",
+      render: (text, row, index) => {
+        console.log(text, row);
+        return (
+          <>
+            <MachineStatus
+              name={row.machine_name + "_" + row.machine_line}
+              service="machine-exist"
+              index={row.id}
+            />
+          </>
+        );
+      },
+    },
+    {
+      title: "Operation",
+      key: "Operation",
+      dataIndex: "Operation",
+      render: (text, row, index) => {
+        console.log(text, row);
+        return (
+          <Space align="center" direction="horizontal">
+            <Button
+              shape="round"
+              icon={<CaretRightOutlined />}
+              size="large"
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                borderColor: "white",
+              }}
+              onClick={}
+            >
+              Start
+            </Button>
+            <Button
+              type="danger"
+              shape="round"
+              icon={<StopOutlined />}
+              size="large"
+            >
+              Stop
+            </Button>
+          </Space>
+        );
+      },
+    },
+  ];
 
   return (
     <div>
@@ -167,21 +239,31 @@ function Machines() {
         title="Machines"
         subTitle="All the machines in the plant"
         extra={[
-          <Button key="1" type="primary" onClick={() => setModalVisible(true)}>
+          <Button
+            key="1"
+            type="primary"
+            onClick={() => setAddMachineModalVisible(true)}
+          >
             Add Machine
+          </Button>,
+          <Button
+            key="2"
+            type="primary"
+            onClick={() => setMachineStatusModalVisible(true)}
+          >
+            Machine Status
           </Button>,
         ]}
       ></PageHeader>
       <Modal
         title="Add Machine"
         centered
-        visible={modalVisible}
+        visible={modalAddMachineVisible}
         onOk={() => {
-          setModalVisible(false);
+          setAddMachineModalVisible(false);
         }}
         onCancel={() => {
-          setModalVisible(false);
-          console.log(formRef);
+          setAddMachineModalVisible(false);
         }}
         width={1000}
         footer={[]}
@@ -264,10 +346,31 @@ function Machines() {
           )}
         </Formik>
       </Modal>
+      <Modal
+        title="Machines Status"
+        centered
+        visible={modalMachineStatusVisible}
+        onOk={() => {
+          setMachineStatusModalVisible(false);
+        }}
+        onCancel={() => {
+          setMachineStatusModalVisible(false);
+        }}
+        width={1000}
+        footer={[]}
+      >
+        <Table
+          rowKey={(record) => {
+            return record.id;
+          }}
+          columns={machineStatusColumn}
+          dataSource={originData.data}
+        ></Table>
+      </Modal>
       {originData.status === "loading" ? (
         <div />
       ) : (
-        <Table
+        <EditableTable
           originData={originData}
           originColumns={columns}
           service="machines"
