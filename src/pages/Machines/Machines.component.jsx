@@ -11,8 +11,6 @@ import {
 } from "formik-antd";
 import {
   TagOutlined,
-  StopOutlined,
-  CaretRightOutlined,
   FieldBinaryOutlined,
   LinkOutlined,
   ClusterOutlined,
@@ -23,6 +21,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import openNotification from "../../components/Notification/Notification.component";
 import MachineStatus from "../../components/MachineStatus/MachineStatus.component";
+import MachineRunner from "../../components/MachineRunner/MachineRunner.component";
 
 import "./Machines.styles.css";
 
@@ -159,7 +158,6 @@ function Machines() {
     false
   );
   const originData = useFind("machines");
-  console.log(originData.data);
   const onSubmit = async (values) => {
     create(values).then(() => {
       openNotification("success", "Machine added succesfully!");
@@ -204,28 +202,9 @@ function Machines() {
       render: (text, row, index) => {
         console.log(text, row);
         return (
-          <Space align="center" direction="horizontal">
-            <Button
-              shape="round"
-              icon={<CaretRightOutlined />}
-              size="large"
-              style={{
-                backgroundColor: "green",
-                color: "white",
-                borderColor: "white",
-              }}
-              onClick={}
-            >
-              Start
-            </Button>
-            <Button
-              type="danger"
-              shape="round"
-              icon={<StopOutlined />}
-              size="large"
-            >
-              Stop
-            </Button>
+          <Space align="center" direction="horizontal" key={row.id}>
+            <MachineRunner mode="start" row={row} key={row.id} />
+            <MachineRunner mode="stop" row={row} key={row.id} />
           </Space>
         );
       },
