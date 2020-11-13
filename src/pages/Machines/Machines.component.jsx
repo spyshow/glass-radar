@@ -11,7 +11,6 @@ import {
 } from "formik-antd";
 import {
   TagOutlined,
-  FieldBinaryOutlined,
   LinkOutlined,
   ClusterOutlined,
   FieldTimeOutlined,
@@ -29,130 +28,9 @@ import EditableTable from "../../components/EditableTable/EditableTable.componen
 
 const { Option } = Select;
 
-//options for the machine's types
-const options = {
-  type: [
-    { value: "IS", name: "IS" },
-    { value: "MCAL4", name: "MCAL4" },
-    { value: "MULTI4", name: "MULTI4" },
-    { value: "MX4", name: "MX4" },
-    { value: "VI", name: "VI" },
-    { value: "PALLETIZER", name: "PALLETIZER" },
-    { value: "Display", name: "Display" },
-  ],
-};
-
-let columns = [
-  {
-    title: "Name",
-    dataIndex: "machine_name",
-    dataType: "text",
-    width: "10%",
-    editable: false,
-    sorter: {
-      compare: (a, b) => {
-        return a.type.localeCompare(b.type);
-      },
-    },
-  },
-  {
-    title: "Line",
-    dataIndex: "machine_line",
-    dataType: "text",
-    width: "10%",
-    editable: false,
-    sorter: {
-      compare: (a, b) => a.line - b.line,
-    },
-  },
-  {
-    title: "URL",
-    dataIndex: "url",
-    dataType: "text",
-    width: "20%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => {
-        return a.url.localeCompare(b.url);
-      },
-    },
-  },
-  {
-    title: "Type",
-    dataIndex: "type",
-    dataType: "select",
-    width: "15%",
-    editable: true,
-    options: options["type"],
-    sorter: {
-      compare: (a, b) => {
-        return a.type.localeCompare(b.type);
-      },
-    },
-  },
-  {
-    title: "Scan Time",
-    dataIndex: "scantime",
-    dataType: "number",
-    width: "15%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => a.scanTime - b.scanTime,
-    },
-  },
-  {
-    title: "Sequence",
-    dataIndex: "sequence",
-    dataType: "number",
-    width: "15%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => a.sequence - b.sequence,
-    },
-  },
-];
-
-//form layout
-const layout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-
-//form validation
-const LoginSchema = Yup.object().shape({
-  machine_name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  machine_line: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  url: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  scantime: Yup.number()
-    .moreThan(0, "Minimum allowed!")
-    .lessThan(50, "Maximum allowed!")
-    .positive("Value must be a positive number!")
-    .integer("number must be an integer.")
-    .required("Required"),
-  sequence: Yup.number()
-    .moreThan(0, "Minimum allowed!")
-    .lessThan(50, "Maximum allowed!")
-    .integer("number must be an integer.")
-    .positive("Value must be a positive number!")
-    .required("Required"),
-});
-
 function Machines() {
   const { create } = useMutation("machines");
-  const formRef = React.useRef(null);
+  const lines = useFind("lines");
   const [modalAddMachineVisible, setAddMachineModalVisible] = useState(false);
   const [modalMachineStatusVisible, setMachineStatusModalVisible] = useState(
     false
@@ -164,6 +42,140 @@ function Machines() {
       setAddMachineModalVisible(false);
     });
   };
+
+  //options for the machine's types
+  const options = {
+    type: [
+      { value: "IS", name: "IS" },
+      { value: "MCAL4", name: "MCAL4" },
+      { value: "MULTI4", name: "MULTI4" },
+      { value: "MX4", name: "MX4" },
+      { value: "VI", name: "VI" },
+      { value: "PALLETIZER", name: "PALLETIZER" },
+      { value: "Display", name: "Display" },
+    ],
+    lines: [],
+  };
+  if (lines.error) return "Failed to load resource Machine Status";
+  if (lines.status === "success") {
+    for (let i = 0; i < lines.data.length; i++) {
+      options.lines[i] = {
+        value: lines.data[i].line_number,
+        name: lines.data[i].line_number,
+      };
+    }
+  }
+
+  let columns = [
+    {
+      title: "Name",
+      dataIndex: "machine_name",
+      dataType: "text",
+      width: "10%",
+      editable: false,
+      sorter: {
+        compare: (a, b) => {
+          return a.type.localeCompare(b.type);
+        },
+      },
+    },
+    {
+      title: "Line",
+      dataIndex: "machine_line",
+      dataType: "select",
+      width: "10%",
+      editable: true,
+      options: options["lines"],
+      sorter: {
+        compare: (a, b) => {
+          return a.type.localeCompare(b.type);
+        },
+      },
+    },
+    {
+      title: "URL",
+      dataIndex: "url",
+      dataType: "text",
+      width: "20%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => {
+          return a.url.localeCompare(b.url);
+        },
+      },
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      dataType: "select",
+      width: "15%",
+      editable: true,
+      options: options["type"],
+      sorter: {
+        compare: (a, b) => {
+          return a.type.localeCompare(b.type);
+        },
+      },
+    },
+    {
+      title: "Scan Time",
+      dataIndex: "scantime",
+      dataType: "number",
+      width: "15%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => a.scanTime - b.scanTime,
+      },
+    },
+    {
+      title: "Sequence",
+      dataIndex: "sequence",
+      dataType: "number",
+      width: "15%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => a.sequence - b.sequence,
+      },
+    },
+  ];
+
+  //form layout
+  const layout = {
+    labelCol: {
+      span: 6,
+    },
+    wrapperCol: {
+      span: 16,
+    },
+  };
+
+  //form validation
+  const LoginSchema = Yup.object().shape({
+    machine_name: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    machine_line: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    url: Yup.string()
+      .min(2, "Too Short!")
+      .max(100, "Too Long!")
+      .required("Required"),
+    scantime: Yup.number()
+      .moreThan(0, "Minimum allowed!")
+      .lessThan(50, "Maximum allowed!")
+      .positive("Value must be a positive number!")
+      .integer("number must be an integer.")
+      .required("Required"),
+    sequence: Yup.number()
+      .moreThan(0, "Minimum allowed!")
+      .lessThan(50, "Maximum allowed!")
+      .integer("number must be an integer.")
+      .positive("Value must be a positive number!")
+      .required("Required"),
+  });
 
   let machineStatusColumn = [
     {
@@ -200,11 +212,12 @@ function Machines() {
       key: "Operation",
       dataIndex: "Operation",
       render: (text, row, index) => {
-        console.log(text, row);
+        console.log(row.id);
         return (
           <Space align="center" direction="horizontal" key={row.id}>
-            <MachineRunner mode="start" row={row} key={row.id} />
-            <MachineRunner mode="stop" row={row} key={row.id} />
+            <MachineRunner mode="init" row={row} key={1} />
+            <MachineRunner mode="start" row={row} key={2} />
+            <MachineRunner mode="stop" row={row} key={3} />
           </Space>
         );
       },
@@ -253,7 +266,7 @@ function Machines() {
           onSubmit={onSubmit}
         >
           {({ values, handleSubmit }) => (
-            <Form {...layout} onSubmit={handleSubmit} ref={formRef}>
+            <Form {...layout} onSubmit={handleSubmit}>
               <Form.Item name="machine_name" label="Name">
                 <Input
                   name="machine_name"
@@ -263,12 +276,15 @@ function Machines() {
                 />
               </Form.Item>
               <Form.Item name="machine_line" label="Line">
-                <Input
-                  prefix={<FieldBinaryOutlined />}
+                <Select
+                  loading={lines.data.status}
+                  prefix={<ClusterOutlined />}
+                  options={options["lines"]}
                   name="machine_line"
-                  placeholder="Machine Line"
+                  style={{ width: "100%" }}
                   value={values.machine_line}
-                />
+                
+               />
               </Form.Item>
               <Form.Item name="url" label="URL">
                 <Input
@@ -346,7 +362,7 @@ function Machines() {
           dataSource={originData.data}
         ></Table>
       </Modal>
-      {originData.status === "loading" ? (
+      {originData.status === "loading" && lines.status === "loading" ? (
         <div />
       ) : (
         <EditableTable
