@@ -1,11 +1,16 @@
 import React from "react";
 import { Button } from "antd";
-import { CaretRightOutlined, StopOutlined } from "@ant-design/icons";
+import {
+  CaretRightOutlined,
+  StopOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 import { useMutation } from "figbird";
 import openNotification from "../Notification/Notification.component";
 
 const MachineRunner = ({ mode, row }) => {
   const { data, loading, error, create, remove } = useMutation("scanner");
+  const machineInit = useMutation("machine-init");
   const obj = {};
   console.log(row);
   const onStart = () => {
@@ -26,6 +31,14 @@ const MachineRunner = ({ mode, row }) => {
       }
     });
   };
+  const onInit = () => {
+    console.log(row);
+    machineInit.create(row).then(() => {
+      if (data === "done") {
+        openNotification("success", "DataBase created succesfully!");
+      }
+    });
+  };
   switch (mode) {
     case "start":
       obj.icon = <CaretRightOutlined />;
@@ -35,7 +48,7 @@ const MachineRunner = ({ mode, row }) => {
         color: "white",
         borderColor: "white",
       };
-
+      obj.click = onStart;
       break;
     case "stop":
       obj.icon = <StopOutlined />;
@@ -45,18 +58,32 @@ const MachineRunner = ({ mode, row }) => {
         color: "white",
         borderColor: "white",
       };
+      obj.click = onStop;
 
+      break;
+    case "init":
+      obj.icon = <PlusCircleOutlined />;
+      obj.text = "Create DataBase";
+      obj.style = {
+        backgroundColor: "blue",
+        color: "white",
+        borderColor: "white",
+      };
+      obj.click = onInit;
       break;
     default:
       break;
   }
+  if (mode === "start") {
+  }
+
   return (
     <Button
       shape="round"
       icon={obj.icon}
       size="large"
       style={obj.style}
-      onClick={mode === "start" ? onStart : onStop}
+      onClick={obj.click}
     >
       {obj.text}
     </Button>

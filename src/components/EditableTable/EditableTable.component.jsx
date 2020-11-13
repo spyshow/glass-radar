@@ -141,7 +141,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
       //   machine_line: record.machine_line,
       //   ...row,
       // };
-      console.log(row);
       patch(record.id, row);
       setEditingKey("");
     } catch (errInfo) {
