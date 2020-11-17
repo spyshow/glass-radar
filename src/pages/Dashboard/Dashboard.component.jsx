@@ -82,7 +82,7 @@ const Dashboard = () => {
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
           {...hoverProps}
-          breakpoint="lg"
+          breakpoint="xxl"
           collapsedWidth="80"
           collapsible
           collapsed={sidebarCollapsed}
@@ -91,8 +91,9 @@ const Dashboard = () => {
             zIndex: "3",
             overflow: "auto",
             height: "100vh",
-            position: "fixed",
+            position: "sticky",
             left: 0,
+            top: 0,
           }}
         >
           <div className="logo" />
