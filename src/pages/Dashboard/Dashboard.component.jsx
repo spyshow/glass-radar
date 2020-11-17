@@ -10,6 +10,7 @@ import {
   UserOutlined,
   ApartmentOutlined,
   CopyOutlined,
+  OrderedListOutlined,
 } from "@ant-design/icons";
 import { useRecoilState } from "recoil";
 import { useHover } from "@react-aria/interactions";
@@ -24,6 +25,7 @@ import "./Dashboard.styles.css";
 
 import openNotification from "../../components/Notification/Notification.component";
 import { sidebarCollapsedState } from "../../store/index";
+import Lines from "../Lines/Lines.component";
 import Machines from "../Machines/Machines.component";
 import Users from "../Users/Users.component";
 import Jobs from "../Jobs/Jobs.components";
@@ -56,6 +58,10 @@ const Dashboard = () => {
     {
       path: "/dashboard/login",
       component: () => <div />,
+    },
+    {
+      path: "/dashboard/lines",
+      component: () => <Lines />,
     },
     {
       path: "/dashboard/machine",
@@ -120,13 +126,16 @@ const Dashboard = () => {
               "admin"
             ) !== -1 ? (
               <SubMenu key="9" icon={<SettingOutlined />} title="Admin">
-                <Menu.Item key="10" icon={<ApartmentOutlined />}>
+                <Menu.Item key="10" icon={<OrderedListOutlined />}>
+                  <Link to="/dashboard/lines">Lines</Link>
+                </Menu.Item>
+                <Menu.Item key="11" icon={<ApartmentOutlined />}>
                   <Link to="/dashboard/machine">Machines</Link>
                 </Menu.Item>
-                <Menu.Item key="11" icon={<TeamOutlined />}>
+                <Menu.Item key="12" icon={<TeamOutlined />}>
                   <Link to="/dashboard/users">Users</Link>
                 </Menu.Item>
-                <Menu.Item key="12" icon={<CopyOutlined />}>
+                <Menu.Item key="13" icon={<CopyOutlined />}>
                   <Link to="/dashboard/jobs">Jobs</Link>
                 </Menu.Item>
               </SubMenu>

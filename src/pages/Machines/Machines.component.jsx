@@ -36,7 +36,9 @@ function Machines() {
     false
   );
   const originData = useFind("machines");
+  console.log(originData.data);
   const onSubmit = async (values) => {
+    console.log(values);
     create(values).then(() => {
       openNotification("success", "Machine added succesfully!");
       setAddMachineModalVisible(false);
@@ -60,8 +62,8 @@ function Machines() {
   if (lines.status === "success") {
     for (let i = 0; i < lines.data.length; i++) {
       options.lines[i] = {
-        value: lines.data[i].line_number,
-        name: lines.data[i].line_number,
+        value: lines.data[i].id,
+        label: lines.data[i].line_number,
       };
     }
   }
@@ -81,9 +83,10 @@ function Machines() {
     },
     {
       title: "Line",
-      dataIndex: "machine_line",
+      dataIndex: "line.line_number",
       dataType: "select",
       width: "10%",
+      forigin: "true",
       editable: true,
       options: options["lines"],
       sorter: {
@@ -155,10 +158,7 @@ function Machines() {
       .min(2, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    machine_line: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Required"),
+    lineId: Yup.string().required("Required"),
     url: Yup.string()
       .min(2, "Too Short!")
       .max(100, "Too Long!")
@@ -187,7 +187,7 @@ function Machines() {
     {
       title: "Line",
       dataType: "text",
-      dataIndex: "machine_line",
+      dataIndex: "line.line_number",
       key: "line",
     },
     {
@@ -199,7 +199,7 @@ function Machines() {
         return (
           <>
             <MachineStatus
-              name={row.machine_name + "_" + row.machine_line}
+              name={row.machine_name + "_" + row["line.line_number"]}
               service="machine-exist"
               index={row.id}
             />
@@ -275,16 +275,15 @@ function Machines() {
                   value={values.machine_name}
                 />
               </Form.Item>
-              <Form.Item name="machine_line" label="Line">
+              <Form.Item name="lineId" label="Line">
                 <Select
                   loading={lines.data.status}
                   prefix={<ClusterOutlined />}
                   options={options["lines"]}
-                  name="machine_line"
+                  name="lineId"
                   style={{ width: "100%" }}
-                  value={values.machine_line}
-                
-               />
+                  value={values.lineId}
+                />
               </Form.Item>
               <Form.Item name="url" label="URL">
                 <Input

@@ -50,6 +50,7 @@ const EditableCell = ({
   options,
   mode,
   filter,
+  forigin,
   ...restProps
 }) => {
   let inputNode;
@@ -69,6 +70,7 @@ const EditableCell = ({
           tagRender={tagRender}
           options={options}
           mode={mode}
+          forigin={forigin}
           style={{ width: "100%" }}
           showArrow
           showSearch={filter ? true : false}
@@ -132,8 +134,16 @@ const EditableTable = ({ originData, originColumns, service }) => {
     try {
       let row = await form.validateFields();
       for (let i = 0; i < columns.length; i++) {
+        //to include non editable data to the data sent to the backend ( because mybay it's not-null in the database)
         if (!columns[i].editable) {
           row[columns[i].dataIndex] = record[columns[i].dataIndex];
+        }
+        if (columns[i].forigin) {
+          //to check if the line column updated
+          if (Number(row["line.line_number"])) {
+            //if the line column updated then make a new key "lineId" and assign the "line.line_number to it"
+            row["lineId"] = row["line.line_number"];
+          }
         }
       }
       // row = {
@@ -218,6 +228,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
         inputType: col.dataType,
         dataIndex: col.dataIndex,
         mode: col.mode,
+        forigin: col.forigin,
         title: col.title,
         editing: isEditing(record),
         filter: col.filter,

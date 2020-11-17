@@ -9,7 +9,7 @@ import { useMutation } from "figbird";
 import openNotification from "../Notification/Notification.component";
 
 const MachineRunner = ({ mode, row }) => {
-  const { data, loading, error, create, remove } = useMutation("scanner");
+  const { data, create, remove } = useMutation("scanner");
   const machineInit = useMutation("machine-init");
   const obj = {};
   console.log(row);
