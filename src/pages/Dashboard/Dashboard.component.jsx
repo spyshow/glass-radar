@@ -5,7 +5,7 @@ import { Layout } from "antd";
 
 // import { useRecoilState } from "recoil";
 // import { useHover } from "@react-aria/interactions";
-import { BrowserRouter as Router, useHistory, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import MainMenu from "../../components/MainMenu/MainMenu.component";
 import "./Dashboard.styles.css";
 
