@@ -12,8 +12,8 @@ import {
   CopyOutlined,
   OrderedListOutlined,
 } from "@ant-design/icons";
-import { useRecoilState } from "recoil";
-import { useHover } from "@react-aria/interactions";
+// import { useRecoilState } from "recoil";
+// import { useHover } from "@react-aria/interactions";
 import {
   BrowserRouter as Router,
   useHistory,
@@ -24,7 +24,7 @@ import {
 import "./Dashboard.styles.css";
 
 import openNotification from "../../components/Notification/Notification.component";
-import { sidebarCollapsedState } from "../../store/index";
+//import { sidebarCollapsedState } from "../../store/index";
 import Lines from "../Lines/Lines.component";
 import Machines from "../Machines/Machines.component";
 import Users from "../Users/Users.component";
@@ -36,18 +36,17 @@ const { SubMenu } = Menu;
 const Dashboard = () => {
   const app = useFeathers();
   let history = useHistory();
-  let { hoverProps } = useHover({
-    onHoverStart: (e) => setSidebarCollapsed(false),
-    onHoverEnd: (e) => setSidebarCollapsed(true),
-  });
+  // const [sidebarCollapsed, setSidebarCollapsed] = useRecoilState(
+  //   sidebarCollapsedState
+  // );
+  // let { hoverProps } = useHover({
+  //   onHoverStart: (e) => setSidebarCollapsed(false),
+  //   onHoverEnd: (e) => setSidebarCollapsed(true),
+  // });
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useRecoilState(
-    sidebarCollapsedState
-  );
-
-  const ToggleCollapse = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
-  };
+  // const ToggleCollapse = () => {
+  //   setSidebarCollapsed(!sidebarCollapsed);
+  // };
 
   const routes = [
     {
@@ -81,12 +80,12 @@ const Dashboard = () => {
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
-          {...hoverProps}
           breakpoint="xxl"
           collapsedWidth="80"
           collapsible
-          collapsed={sidebarCollapsed}
-          onCollapse={ToggleCollapse}
+          // collapsed={sidebarCollapsed}
+
+          // onCollapse={ToggleCollapse}
           style={{
             zIndex: "3",
             overflow: "auto",
@@ -145,7 +144,7 @@ const Dashboard = () => {
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: "0 10px 10px 90px" }}>
+          <Content style={{ margin: "0 10px 10px 10px" }}>
             {routes.map((route) => (
               <Route
                 key={route.path}
