@@ -11,11 +11,40 @@ import {
   OrderedListOutlined,
 } from "@ant-design/icons";
 import { useHistory, Link } from "react-router-dom";
+import { useFind } from "figbird";
 import openNotification from "../Notification/Notification.component";
 
-const MainMenu = ({app, theme}) => {
+const MainMenu = ({ app, theme }) => {
   const { SubMenu } = Menu;
   let history = useHistory();
+  let menus = () => {};
+  const lines = useFind("lines");
+  if (lines.error) return "Failed to load resource Machine Status";
+  if (lines.status === "success") {
+    menus = (lines) => {
+      return lines.data.map((line) => {
+        if (line.machines.length === 0) {
+          return (
+            <Menu.Item key={line.id} title={line.line_number}>
+              {line.line_number}
+            </Menu.Item>
+          );
+        } else {
+          return (
+            <SubMenu key={line.id} title={line.line_number}>
+              {line.machines.map((machine) => {
+                console.log(machine);
+                return (
+                  <Menu.Item key={machine.id}>{machine.machine_name}</Menu.Item>
+                );
+              })}
+            </SubMenu>
+          );
+        }
+      });
+    };
+  }
+
   return (
     <Menu theme={theme} defaultSelectedKeys={["1"]} mode="inline">
       <Menu.Item
@@ -35,9 +64,7 @@ const MainMenu = ({app, theme}) => {
         Option 2
       </Menu.Item>
       <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-        <Menu.Item key="3">Tom</Menu.Item>
-        <Menu.Item key="4">Bill</Menu.Item>
-        <Menu.Item key="5">Alex</Menu.Item>
+        {menus(lines)}
       </SubMenu>
       <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
         <Menu.Item key="6">Team 1</Menu.Item>
