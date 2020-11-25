@@ -12,6 +12,7 @@ import "./Dashboard.styles.css";
 //import { sidebarCollapsedState } from "../../store/index";
 import Lines from "../Lines/Lines.component";
 import Machines from "../Machines/Machines.component";
+import Machine from "../machine/machine.component";
 import Users from "../Users/Users.component";
 import Jobs from "../Jobs/Jobs.components";
 
@@ -46,7 +47,11 @@ const Dashboard = () => {
       component: () => <Lines />,
     },
     {
-      path: "/dashboard/machine",
+      path: "/dashboard/machine/:id",
+      component: () => <Machine />,
+    },
+    {
+      path: "/dashboard/machines",
       component: () => <Machines />,
     },
     {

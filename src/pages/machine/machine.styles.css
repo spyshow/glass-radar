@@ -1,0 +1,20 @@
+@keyframes redPulse {
+  from {
+    /* background-color: #9a0202; */
+    box-shadow: 0 0 9px rgb(247, 247, 247);
+  }
+  50% {
+    /* background-color: #bd0909; */
+    box-shadow: 0 0 18px #ff2727;
+  }
+  to {
+    /* background-color: #9a0202; */
+    box-shadow: 0 0 9px rgb(247, 247, 247);
+  }
+}
+
+.button-live {
+  animation-name: redPulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}

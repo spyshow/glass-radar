@@ -1,0 +1,42 @@
+{
+  "sensors": [
+    {
+      "id": "Mcf",
+      "counter": [
+        { "id": "Otherdefects" },
+        { "id": "Stone" },
+        { "id": "Blister" },
+        { "id": "Drawn" },
+        { "id": "Density" },
+        { "id": "Lightbottom" },
+        { "id": "Chockedneck" },
+        { "id": "Mark" }
+      ]
+    },
+    {
+      "id": "Csbclo",
+      "counter": [
+        { "id": "Registration1" },
+        { "id": "Lineoverfinish" },
+        { "id": "Internalblister1" },
+        { "id": "Internalblister2" },
+        { "id": "Externalblister" },
+        { "id": "Scalyfinish" },
+        { "id": "Sugarytop" },
+        { "id": "Overpressed1" },
+        { "id": "Overpressed2" },
+        { "id": "Unrolled" },
+        { "id": "Unfilledfinish1" },
+        { "id": "Unfilledfinish2" },
+        { "id": "Unfilledfinish3" },
+        { "id": "Internalblackdefect" },
+        { "id": "Surfaceblackdefect" },
+        { "id": "Externalblackdefect" }
+      ]
+    },
+    {
+      "id": "Stress",
+      "counter": [{ "id": "Stress" }, { "id": "Error" }, { "id": "Blackimage" }]
+    }
+  ]
+}
