@@ -14,3 +14,8 @@ export const machinesStatusState = atom({
   key: "machineStatus",
   default: [],
 });
+
+export const chartDataState = atom({
+  key: "chartDataState",
+  default: [],
+});

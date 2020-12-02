@@ -99,7 +99,7 @@ const Dashboard = () => {
             ))}
           </Content>
           <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
+            Glass Radar ©2020 Created by Jihad Khorfan
           </Footer>
         </Layout>
       </Layout>

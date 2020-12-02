@@ -1,2 +1,6 @@
-export { sidebarCollapsedState, machinesStatusState } from "./atom";
+export {
+  sidebarCollapsedState,
+  machinesStatusState,
+  chartDataState,
+} from "./atom";
 //export {  } from "./selector";

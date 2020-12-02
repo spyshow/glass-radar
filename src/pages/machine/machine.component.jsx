@@ -32,6 +32,10 @@ const MachinePage = () => {
     setChartMode((prev) => !prev);
   };
 
+  /*************************** */
+  /* TODO: [ ]fix when user click clear on time range */
+  /*************************** */
+
   return (
     <div>
       <PageHeader

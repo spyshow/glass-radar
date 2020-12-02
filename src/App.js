@@ -11,7 +11,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard.component";
 import Login from "./pages/Login/Login.component";
 
-const socket = io("http://localhost:3030/", {
+const socket = io("http://192.168.0.71:3030/", {
   transports: ["websocket"],
   forceNew: true,
 });
