@@ -77,7 +77,7 @@ function Machines() {
       editable: false,
       sorter: {
         compare: (a, b) => {
-          return a.type.localeCompare(b.type);
+          return a.machine_name.localeCompare(b.machine_name);
         },
       },
     },
