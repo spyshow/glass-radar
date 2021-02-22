@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { DatePicker, PageHeader, Button, Modal, Row, Col } from "antd";
+import {
+  DatePicker,
+  PageHeader,
+  Button,
+  Modal,
+  Row,
+  Col,
+  Upload,
+  message,
+} from "antd";
 import { useFind, useMutation } from "figbird";
 import {
   Form,
@@ -10,17 +19,22 @@ import {
   ResetButton,
 } from "formik-antd";
 import {
+  InboxOutlined,
   CopyOutlined,
   FieldNumberOutlined,
   NumberOutlined,
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
 import openNotification from "../../components/Notification/Notification.component";
 
 import "./Jobs.styles.css";
 
 import EditableTable from "../../components/EditableTable/EditableTable.component";
+
+//upload props
+const { Dragger } = Upload;
 
 //options for the user's roles
 const options = {
@@ -37,11 +51,11 @@ let columns = [
     title: "Name",
     dataIndex: "name",
     dataType: "text",
-    width: "15%",
+    width: "25%",
     editable: true,
     sorter: {
       compare: (a, b) => {
-        return a.first_name.localeCompare(b.url);
+        return a.name.localeCompare(b.name);
       },
     },
   },
@@ -51,9 +65,10 @@ let columns = [
     dataType: "date",
     width: "15%",
     editable: true,
+    date: moment(),
     sorter: {
       compare: (a, b) => {
-        return a.last_name.localeCompare(b.url);
+        return a.date.localeCompare(b.date);
       },
     },
   },
@@ -66,7 +81,7 @@ let columns = [
     options: options["lines"],
     sorter: {
       compare: (a, b) => {
-        return a.email.localeCompare(b.url);
+        return a.line.localeCompare(b.line);
       },
     },
   },
@@ -77,21 +92,7 @@ let columns = [
     width: "10%",
     editable: true,
     sorter: {
-      compare: (a, b) => {
-        return a.email.localeCompare(b.url);
-      },
-    },
-  },
-  {
-    title: "Total",
-    dataIndex: "total",
-    dataType: "number",
-    width: "15%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => {
-        return a.email.localeCompare(b.url);
-      },
+      compare: (a, b) => a.speed - b.speed,
     },
   },
   {
@@ -99,20 +100,17 @@ let columns = [
     dataIndex: "total_ordered",
     dataType: "number",
     width: "15%",
-    editable: false,
+    editable: true,
     sorter: {
-      compare: (a, b) => {
-        return a.email.localeCompare(b.url);
-      },
+      compare: (a, b) => a.total_ordered - b.total_ordered,
     },
   },
-
   {
     title: "Job On",
     dataIndex: "job_on",
     dataType: "upload",
     width: "15%",
-    editable: true,
+    editable: false,
   },
 ];
 
@@ -133,24 +131,52 @@ const JobsSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   date: Yup.date().required("Required"),
+
   line: Yup.string()
     .min(2, "Too Short!")
     .max(3, "Too Long!")
     .required("Required"),
   speed: Yup.number().required("Required"),
-  total: Yup.number().min(100000, "Too Short!").required("Required"),
   total_ordered: Yup.number().required("Required"),
-  job_on: Yup.string()
-    .min(2, "Too Short!")
-    .max(100, "Too Long!")
-    .required("Required"),
+  // job_on: Yup.string()
+  //   .min(2, "Too Short!")
+  //   .max(100, "Too Long!")
+  //   .required("Required"),
 });
 
 function Jobs() {
   const { create } = useMutation("jobs");
   const [modalVisible, setModalVisible] = useState(false);
+  const [filesUploaded, setFilesUploaded] = useState("");
   const originData = useFind("jobs");
+
+  //upload props
+  const uploadProps = {
+    name: "files",
+    //multiple: true,
+    headers: {
+      Authorization: localStorage.getItem("accessToken"),
+    },
+    action: process.env.REACT_APP_HOSTNAME+"/upload",
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+        setFilesUploaded(info.file.name);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+
   const onSubmit = async (values) => {
+    console.log(values);
+    values.job_on = filesUploaded;
+    values.active = false;
+    values.total = 0;
     create(values).then(() => {
       openNotification("success", `Job: ${values.name} added succesfully!`);
       setModalVisible(false);
@@ -182,7 +208,13 @@ function Jobs() {
         footer={[]}
       >
         <Formik
-          initialValues={{ name: "", speed: "", total: "", total_ordered: "" }}
+          initialValues={{
+            name: "",
+            speed: "",
+            date: moment(),
+            total: 0,
+            total_ordered: 0,
+          }}
           validationSchema={JobsSchema}
           onSubmit={onSubmit}
         >
@@ -197,7 +229,11 @@ function Jobs() {
                 />
               </Form.Item>
               <Form.Item name="date" label="Date">
-                <DatePicker value={values.last_name} format="DD/MM/YYYY" />
+                <DatePicker
+                  title="date"
+                  onChange={(date, dateString) => (values.date = date)}
+                  format="DD/MM/YYYY"
+                />
               </Form.Item>
               <Form.Item name="line" label="Line">
                 <Select
@@ -217,21 +253,27 @@ function Jobs() {
                   value={values.speed}
                 />
               </Form.Item>
-              <Form.Item name="total" label="Total">
+              <Form.Item name="total_ordered" label="Total Ordered">
                 <InputNumber
-                  name="total"
-                  placeholder="Total"
-                  prefix={<NumberOutlined />}
-                  value={values.total}
-                ></InputNumber>
-              </Form.Item>
-              <Form.Item name="total_order" label="total_order">
-                <InputNumber
-                  name="total_order"
-                  placeholder="Total Order"
+                  name="total_ordered"
+                  placeholder="Total Ordered"
                   prefix={<NumberOutlined />}
                   value={values.total_ordered}
                 ></InputNumber>
+              </Form.Item>
+              <Form.Item name="job_on" value={filesUploaded} noStyle>
+                <Dragger {...uploadProps}>
+                  <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                  </p>
+                  <p className="ant-upload-text">
+                    Click or drag file to this area to upload
+                  </p>
+                  <p className="ant-upload-hint">
+                    Support for a single or bulk upload. Strictly prohibit from
+                    uploading company data or other band files
+                  </p>
+                </Dragger>
               </Form.Item>
               <Row>
                 <Col offset={6} span={4}>
