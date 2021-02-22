@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import feathers from "@feathersjs/client";
 //import socketio from "@feathersjs/socketio-client";
 import io from "socket.io-client";
@@ -29,12 +29,15 @@ app.configure(
 
 function App() {
   try {
-    app.reAuthenticate(true);
+    app
+      .reAuthenticate()
+      .then(() => {
+        console.log("authing");
+      })
+      .catch(() => <Redirect to={{ pathname: "/login" }} />);
     console.log("authing");
   } catch {
-    app
-      .handleError("FeathersError", "authenticate")
-      .then(() => console.log("not auth"));
+    //history.push("/login");
   }
   return (
     <Provider feathers={app}>
