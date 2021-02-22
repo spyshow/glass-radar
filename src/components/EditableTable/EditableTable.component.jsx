@@ -14,6 +14,7 @@ import {
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "figbird";
+import { moment } from "moment";
 
 import openNotification from "../Notification/Notification.component";
 import "./EditableTable.styles.css";
@@ -46,6 +47,7 @@ const EditableCell = ({
   inputType,
   record,
   index,
+  date,
   children,
   options,
   mode,
@@ -61,8 +63,12 @@ const EditableCell = ({
     case "text":
       inputNode = <Input />;
       break;
+    /*************************** */
+    /* TODO: [ ]edit date not good :  https://github.com/Hacker0x01/react-datepicker/issues/1120*/
+    /*************************** */
+
     case "date":
-      inputNode = <DatePicker format="DD/MM/YYYY" />;
+      inputNode = <DatePicker title="date" format="DD/MM/YYYY" />;
       break;
     case "select":
       inputNode = (
@@ -228,6 +234,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
         inputType: col.dataType,
         dataIndex: col.dataIndex,
         mode: col.mode,
+        date: col.date,
         forigin: col.forigin,
         title: col.title,
         editing: isEditing(record),
