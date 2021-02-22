@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageHeader, Skeleton, Button, DatePicker } from "antd";
+import { PageHeader, Skeleton, Button, DatePicker, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useGet } from "figbird";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
@@ -69,20 +69,25 @@ const MachinePage = () => {
           />,
         ]}
       ></PageHeader>
-      <MachineData
-        machine_name={
-          machine.data.machine_name + "_" + machine.data["line.line_number"]
-        }
-        machine_sensors={machine.data.sensors}
-        timeRange={
-          timeRange[0]
-            ? timeRange
-            : [
-                { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-                { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-              ]
-        }
-      />
+      {timeRange !== null ? (
+        <MachineData
+          machine_name={
+            machine.data.machine_name + "_" + machine.data["line.line_number"]
+          }
+          machine_type={machine.data.type}
+          machine_sensors={machine.data.sensors}
+          timeRange={
+            timeRange === null || timeRange[0]
+              ? timeRange
+              : [
+                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                ]
+          }
+        />
+      ) : (
+        <Empty description={<span>Please select a time range</span>} />
+      )}
     </div>
   );
 };
