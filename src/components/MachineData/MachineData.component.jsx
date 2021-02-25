@@ -19,13 +19,13 @@ const MachineData = ({
     query: {
       machine_name: machine_name,
       machine_type: machine_type,
-      startDate: timeRange[0]._d,
+      newStartDate: timeRange[0]._d,
       oldStartDate: moment(timeRange[0]).subtract(
         moment(timeRange[1]).diff(moment(timeRange[0])),
         "milliseconds"
       ),
       oldEndDate: timeRange[0]._d,
-      endDate: timeRange[1]._d,
+      newEndDate: timeRange[1]._d,
       machine_sensors: machine_sensors,
     },
     realtime: "refetch",
