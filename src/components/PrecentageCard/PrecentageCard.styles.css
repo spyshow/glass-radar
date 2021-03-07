@@ -3,6 +3,7 @@
   margin: auto;
   width: 50%;
   padding: 10px;
+  height: 2rem;
   text-align: center;
 }
 
@@ -23,8 +24,9 @@
   padding: 10px;
 }
 
-
-
-.machine-info{
-
+.show {
+  display: block;
+}
+.hide {
+  display: none;
 }
