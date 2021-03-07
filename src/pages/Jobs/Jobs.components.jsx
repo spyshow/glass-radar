@@ -31,6 +31,7 @@ import openNotification from "../../components/Notification/Notification.compone
 
 import "./Jobs.styles.css";
 
+import PdfView from "../../components/PdfView/PdfView.component";
 import EditableTable from "../../components/EditableTable/EditableTable.component";
 
 //upload props
@@ -45,74 +46,6 @@ const options = {
     { value: "M22", name: "M2.2" },
   ],
 };
-
-let columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    dataType: "text",
-    width: "25%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => {
-        return a.name.localeCompare(b.name);
-      },
-    },
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    dataType: "date",
-    width: "15%",
-    editable: true,
-    date: moment(),
-    sorter: {
-      compare: (a, b) => {
-        return a.date.localeCompare(b.date);
-      },
-    },
-  },
-  {
-    title: "Line",
-    dataIndex: "line",
-    dataType: "select",
-    width: "20%",
-    editable: true,
-    options: options["lines"],
-    sorter: {
-      compare: (a, b) => {
-        return a.line.localeCompare(b.line);
-      },
-    },
-  },
-  {
-    title: "Speed",
-    dataIndex: "speed",
-    dataType: "number",
-    width: "10%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => a.speed - b.speed,
-    },
-  },
-  {
-    title: "Total ordered",
-    dataIndex: "total_ordered",
-    dataType: "number",
-    width: "15%",
-    editable: true,
-    sorter: {
-      compare: (a, b) => a.total_ordered - b.total_ordered,
-    },
-  },
-  {
-    title: "Job On",
-    dataIndex: "job_on",
-    dataType: "upload",
-    width: "15%",
-    editable: false,
-  },
-];
 
 //form layout
 const layout = {
@@ -147,8 +80,88 @@ const JobsSchema = Yup.object().shape({
 function Jobs() {
   const { create } = useMutation("jobs");
   const [modalVisible, setModalVisible] = useState(false);
+  const [jobOnLink, setJobOnLink] = useState("");
+  const [jobOnVisible, setJobOnVisible] = useState(false);
   const [filesUploaded, setFilesUploaded] = useState("");
   const originData = useFind("jobs");
+
+  let columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      dataType: "text",
+      width: "25%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => {
+          return a.name.localeCompare(b.name);
+        },
+      },
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      dataType: "date",
+      width: "15%",
+      editable: true,
+      date: moment(),
+      sorter: {
+        compare: (a, b) => {
+          return a.date.localeCompare(b.date);
+        },
+      },
+    },
+    {
+      title: "Line",
+      dataIndex: "line",
+      dataType: "select",
+      width: "20%",
+      editable: true,
+      options: options["lines"],
+      sorter: {
+        compare: (a, b) => {
+          return a.line.localeCompare(b.line);
+        },
+      },
+    },
+    {
+      title: "Speed",
+      dataIndex: "speed",
+      dataType: "number",
+      width: "10%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => a.speed - b.speed,
+      },
+    },
+    {
+      title: "Total ordered",
+      dataIndex: "total_ordered",
+      dataType: "number",
+      width: "15%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => a.total_ordered - b.total_ordered,
+      },
+    },
+    {
+      title: "Job On",
+      dataIndex: "job_on",
+      dataType: "upload",
+      width: "15%",
+      editable: false,
+      render: (link) => (
+        <a
+          onClick={() => {
+            setJobOnLink("http://localhost:3030/uploads/" + link);
+            setJobOnVisible(true);
+          }}
+        >
+          {link}
+        </a>
+      ),
+    },
+  ];
 
   //upload props
   const uploadProps = {
@@ -157,7 +170,7 @@ function Jobs() {
     headers: {
       Authorization: localStorage.getItem("accessToken"),
     },
-    action: process.env.REACT_APP_HOSTNAME+"/upload",
+    action: process.env.REACT_APP_HOSTNAME + "/upload",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -194,6 +207,24 @@ function Jobs() {
           </Button>,
         ]}
       ></PageHeader>
+      <Modal
+        title="Job "
+        centered
+        visible={jobOnVisible}
+        onOk={() => {
+          setJobOnVisible(false);
+        }}
+        onCancel={() => {
+          setJobOnVisible(false);
+          setJobOnLink("");
+        }}
+        closable
+        afterClose={() => setJobOnLink("")}
+        width={1000}
+        footer={[]}
+      >
+        <PdfView file={jobOnLink} />
+      </Modal>
       <Modal
         title="Add Job"
         centered
