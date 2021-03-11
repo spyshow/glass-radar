@@ -151,14 +151,15 @@ function Jobs() {
       width: "15%",
       editable: false,
       render: (link) => (
-        <a
+        <Button
+          type="link"
           onClick={() => {
             setJobOnLink("http://localhost:3030/uploads/" + link);
             setJobOnVisible(true);
           }}
         >
           {link}
-        </a>
+        </Button>
       ),
     },
   ];
