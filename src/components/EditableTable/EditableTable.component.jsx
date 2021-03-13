@@ -55,6 +55,9 @@ const EditableCell = ({
   forigin,
   ...restProps
 }) => {
+  const d = date
+    ? date["_d"]
+    : "Sun Mar 07 2021 09:16:31 GMT+0200 (Eastern European Standard Time)";
   let inputNode;
   switch (inputType) {
     case "number":
@@ -64,11 +67,17 @@ const EditableCell = ({
       inputNode = <Input />;
       break;
     /*************************** */
-    /* TODO: [ ]edit date not good :  https://github.com/Hacker0x01/react-datepicker/issues/1120*/
+    /* TODO: [ ]edit date not good :  https://github.com/Hacker0x01/react-datepicker/issues/1120/
     /*************************** */
 
     case "date":
-      inputNode = <DatePicker title="date" format="DD/MM/YYYY" />;
+      inputNode = (
+        <DatePicker
+          title="date"
+          defaultPickerValue={date}
+          format="DD/MM/YYYY"
+        />
+      );
       break;
     case "select":
       inputNode = (
