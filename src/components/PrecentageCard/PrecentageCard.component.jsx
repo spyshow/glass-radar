@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ArrowUpOutlined,
   ArrowDownOutlined,
@@ -16,17 +16,22 @@ const PrecentageCard = ({
   oldPrecentage,
   oldDate,
 }) => {
+  useEffect(() => newRejectedPrecentage.update(newPrecentage), [newPrecentage]);
+  console.log("new data", newPrecentage, oldPrecentage);
   const [infoShow, setInfoShow] = useState(false);
   const newRejectedPrecentage = useCountUp({
     end: newPrecentage,
     decimals: 2,
     decimal: ".",
+    redraw: true,
+    delay: 0,
   });
   const newTotalPrecentage = useCountUp({
     end: 100 - newPrecentage,
     decimals: 2,
     decimal: ".",
     redraw: true,
+    delay: 0,
   });
   const oldTotalPrecentage = useCountUp({
     end: 100 - oldPrecentage,
@@ -55,7 +60,7 @@ const PrecentageCard = ({
         <ArrowUpOutlined style={{ fontSize: "1rem", color: "#3f8600" }} />
       )}
       <span className="machine-precentage-total">
-        {" " + newRejectedPrecentage.countUp + " "}
+        {newRejectedPrecentage.countUp}
       </span>
       <Button
         type="link"

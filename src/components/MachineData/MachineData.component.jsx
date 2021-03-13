@@ -83,6 +83,7 @@ const MachineData = ({
         option={machineData.data[0]}
         style={{ height: "600px", width: "100%" }}
         opts={{ renderer: "svg" }}
+        notMerge={true}
       />
     </div>
   );
