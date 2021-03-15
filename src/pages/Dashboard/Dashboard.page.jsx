@@ -10,11 +10,11 @@ import MainMenu from "../../components/MainMenu/MainMenu.component";
 import "./Dashboard.styles.css";
 
 //import { sidebarCollapsedState } from "../../store/index";
-import Lines from "../Lines/Lines.component";
-import Machines from "../Machines/Machines.component";
-import Machine from "../machine/machine.component";
-import Users from "../Users/Users.component";
-import Jobs from "../Jobs/Jobs.components";
+import Lines from "../Lines/Lines.page";
+import Machines from "../Machines/Machines.page";
+import Machine from "../machine/machine.page";
+import Users from "../Users/Users.page";
+import Jobs from "../Jobs/Jobs.page";
 
 const { Header, Content, Footer, Sider } = Layout;
 
