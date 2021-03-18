@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGet } from "figbird";
 import { Skeleton } from "antd";
-
+import MoldBox from "../../components/MoldBox/MoldBox.component";
+import "./Opertator.styles.css";
 //import axios from "axios";
 
 export default function Operator() {
@@ -14,6 +15,33 @@ export default function Operator() {
   } else {
     console.log(id, molds.data);
   }
+
+  // let molds = {
+  //   data: {
+  //     mountedMolds: [
+  //       34,
+  //       45,
+  //       32,
+  //       17,
+  //       28,
+  //       1,
+  //       10,
+  //       11,
+  //       18,
+  //       4,
+  //       0,
+  //       40,
+  //       6,
+  //       21,
+  //       31,
+  //       5,
+  //       44,
+  //       22,
+  //       7,
+  //     ],
+  //     rejectedMolds: [7],
+  //   },
+  // };
   // const interval = setInterval(() => {
   //   //getPosts();
   //   console.log(data);
@@ -51,16 +79,26 @@ export default function Operator() {
 
   //   return () => clearInterval(interval);
   // }, []);
+  //{mountedMolds: ["34", "45", "32", "17", "28", "1", "10", "11", "18", "4", "0", "40", "6", "21", "31", "5", "44", "22", "7"],rejectedMolds: []}
+  let data = [];
+  for (let i = 0; i < 128; i++) {
+    if (molds.data.rejectedMolds.indexOf(i) > -1) {
+      data[i] = { number: i, status: "rejected" };
+    } else if (molds.data.mountedMolds.indexOf(i) > -1) {
+      data[i] = { number: i, status: "mounted" };
+    } else {
+      data[i] = { number: i, status: "not-mounted" };
+    }
+  }
 
   return (
-    <div>
-      {molds.status === "success"
-        ? molds.data.mountedMolds.map((mold, i) => {
-            return <h1 key={i}>{mold}</h1>;
-          })
-        : null}
-      <h1>useEffect</h1>
-      <ul></ul>
+    <div className="periodic-table">
+      {}
+      {data.map((mold, i) => {
+        return (
+          <MoldBox number={mold.number} status={mold.status} key={i}></MoldBox>
+        );
+      })}
     </div>
   );
 }
