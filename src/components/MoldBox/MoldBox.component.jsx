@@ -1,4 +1,5 @@
 import React from "react";
+import "./MoldBox.styles.css";
 
 export default function MoldBox({ number, status }) {
   let css = "";
