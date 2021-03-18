@@ -19,6 +19,7 @@ const MainMenu = ({ app, theme }) => {
   const { SubMenu } = Menu;
   let history = useHistory();
   let menus = () => {};
+  let operatorMenu = () => {};
   const lines = useFind("lines", {
     query: {
       $sort: {
@@ -28,6 +29,27 @@ const MainMenu = ({ app, theme }) => {
   });
   if (lines.error) return "Failed to load resource Machine Status";
   if (lines.status === "success") {
+    operatorMenu = (lines) => {
+      return lines.data.map((line) => {
+        return line.machines.map((machine) => {
+          if (
+            machine.machine_name === "MX4" ||
+            machine.machine_name === "COMBI"
+          ) {
+            return (
+              <Menu.Item
+                key={"operator_" + machine.id}
+                icon={<ApartmentOutlined />}
+              >
+                <Link to={`/dashboard/operator/${machine.id}`}>
+                  {line.line_number}
+                </Link>
+              </Menu.Item>
+            );
+          }
+        });
+      });
+    };
     menus = (lines) => {
       return lines.data.map((line) => {
         if (line.machines.length === 0) {
@@ -84,9 +106,9 @@ const MainMenu = ({ app, theme }) => {
       >
         Logout
       </Menu.Item>
-      <Menu.Item key="2" icon={<DesktopOutlined />}>
-        Option 2
-      </Menu.Item>
+      <SubMenu key="2" icon={<DesktopOutlined />} title="operator">
+        {operatorMenu(lines)}
+      </SubMenu>
       <SubMenu key="sub1" icon={<OrderedListOutlined />} title="Lines">
         {menus(lines)}
       </SubMenu>

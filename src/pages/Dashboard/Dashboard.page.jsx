@@ -15,6 +15,7 @@ import Machines from "../Machines/Machines.page";
 import Machine from "../machine/machine.page";
 import Users from "../Users/Users.page";
 import Jobs from "../Jobs/Jobs.page";
+import Operator from "../Operator/Operator.page";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -37,6 +38,10 @@ const Dashboard = () => {
       path: "/dashboard/",
       component: () => <div>home</div>,
       exact: true,
+    },
+    {
+      path: "/dashboard/operator/:id",
+      component: () => <Operator />,
     },
     {
       path: "/dashboard/login",
