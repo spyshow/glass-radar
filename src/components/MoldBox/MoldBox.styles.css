@@ -4,6 +4,7 @@
   z-index: 1;
   cursor: default;
   transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
 }
 .periodic-element .periodic-element-inner {
   background: #202e38;
@@ -66,6 +67,46 @@ a.periodic-element {
 .social-media .title,
 .social-media .description {
   background: -webkit-linear-gradient(#f3f9a6, #cbc634);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rejected {
+  background: linear-gradient(to bottom right, #ff616d 0%, #ffc171 100%);
+}
+.rejected .title,
+.rejected .description {
+  background: -webkit-linear-gradient(#ff616d, #ffc171);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.just-trying {
+  background: linear-gradient(to bottom right, #37cfdc 0%, #5a88e5 100%);
+}
+.just-trying .title,
+.just-trying .description {
+  background: -webkit-linear-gradient(#37cfdc, #5a88e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mounted {
+  background: linear-gradient(to bottom right, #58ac30 0%, #a7df62 100%);
+}
+.mounted .title,
+.mounted .description {
+  background: -webkit-linear-gradient(#58ac30, #a7df62);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.not-mounted {
+  background: linear-gradient(to bottom right, #a3a3a3 0%, #e6e6e6 100%);
+}
+.not-mounted .title,
+.not-mounted .description {
+  background: -webkit-linear-gradient(#a3a3a3, #e6e6e6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

@@ -1,14 +1,27 @@
 import React from "react";
 
-export default function MoldBox() {
+export default function MoldBox({ number, status }) {
+  let css = "";
+  switch (status) {
+    case "mounted":
+      css = "periodic-element mounted";
+      break;
+
+    case "rejected":
+      css = "periodic-element rejected";
+      break;
+
+    default:
+      css = "periodic-element not-mounted";
+  }
   return (
     <div
-      class="periodic-element social-media"
-      data-description="I'm only on here to reject invitations 😂"
+      className={css}
+      // data-description="I'm only on here to reject invitations 😂"
     >
-      <div class="periodic-element-inner">
-        <div class="title">Li</div>
-        <div class="description">LinkedIn</div>
+      <div className="periodic-element-inner">
+        <div className="title">{number}</div>
+        {/* <div class="description">LinkedIn</div> */}
       </div>
     </div>
   );
