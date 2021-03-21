@@ -1,7 +1,7 @@
 .periodic-table {
   display: grid;
-  grid-template-columns: repeat(16, 80px);
-  grid-template-rows: repeat(2, 80px);
+  grid-template-columns: repeat(16, 6.1%);
+  grid-template-rows: repeat(0, 6%);
   grid-gap: 5px;
   margin: auto;
   max-width: 96%;
