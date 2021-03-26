@@ -27,10 +27,11 @@ export default function Operator() {
       method: "get",
       url: process.env.REACT_APP_HOSTNAME + "/molds/" + id,
     }).then((result) => {
-      console.log(result);
       setMoldData((previousState) => ({
+        ...previousState.data,
         data: result.data,
       }));
+      console.log(moldData);
     });
   }
   useInterval(() => {
