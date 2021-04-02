@@ -7,3 +7,10 @@
   max-width: 96%;
   justify-content: center;
 }
+
+.cards {
+  margin: 1% 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
