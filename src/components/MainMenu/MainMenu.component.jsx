@@ -41,7 +41,7 @@ const MainMenu = ({ app, theme }) => {
                 key={"operator_" + machine.id}
                 icon={<ApartmentOutlined />}
               >
-                <Link to={`/dashboard/operator/${machine.id}`}>
+                <Link to={`/dashboard/operator/${machine.id}&${line.id}`}>
                   {line.line_number}
                 </Link>
               </Menu.Item>
