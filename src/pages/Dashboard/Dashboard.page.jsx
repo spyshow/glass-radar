@@ -40,7 +40,7 @@ const Dashboard = () => {
       exact: true,
     },
     {
-      path: "/dashboard/operator/:id",
+      path: "/dashboard/operator/:machineId&:lineId",
       component: () => <Operator />,
     },
     {
