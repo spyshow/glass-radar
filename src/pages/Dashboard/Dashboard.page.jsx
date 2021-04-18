@@ -11,6 +11,8 @@ import "./Dashboard.styles.css";
 
 //import { sidebarCollapsedState } from "../../store/index";
 import Lines from "../Lines/Lines.page";
+import Line from "../Line/Line.page";
+
 import Machines from "../Machines/Machines.page";
 import Machine from "../machine/machine.page";
 import Users from "../Users/Users.page";
@@ -50,6 +52,10 @@ const Dashboard = () => {
     {
       path: "/dashboard/lines",
       component: () => <Lines />,
+    },
+    {
+      path: "/dashboard/line",
+      component: () => <Line />,
     },
     {
       path: "/dashboard/machine/:id",
