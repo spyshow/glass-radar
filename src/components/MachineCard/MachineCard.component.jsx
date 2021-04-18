@@ -12,7 +12,6 @@ import {
 import { LineChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
-
 import { useGet } from "figbird";
 import moment from "moment";
 
