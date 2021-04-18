@@ -8,7 +8,7 @@ import "./JobCard.styles.css";
 function JobCard({ lineId }) {
   const [jobOnLink, setJobOnLink] = useState("");
   const [jobOnVisible, setJobOnVisible] = useState(false);
-  
+
   const job = useFind("jobs", {
     query: {
       active: false,
