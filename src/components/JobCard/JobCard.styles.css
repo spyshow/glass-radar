@@ -1,0 +1,32 @@
+.cards {
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(1000px, 2fr));
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 4px;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-on {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+b {
+  padding: 0 3px;
+}
