@@ -5,14 +5,14 @@ import { Layout } from "antd";
 
 // import { useRecoilState } from "recoil";
 // import { useHover } from "@react-aria/interactions";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainMenu from "../../components/MainMenu/MainMenu.component";
 import "./Dashboard.styles.css";
 
 //import { sidebarCollapsedState } from "../../store/index";
 import Lines from "../Lines/Lines.page";
 import Line from "../Line/Line.page";
-
+import Login from "../Login/Login.page";
 import Machines from "../Machines/Machines.page";
 import Machine from "../machine/machine.page";
 import Users from "../Users/Users.page";
@@ -77,43 +77,46 @@ const Dashboard = () => {
 
   return (
     <Router>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          breakpoint="xxl"
-          collapsedWidth="80"
-          collapsible
-          // collapsed={sidebarCollapsed}
+      <Switch>
+        <Route path="/login/" component={() => <Login />} exact={true} />
+        <Layout style={{ minHeight: "100vh" }}>
+          <Sider
+            breakpoint="xxl"
+            collapsedWidth="80"
+            collapsible
+            // collapsed={sidebarCollapsed}
 
-          // onCollapse={ToggleCollapse}
-          style={{
-            zIndex: "3",
-            overflow: "auto",
-            height: "100vh",
-            position: "sticky",
-            left: 0,
-            top: 0,
-          }}
-        >
-          <div className="logo" />
-          <MainMenu app={app} theme="dark" />
-        </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: "0 10px 10px 10px" }}>
-            {routes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                exact={route.exact}
-                component={route.component}
-              />
-            ))}
-          </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Glass Radar ©2020 Created by Jihad Khorfan
-          </Footer>
+            // onCollapse={ToggleCollapse}
+            style={{
+              zIndex: "3",
+              overflow: "auto",
+              height: "100vh",
+              position: "sticky",
+              left: 0,
+              top: 0,
+            }}
+          >
+            <div className="logo" />
+            <MainMenu app={app} theme="dark" />
+          </Sider>
+          <Layout className="site-layout">
+            <Header className="site-layout-background" style={{ padding: 0 }} />
+            <Content style={{ margin: "0 10px 10px 10px" }}>
+              {routes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  exact={route.exact}
+                  component={route.component}
+                />
+              ))}
+            </Content>
+            <Footer style={{ textAlign: "center" }}>
+              Glass Radar ©2020 Created by Jihad Khorfan
+            </Footer>
+          </Layout>
         </Layout>
-      </Layout>
+      </Switch>
     </Router>
   );
 };

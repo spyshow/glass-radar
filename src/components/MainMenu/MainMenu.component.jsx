@@ -90,20 +90,17 @@ const MainMenu = ({ app, theme }) => {
       });
     };
   }
+  function handleLogout() {
+    app.logout();
+    localStorage.setItem("currentUser", null);
+    history.push("/login");
+    openNotification("success", "Logout Successed!", "");
+    console.log("logout");
+  }
 
   return (
     <Menu theme={theme} defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item
-        key="1"
-        icon={<PieChartOutlined />}
-        onClick={() => {
-          app.logout();
-          localStorage.setItem("currentUser", null);
-          openNotification("success", "Logout Successed!", "");
-          history.push("/");
-          console.log("logout");
-        }}
-      >
+      <Menu.Item key="1" icon={<PieChartOutlined />} onClick={handleLogout}>
         Logout
       </Menu.Item>
       <SubMenu key="2" icon={<DesktopOutlined />} title="operator">

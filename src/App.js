@@ -11,7 +11,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard.page";
 import Login from "./pages/Login/Login.page";
 
-const socket = io( process.env.REACT_APP_HOSTNAME, {
+const socket = io(process.env.REACT_APP_HOSTNAME, {
   transports: ["websocket"],
   forceNew: true,
 });
@@ -28,17 +28,8 @@ app.configure(
 //app.configure(feathers.hooks("authentication"));
 
 function App() {
-  try {
-    app
-      .reAuthenticate()
-      .then(() => {
-        console.log("authing");
-      })
-      .catch(() => <Redirect to={{ pathname: "/login" }} />);
-    console.log("authing");
-  } catch {
-    //history.push("/login");
-  }
+  app.authenticate().catch(() => <Redirect to={{ pathname: "/login" }} />);
+
   return (
     <Provider feathers={app}>
       <BrowserRouter>
