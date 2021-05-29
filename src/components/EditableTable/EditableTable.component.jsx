@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Table,
   Input,
@@ -11,10 +11,10 @@ import {
   Select,
   Spin,
   Tag,
+  Checkbox,
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "figbird";
-import { moment } from "moment";
 
 import openNotification from "../Notification/Notification.component";
 import "./EditableTable.styles.css";
@@ -42,6 +42,7 @@ let filterOption = (input, option) => {
 
 const EditableCell = ({
   editing,
+  active,
   dataIndex,
   title,
   inputType,
@@ -69,7 +70,9 @@ const EditableCell = ({
     /*************************** */
     /* TODO: [ ]edit date not good :  https://github.com/Hacker0x01/react-datepicker/issues/1120/
     /*************************** */
-
+    case "boolean":
+      inputNode = <Checkbox defaultChecked={active} checked={!active} />;
+      break;
     case "date":
       inputNode = (
         <DatePicker
@@ -135,6 +138,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
     for (let i = 0; i < columns.length; i++) {
       returnedRecored[columns[i].dataIndex] = record[columns[i].dataIndex];
     }
+    console.log(returnedRecored);
     form.setFieldsValue(returnedRecored);
     setEditingKey(record.id);
   };
@@ -146,6 +150,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
   };
 
   const handleSave = async (record) => {
+    console.log(record);
     try {
       let row = await form.validateFields();
       for (let i = 0; i < columns.length; i++) {
@@ -184,6 +189,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
       dataIndex: "operation",
       dataType: "text",
       render: (_, record) => {
+        console.log(record);
         const editable = isEditing(record);
         return editable ? (
           <span
@@ -196,7 +202,10 @@ const EditableTable = ({ originData, originColumns, service }) => {
             <a
               // eslint-disable-next-line no-script-url
               href="javascript:void;"
-              onClick={() => handleSave(record)}
+              onClick={() => {
+                console.log(record.active);
+                handleSave(record);
+              }}
               style={{
                 marginRight: 8,
               }}
@@ -240,6 +249,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
       ...col,
       onCell: (record) => ({
         record,
+        active: record.active,
         inputType: col.dataType,
         dataIndex: col.dataIndex,
         mode: col.mode,
@@ -252,6 +262,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
       }),
     };
   });
+  console.log(originData.data);
   return (
     <Spin spinning={status === "loading" ? true : false}>
       <Form form={form} component={false}>
