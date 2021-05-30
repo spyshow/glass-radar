@@ -8,6 +8,7 @@ import {
   Col,
   Upload,
   message,
+  Checkbox,
 } from "antd";
 import { useFind, useMutation } from "figbird";
 import {
@@ -44,6 +45,10 @@ const options = {
     { value: "M12", name: "M1.2" },
     { value: "M21", name: "M2.1" },
     { value: "M22", name: "M2.2" },
+  ],
+  active: [
+    { value: "true", name: "true" },
+    { value: "false", name: "false" },
   ],
 };
 
@@ -103,7 +108,7 @@ function Jobs() {
       dataIndex: "date",
       dataType: "date",
       width: "15%",
-      editable: true,
+      editable: false,
       date: moment(),
       sorter: {
         compare: (a, b) => {
@@ -115,7 +120,7 @@ function Jobs() {
       title: "Line",
       dataIndex: "line",
       dataType: "select",
-      width: "20%",
+      width: "10%",
       editable: true,
       options: options["lines"],
       sorter: {
@@ -162,6 +167,16 @@ function Jobs() {
         </Button>
       ),
     },
+    {
+      title: "Active",
+      dataIndex: "active",
+      dataType: "select",
+      options: options["active"],
+      width: "10%",
+      editable: true,
+      sorter: (a, b) => a.active - b.active,
+      render: (active) => <Checkbox checked={active} />,
+    },
   ];
 
   //upload props
@@ -196,6 +211,7 @@ function Jobs() {
       setModalVisible(false);
     });
   };
+  console.log(columns);
   return (
     <div>
       <PageHeader
@@ -306,6 +322,9 @@ function Jobs() {
                     uploading company data or other band files
                   </p>
                 </Dragger>
+              </Form.Item>
+              <Form.Item name="active" label="Active">
+                <Checkbox checked={values.active}>active</Checkbox>
               </Form.Item>
               <Row>
                 <Col offset={6} span={4}>

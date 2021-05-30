@@ -35,6 +35,7 @@ function Machines() {
   const [modalMachineStatusVisible, setMachineStatusModalVisible] = useState(
     false
   );
+  const [showMac, setMac] = useState(false);
   const originData = useFind("machines");
   console.log(originData.data);
   const onSubmit = async (values) => {
@@ -117,6 +118,18 @@ function Machines() {
       sorter: {
         compare: (a, b) => {
           return a.type.localeCompare(b.type);
+        },
+      },
+    },
+    {
+      title: "Mac",
+      dataIndex: "mac",
+      dataType: "text",
+      width: "15%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => {
+          return a.mac.localeCompare(b.mac);
         },
       },
     },
@@ -261,7 +274,7 @@ function Machines() {
         footer={[]}
       >
         <Formik
-          initialValues={{ machine_name: "", password: "", remember: false }}
+          initialValues={{}}
           validationSchema={LoginSchema}
           onSubmit={onSubmit}
         >
@@ -297,9 +310,20 @@ function Machines() {
                 <Select
                   prefix={<ClusterOutlined />}
                   name="type"
-                  defaultValue="IS"
                   style={{ width: "100%" }}
                   value={values.type}
+                  onChange={(value) => {
+                    if (
+                      value === "LI" ||
+                      value === "VI" ||
+                      value === "PALLETIZER" ||
+                      value === "Display"
+                    ) {
+                      setMac(false);
+                    } else {
+                      setMac(true);
+                    }
+                  }}
                 >
                   <Option value="IS">IS</Option>
                   <Option value="LI">LI</Option>
@@ -310,6 +334,16 @@ function Machines() {
                   <Option value="PALLETIZER">Palletizer</Option>
                   <Option value="Display">Display</Option>
                 </Select>
+              </Form.Item>
+              <Form.Item name="mac" label="Mac Address">
+                <Input
+                  disabled={showMac ? true : false}
+                  defaultValue={null}
+                  name="mac"
+                  placeholder="Mac Address"
+                  prefix={<TagOutlined />}
+                  value={values.mac}
+                />
               </Form.Item>
               <Form.Item name="scantime" label="Scan Time">
                 <InputNumber
