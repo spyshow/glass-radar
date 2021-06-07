@@ -70,6 +70,7 @@ const JobsSchema = Yup.object().shape({
     .max(3, "Too Long!")
     .required("Required"),
   speed: Yup.number().required("Required"),
+  lehr_time: Yup.number().required("Required"),
   total_ordered: Yup.number().required("Required"),
   // job_on: Yup.string()
   //   .min(2, "Too Short!")
@@ -115,7 +116,7 @@ function Jobs() {
       title: "Line",
       dataIndex: "line",
       dataType: "select",
-      width: "20%",
+      width: "10%",
       editable: true,
       options: options["lines"],
       sorter: {
@@ -132,6 +133,16 @@ function Jobs() {
       editable: true,
       sorter: {
         compare: (a, b) => a.speed - b.speed,
+      },
+    },
+    {
+      title: "Lehr Time",
+      dataIndex: "lehr_time",
+      dataType: "number",
+      width: "10%",
+      editable: true,
+      sorter: {
+        compare: (a, b) => a.lehr_time - b.lehr_time,
       },
     },
     {
@@ -283,6 +294,14 @@ function Jobs() {
                   placeholder="Speed"
                   prefix={<NumberOutlined />}
                   value={values.speed}
+                />
+              </Form.Item>
+              <Form.Item name="lehr_time" label="Lehr Time">
+                <InputNumber
+                  name="lehr_time"
+                  placeholder="Lehr Time"
+                  prefix={<NumberOutlined />}
+                  value={values.lehr_time}
                 />
               </Form.Item>
               <Form.Item name="total_ordered" label="Total Ordered">
