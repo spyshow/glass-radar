@@ -9,13 +9,13 @@ import {
   AxisPointerComponent,
 } from "echarts/components";
 import { LineChart } from "echarts/charts";
-import { CanvasRenderer } from "echarts/renderers";
-//import { SVGRenderer } from "echarts/renderers";
+//import { CanvasRenderer } from "echarts/renderers";
+import { SVGRenderer } from "echarts/renderers";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
 
 echarts.use([
   LineChart,
-  CanvasRenderer,
+  SVGRenderer,
   TooltipComponent,
   GridComponent,
   AxisPointerComponent,
@@ -63,7 +63,7 @@ const LineChartComponent = ({ id, timeRange }) => {
           option={palletizerOption[0]}
           style={{ height: "600px", width: "100%" }}
           opts={{ renderer: "svg" }}
-          notMerge={true}
+          notMerge={false}
         />
       ) : (
         <Empty description={<span>Please select a time range</span>} />
