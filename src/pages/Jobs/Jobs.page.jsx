@@ -104,7 +104,7 @@ function Jobs() {
       dataIndex: "date",
       dataType: "date",
       width: "15%",
-      editable: true,
+      editable: false,
       date: moment(),
       sorter: {
         compare: (a, b) => {
