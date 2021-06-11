@@ -54,7 +54,7 @@ const Dashboard = () => {
       component: () => <Lines />,
     },
     {
-      path: "/dashboard/line",
+      path: "/dashboard/line/:id",
       component: () => <Line />,
     },
     {
