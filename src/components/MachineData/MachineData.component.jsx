@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useFind } from "figbird";
 import { Skeleton } from "antd";
 import * as echarts from "echarts/core";
-
 import ReactEChartsCore from "echarts-for-react/lib/core";
 import {
   ToolboxComponent,
