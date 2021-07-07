@@ -16,8 +16,8 @@ const Line = () => {
     },
   });
   const [timeRange, setTimeRange] = useState([
-    moment(),
-    moment(),
+    moment().format("YYYY/MM/DD HH:mm:ss"),
+    moment().format("YYYY/MM/DD HH:mm:ss"),
   ]);
   console.log(machines.status);
   if (machines.status !== "success") {
@@ -33,7 +33,7 @@ const Line = () => {
     }
     setTimeRange(range);
   };
-
+  console.log(moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"));
   return (
     <div>
       {" "}
@@ -45,10 +45,24 @@ const Line = () => {
           <RangePicker
             key="5"
             ranges={{
-              "This Hour": [moment().subtract(1, "hours"), moment()],
-              Day: [moment().startOf("day"), moment().endOf("day")],
-              Week: [moment().startOf("week"), moment().endOf("week")],
-              month: [moment().startOf("month"), moment().endOf("month")],
+              "This Hour": [
+                moment(
+                  moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss")
+                ),
+                moment(moment().format("YYYY/MM/DD HH:mm:ss")),
+              ],
+              Day: [
+                moment(moment().startOf("day").format("YYYY/MM/DD HH:mm:ss")),
+                moment(moment().endOf("day").format("YYYY/MM/DD HH:mm:ss")),
+              ],
+              Week: [
+                moment(moment().startOf("week").format("YYYY/MM/DD HH:mm:ss")),
+                moment(moment().endOf("week").format("YYYY/MM/DD HH:mm:ss")),
+              ],
+              month: [
+                moment(moment().startOf("month").format("YYYY/MM/DD HH:mm:ss")),
+                moment(moment().endOf("month").format("YYYY/MM/DD HH:mm:ss")),
+              ],
               "month ago": [],
             }}
             showTime
