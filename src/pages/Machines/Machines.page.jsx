@@ -32,10 +32,9 @@ function Machines() {
   const { create } = useMutation("machines");
   const lines = useFind("lines");
   const [modalAddMachineVisible, setAddMachineModalVisible] = useState(false);
-  const [modalMachineStatusVisible, setMachineStatusModalVisible] = useState(
-    false
-  );
-  const [showMac, setMac] = useState(false);
+  const [modalMachineStatusVisible, setMachineStatusModalVisible] =
+    useState(false);
+  const [disableMac, setDisableMac] = useState(false);
   const originData = useFind("machines");
   console.log(originData.data);
   const onSubmit = async (values) => {
@@ -69,6 +68,16 @@ function Machines() {
     }
   }
 
+  let onTypeChange = (values) => {
+    console.log("316:", values);
+    if (values === "MCAL4" || values === "MULTI4" || values === "MX4") {
+      setDisableMac(true);
+      console.log(disableMac);
+    } else {
+      setDisableMac(false);
+    }
+  };
+
   let columns = [
     {
       title: "Name",
@@ -92,7 +101,7 @@ function Machines() {
       options: options["lines"],
       sorter: {
         compare: (a, b) => {
-          return a.type.localeCompare(b.type);
+          return a["line.line_number"].localeCompare(b["line.line_number"]);
         },
       },
     },
@@ -113,6 +122,7 @@ function Machines() {
       dataIndex: "type",
       dataType: "select",
       width: "15%",
+      onChange: onTypeChange,
       editable: true,
       options: options["type"],
       sorter: {
@@ -121,12 +131,13 @@ function Machines() {
         },
       },
     },
+    //TODO make mac editable
     {
       title: "Mac",
       dataIndex: "mac",
       dataType: "text",
       width: "15%",
-      editable: true,
+      editable: false,
       sorter: {
         compare: (a, b) => {
           return a.mac.localeCompare(b.mac);
@@ -312,18 +323,7 @@ function Machines() {
                   name="type"
                   style={{ width: "100%" }}
                   value={values.type}
-                  onChange={(value) => {
-                    if (
-                      value === "LI" ||
-                      value === "VI" ||
-                      value === "PALLETIZER" ||
-                      value === "Display"
-                    ) {
-                      setMac(false);
-                    } else {
-                      setMac(true);
-                    }
-                  }}
+                  onChange={onTypeChange}
                 >
                   <Option value="IS">IS</Option>
                   <Option value="LI">LI</Option>
@@ -337,7 +337,7 @@ function Machines() {
               </Form.Item>
               <Form.Item name="mac" label="Mac Address">
                 <Input
-                  disabled={showMac ? true : false}
+                  disabled={disableMac ? true : false}
                   defaultValue={null}
                   name="mac"
                   placeholder="Mac Address"
