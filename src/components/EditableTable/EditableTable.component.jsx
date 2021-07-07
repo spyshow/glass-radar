@@ -51,11 +51,13 @@ const EditableCell = ({
   date,
   children,
   options,
+  onChange,
   mode,
   filter,
   forigin,
   ...restProps
 }) => {
+  console.log("60:", onChange);
   const d = date
     ? date["_d"]
     : "Sun Mar 07 2021 09:16:31 GMT+0200 (Eastern European Standard Time)";
@@ -90,6 +92,7 @@ const EditableCell = ({
           mode={mode}
           forigin={forigin}
           style={{ width: "100%" }}
+          onChange={onChange}
           showArrow
           showSearch={filter ? true : false}
           optionFilterProp={filter ? "child" : null}
@@ -144,6 +147,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
   };
 
   const handleDelete = async (record) => {
+    console.log(record.id, service);
     await remove(record.id).then((record) => {
       openNotification("success", ` deleted succsefully!`);
     });
@@ -247,19 +251,23 @@ const EditableTable = ({ originData, originColumns, service }) => {
     }
     return {
       ...col,
-      onCell: (record) => ({
-        record,
-        active: record.active,
-        inputType: col.dataType,
-        dataIndex: col.dataIndex,
-        mode: col.mode,
-        date: col.date,
-        forigin: col.forigin,
-        title: col.title,
-        editing: isEditing(record),
-        filter: col.filter,
-        options: col.dataType === "select" ? col.options : null,
-      }),
+      onCell: (record) => {
+        console.log("255", col);
+        return {
+          record,
+          active: record.active,
+          inputType: col.dataType,
+          dataIndex: col.dataIndex,
+          mode: col.mode,
+          date: col.date,
+          forigin: col.forigin,
+          title: col.title,
+          editing: isEditing(record),
+          filter: col.filter,
+          onChange: col.onChange,
+          options: col.dataType === "select" ? col.options : null,
+        };
+      },
     };
   });
   console.log(originData.data);
