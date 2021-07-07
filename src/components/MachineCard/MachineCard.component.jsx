@@ -27,33 +27,34 @@ echarts.use([
   DataZoomInsideComponent,
 ]);
 
-const MachineCard = ({ lineId, machineId, machineName, index }) => {
+const MachineCard = ({ lineId, machineId, machineName, index, option }) => {
   const { Meta } = Card;
   const chartEl = useRef(null);
   const oldDate = moment().subtract(5, "hours").hour();
-  const machineCard = useGet("machine-card", machineId, {
-    query: {
-      machineId: machineId,
-      machine_name: machineName,
-      lineId: lineId,
-      oldDate: oldDate,
-      index: index,
-      echarts: echarts,
-    },
-    realtime: "refetch",
-    fetchPolicy: "network-only",
-  });
-  console.log(machineCard.status);
-  if (machineCard.status !== "success") {
-    return <Skeleton active />;
-  } else if (
-    machineCard.data.data ||
-    machineCard.data.length === 0 ||
-    machineCard.data === undefined
-  ) {
-    return <div>No data</div>;
-  }
-  console.log(machineCard.data);
+  index = index ? index : null;
+  // const machineCard = useGet("machine-card", machineId, {
+  //   query: {
+  //     machineId: machineId,
+  //     machine_name: machineName,
+  //     lineId: lineId,
+  //     oldDate: oldDate,
+  //     index: index,
+  //     echarts: echarts,
+  //   },
+  //   realtime: "refetch",
+  //   fetchPolicy: "network-only",
+  // });
+  // console.log(machineCard.status);
+  // if (machineCard.status !== "success") {
+  //   return <Skeleton active />;
+  // } else if (
+  //   machineCard.data.data ||
+  //   machineCard.data.length === 0 ||
+  //   machineCard.data === undefined
+  // ) {
+  //   return <div>No data</div>;
+  // }
+  // console.log(machineCard.data);
 
   return (
     <Card
@@ -69,7 +70,7 @@ const MachineCard = ({ lineId, machineId, machineName, index }) => {
       <Meta className="card" />
       <div>
         <h2>{machineName}</h2>{" "}
-        <h1>
+        {/* <h1>
           {machineCard.data.accepted}{" "}
           {machineCard.data.percentage === "down" ? (
             <ArrowDownOutlined style={{ fontSize: "1rem", color: "#cf1322" }} />
@@ -77,7 +78,7 @@ const MachineCard = ({ lineId, machineId, machineName, index }) => {
             <ArrowUpOutlined style={{ fontSize: "1rem", color: "#3f8600" }} />
           )}{" "}
           {machineCard.data.rejected}
-        </h1>
+        </h1> */}
       </div>
       <Divider style={{ height: "70px" }} type="vertical" />
       <ReactEChartsCore
@@ -85,8 +86,8 @@ const MachineCard = ({ lineId, machineId, machineName, index }) => {
         id={machineId}
         ref={chartEl}
         replaceMerge={["xAxis", "yAxis", "series"]}
-        option={machineCard.data.option}
-        style={{ height: "70px", width: "150px", display: "inline-block" }}
+        option={option}
+        style={{ height: "150px", width: "150px", display: "inline-block" }}
         opts={{ renderer: "canvas" }}
         notMerge={true}
       />
