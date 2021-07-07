@@ -12,6 +12,9 @@ import { LineChart } from "echarts/charts";
 //import { CanvasRenderer } from "echarts/renderers";
 import { SVGRenderer } from "echarts/renderers";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
+import MachineCard from "../MachineCard/MachineCard.component";
+
+import "./LineChartComponent.styles.css";
 
 echarts.use([
   LineChart,
@@ -26,14 +29,16 @@ const LineChartComponent = ({ id, timeRange }) => {
     moment(timeRange[1]).diff(moment(timeRange[0])),
     "milliseconds"
   );
+  console.log(oldStartDate.format("YYYY/MM/DD HH:mm:ss"));
+
   const chartEl = useRef(null);
   const lineData = useGet("line-data", id, {
     query: {
-      machine: "PALLETIZER",
-      newStartDate: timeRange[0]._d,
-      oldStartDate: oldStartDate,
-      oldEndDate: timeRange[0]._d,
-      newEndDate: timeRange[1]._d,
+      machine: "MUTI4",
+      newStartDate: timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
+      newEndDate: timeRange[1].format("YYYY/MM/DD HH:mm:ss"),
+      oldStartDate: oldStartDate.format("YYYY/MM/DD HH:mm:ss"),
+      oldEndDate: timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
@@ -49,12 +54,13 @@ const LineChartComponent = ({ id, timeRange }) => {
     return <div>No data</div>;
   }
   let palletizerOption = lineData.data.options.filter((option) => {
-    return option.id === "MCAL4";
+    return option.id === "MULTI4";
   });
-  console.log(palletizerOption);
+  console.log(lineData.data);
   return (
-    <div>
-      {palletizerOption[0].series[0].data.length !== 0 ? (
+    <div className="container">
+      {palletizerOption[0] &&
+      palletizerOption[0].series[0].data.length !== 0 ? (
         <ReactEChartsCore
           echarts={echarts}
           id={lineData.data["line.line_number"]}
@@ -63,13 +69,16 @@ const LineChartComponent = ({ id, timeRange }) => {
           option={palletizerOption[0]}
           style={{ height: "600px", width: "100%" }}
           opts={{ renderer: "svg" }}
-          notMerge={false}
+          notMerge={true}
         />
       ) : (
-        <Empty description={<span>Please select a time range</span>} />
+        <Empty description={<span>Please select a proper time range</span>} />
       )}
-
-      {/*  < machines={machines} />  */}
+      {lineData.data.options.map((option) => {
+        if (option.id !== "Palletizer") {
+          return <MachineCard option={option} />;
+        }
+      })}
     </div>
   );
 };
