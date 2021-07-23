@@ -25,6 +25,7 @@ echarts.use([
 ]);
 
 const LineChartComponent = ({ id, timeRange }) => {
+  console.log(timeRange);
   const oldStartDate = moment(timeRange[0]).subtract(
     moment(timeRange[1]).diff(moment(timeRange[0])),
     "milliseconds"
@@ -35,10 +36,10 @@ const LineChartComponent = ({ id, timeRange }) => {
   const lineData = useGet("line-data", id, {
     query: {
       machine: "MUTI4",
-      newStartDate: timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
-      newEndDate: timeRange[1].format("YYYY/MM/DD HH:mm:ss"),
+      newStartDate: moment(timeRange[0]).format("YYYY/MM/DD HH:mm:ss"),
+      newEndDate: moment(timeRange[1]).format("YYYY/MM/DD HH:mm:ss"),
       oldStartDate: oldStartDate.format("YYYY/MM/DD HH:mm:ss"),
-      oldEndDate: timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
+      oldEndDate: moment(timeRange[0]).format("YYYY/MM/DD HH:mm:ss"),
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
@@ -61,24 +62,26 @@ const LineChartComponent = ({ id, timeRange }) => {
     <div className="container">
       {palletizerOption[0] &&
       palletizerOption[0].series[0].data.length !== 0 ? (
-        <ReactEChartsCore
-          echarts={echarts}
-          id={lineData.data["line.line_number"]}
-          ref={chartEl}
-          replaceMerge={["xAxis", "yAxis", "series"]}
-          option={palletizerOption[0]}
-          style={{ height: "600px", width: "100%" }}
-          opts={{ renderer: "svg" }}
-          notMerge={true}
-        />
+        <>
+          <ReactEChartsCore
+            echarts={echarts}
+            id={lineData.data["line.line_number"]}
+            ref={chartEl}
+            replaceMerge={["xAxis", "yAxis", "series"]}
+            option={palletizerOption[0]}
+            style={{ height: "600px", width: "100%" }}
+            opts={{ renderer: "svg" }}
+            notMerge={true}
+          />
+          {lineData.data.options.map((option) => {
+            if (option.id !== "Palletizer") {
+              return <MachineCard option={option} />;
+            }
+          })}
+        </>
       ) : (
         <Empty description={<span>Please select a proper time range</span>} />
       )}
-      {lineData.data.options.map((option) => {
-        if (option.id !== "Palletizer") {
-          return <MachineCard option={option} />;
-        }
-      })}
     </div>
   );
 };

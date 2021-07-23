@@ -5,7 +5,7 @@ import { useFind } from "figbird";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
 
 import JobCard from "../../components/JobCard/JobCard.component";
-import LineChartComponent from "../../components/lineChartComponent/LineChartComponent.component";
+import LineChartComponent from "../../components/LineChartComponent/LineChartComponent.component";
 
 const Line = () => {
   let { id } = useParams();
