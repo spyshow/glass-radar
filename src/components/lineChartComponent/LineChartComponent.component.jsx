@@ -35,7 +35,6 @@ const LineChartComponent = ({ id, timeRange }) => {
   const chartEl = useRef(null);
   const lineData = useGet("line-data", id, {
     query: {
-      machine: "MUTI4",
       newStartDate: moment(timeRange[0]).format("YYYY/MM/DD HH:mm:ss"),
       newEndDate: moment(timeRange[1]).format("YYYY/MM/DD HH:mm:ss"),
       oldStartDate: oldStartDate.format("YYYY/MM/DD HH:mm:ss"),
