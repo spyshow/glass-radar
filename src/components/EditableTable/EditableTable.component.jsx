@@ -147,8 +147,10 @@ const EditableTable = ({ originData, originColumns, service }) => {
   };
 
   const handleDelete = async (record) => {
-    console.log(record.id, service);
-    await remove(record.id).then((record) => {
+    console.log("150", record.id, record["line.line_number"]);
+    await remove(record.id, {
+      line: record["line.line_number"],
+    }).then((record) => {
       openNotification("success", ` deleted succsefully!`);
     });
   };
