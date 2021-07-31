@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "@craco/craco": "^6.2.0",
     "@feathersjs/authentication-client": "^4.5.8",
     "@feathersjs/client": "^4.5.8",
     "@feathersjs/feathers": "^4.5.8",
@@ -32,15 +33,15 @@
     "react-pdf": "^5.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "4.0.3",
     "recoil": "^0.0.13",
     "socket.io-client": "^2.3.0",
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -57,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@welldone-software/why-did-you-render": "^6.2.0"
   }
 }
