@@ -9,8 +9,8 @@ import {
   AxisPointerComponent,
 } from "echarts/components";
 import { LineChart } from "echarts/charts";
-//import { CanvasRenderer } from "echarts/renderers";
-import { SVGRenderer } from "echarts/renderers";
+import { CanvasRenderer } from "echarts/renderers";
+//import { SVGRenderer } from "echarts/renderers";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
 import MachineCard from "../MachineCard/MachineCard.component";
 
@@ -18,7 +18,7 @@ import "./LineChartComponent.styles.css";
 
 echarts.use([
   LineChart,
-  SVGRenderer,
+  CanvasRenderer,
   TooltipComponent,
   GridComponent,
   AxisPointerComponent,
@@ -53,10 +53,12 @@ const LineChartComponent = ({ id, timeRange }) => {
   ) {
     return <div>No data</div>;
   }
+  console.log(lineData);
+
   let palletizerOption = lineData.data.options.filter((option) => {
-    return option.id === "MULTI4";
+    return option.type === "MULTI4";
   });
-  console.log(lineData.data);
+  console.log(lineData);
   return (
     <div className="container">
       {palletizerOption[0] &&
@@ -69,12 +71,12 @@ const LineChartComponent = ({ id, timeRange }) => {
             replaceMerge={["xAxis", "yAxis", "series"]}
             option={palletizerOption[0]}
             style={{ height: "600px", width: "100%" }}
-            opts={{ renderer: "svg" }}
+            opts={{ renderer: "canvas" }}
             notMerge={true}
           />
           {lineData.data.options.map((option) => {
             if (option.id !== "Palletizer") {
-              return <MachineCard option={option} />;
+              return <MachineCard option={option} machineName={option.id} />;
             }
           })}
         </>
