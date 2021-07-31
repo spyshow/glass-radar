@@ -68,6 +68,7 @@ const FormContainer = () => {
       }
     } catch (error) {
       // If we got an error, show the login page
+      console.log("error", error);
       openNotification(
         "error",
         "Login Error!",
