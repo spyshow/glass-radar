@@ -87,7 +87,7 @@ const MachineCard = ({ lineId, machineId, machineName, index, option }) => {
         ref={chartEl}
         replaceMerge={["xAxis", "yAxis", "series"]}
         option={option}
-        style={{ height: "150px", width: "150px", display: "inline-block" }}
+        style={{ height: "150px", width: "260px", display: "inline-block" }}
         opts={{ renderer: "canvas" }}
         notMerge={true}
       />
