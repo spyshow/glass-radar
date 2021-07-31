@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
-import { PageHeader, Skeleton, Button, DatePicker, Empty } from "antd";
+import React, { useState } from "react";
+import { PageHeader, Skeleton, DatePicker, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useFind } from "figbird";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
 
-import JobCard from "../../components/JobCard/JobCard.component";
+//import JobCard from "../../components/JobCard/JobCard.component";
 import LineChartComponent from "../../components/LineChartComponent/LineChartComponent.component";
 
 const Line = () => {
@@ -14,9 +14,11 @@ const Line = () => {
     query: {
       lineId: id,
     },
+    realtime: "refetch",
+    fetchPolicy: "network-only",
   });
   const [timeRange, setTimeRange] = useState([
-    moment().format("YYYY/MM/DD HH:mm:ss"),
+    moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"),
     moment().format("YYYY/MM/DD HH:mm:ss"),
   ]);
   console.log(machines.status);
@@ -34,6 +36,7 @@ const Line = () => {
     setTimeRange(range);
   };
   console.log(moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"));
+  console.log(timeRange);
   return (
     <div>
       {" "}
@@ -79,7 +82,9 @@ const Line = () => {
               ? timeRange
               : [
                   { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                  {
+                    _d: moment().format("YYYY/MM/DD HH:mm:ss"),
+                  },
                 ]
           }
         />
