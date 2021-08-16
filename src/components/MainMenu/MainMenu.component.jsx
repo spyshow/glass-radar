@@ -41,7 +41,10 @@ const MainMenu = ({ app, theme }) => {
                 key={"operator_" + machine.id}
                 icon={<ApartmentOutlined />}
               >
-                <Link to={`/dashboard/operator/${machine.id}&${line.id}`}>
+                <Link
+                  to={`/dashboard/operator/${machine.id}&${line.id}`}
+                  timestamp={new Date().toString()}
+                >
                   {line.line_number}
                 </Link>
               </Menu.Item>
