@@ -13,6 +13,9 @@ const Line = () => {
   const machines = useFind("machines", {
     query: {
       lineId: id,
+      $sort: {
+        sequence: 1,
+      },
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
