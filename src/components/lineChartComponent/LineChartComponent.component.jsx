@@ -35,10 +35,10 @@ const LineChartComponent = ({ id, timeRange }) => {
   const chartEl = useRef(null);
   const lineData = useGet("line-data", id, {
     query: {
-      newStartDate: moment(timeRange[0]).format("YYYY/MM/DD HH:mm:ss"),
-      newEndDate: moment(timeRange[1]).format("YYYY/MM/DD HH:mm:ss"),
-      oldStartDate: oldStartDate.format("YYYY/MM/DD HH:mm:ss"),
-      oldEndDate: moment(timeRange[0]).format("YYYY/MM/DD HH:mm:ss"),
+      newStartDate: moment(timeRange[0]),
+      newEndDate: moment(timeRange[1]),
+      oldStartDate: oldStartDate,
+      oldEndDate: moment(timeRange[0]),
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
