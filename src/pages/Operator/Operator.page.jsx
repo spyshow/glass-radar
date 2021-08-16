@@ -8,7 +8,7 @@ import feathers from "@feathersjs/feathers";
 import rest from "@feathersjs/rest-client";
 import { Typography } from "antd";
 
-import MachineCard from "../../components/MachineCard/MachineCard.component";
+import MachineChart from "../../components/MachineChart/MachineChart.component";
 import MoldBox from "../../components/MoldBox/MoldBox.component";
 import "./Opertator.styles.css";
 
@@ -77,7 +77,7 @@ export default function Operator() {
       <Title level={2}>Operator Panel</Title>
       <div className="cards">
         {machines.data.map((machine, i) => (
-          <MachineCard
+          <MachineChart
             key={lineId + "_" + machine.machine_name}
             machineName={machine.machine_name}
             machineId={machine.id}
