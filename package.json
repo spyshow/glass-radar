@@ -1,7 +1,6 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "private": false,
   "dependencies": {
     "@craco/craco": "^6.2.0",
     "@feathersjs/authentication-client": "^4.5.8",
