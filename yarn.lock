@@ -1756,22 +1756,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@craco/craco@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@craco/craco@npm:6.2.0"
-  dependencies:
-    cross-spawn: ^7.0.0
-    lodash: ^4.17.15
-    semver: ^7.3.2
-    webpack-merge: ^4.2.2
-  peerDependencies:
-    react-scripts: ^4.0.0
-  bin:
-    craco: bin/craco.js
-  checksum: 51fb534a3e1a3cefdf2722201d532457c47a58a93e19115ad9ae6ea731ee4cd468e4a63959e5f793cc320b87557b2ef5ead76b4af0df955075a8d37aae2bc26d
-  languageName: node
-  linkType: hard
-
 "@csstools/convert-colors@npm:^1.4.0":
   version: 1.4.0
   resolution: "@csstools/convert-colors@npm:1.4.0"
@@ -3371,17 +3355,6 @@ __metadata:
     "@webassemblyjs/wast-parser": 1.9.0
     "@xtuc/long": 4.2.2
   checksum: 3d1e1b2e84745a963f69acd1c02425b321dd2e608e11dabc467cae0c9a808962bc769ec9afc46fbcea7188cc1e47d72370da762d258f716fb367cb1a7865c54b
-  languageName: node
-  linkType: hard
-
-"@welldone-software/why-did-you-render@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@welldone-software/why-did-you-render@npm:6.2.0"
-  dependencies:
-    lodash: ^4
-  peerDependencies:
-    react: ^16 || ^17
-  checksum: f068794511b58d8d7481e39e03c9b84311652bda4c2aa6b7bc0da722866855a68fb7856a75901123641f72f2f9d56df5275faa44280e5a35eca1c5e226c7536a
   languageName: node
   linkType: hard
 
@@ -5042,7 +5015,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "client@workspace:."
   dependencies:
-    "@craco/craco": ^6.2.0
     "@feathersjs/authentication-client": ^4.5.8
     "@feathersjs/client": ^4.5.8
     "@feathersjs/feathers": ^4.5.8
@@ -5057,7 +5029,6 @@ __metadata:
     "@testing-library/user-event": ^7.1.2
     "@use-it/interval": ^1.0.0
     "@vvo/tzdb": ^6.2.0
-    "@welldone-software/why-did-you-render": ^6.2.0
     antd: ^4.6.5
     axios: ^0.21.1
     echarts: 5.0.1
@@ -10418,7 +10389,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lodash@npm:>=3.5 <5, lodash@npm:^4, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.21, lodash@npm:^4.17.5, lodash@npm:^4.7.0":
+"lodash@npm:>=3.5 <5, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.21, lodash@npm:^4.17.5, lodash@npm:^4.7.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -16814,15 +16785,6 @@ resolve@^2.0.0-next.3:
   peerDependencies:
     webpack: 2 || 3 || 4
   checksum: ed1387774031a59bc1bd5f79150e7a49dcf5048a6d5e9652672637bed7f93df6220cbd88b2e371e7c8c8e7640b3a8ed6895f771c6b05a8bb90b721f82001ac25
-  languageName: node
-  linkType: hard
-
-"webpack-merge@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "webpack-merge@npm:4.2.2"
-  dependencies:
-    lodash: ^4.17.15
-  checksum: ce58bc8ab53a3dd5d9a0df65684571349eef53372bf8f224521072110485391335b26ab097c5f07829b88d0c146056944149566e5a953f05997b0fe2cbaf8dd6
   languageName: node
   linkType: hard
 
