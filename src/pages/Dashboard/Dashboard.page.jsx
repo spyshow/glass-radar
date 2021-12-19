@@ -18,6 +18,7 @@ import Machine from "../machine/machine.page";
 import Users from "../Users/Users.page";
 import Jobs from "../Jobs/Jobs.page";
 import Operator from "../Operator/Operator.page";
+import MoldSets from "../MoldSets/MoldSets.page";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -48,6 +49,10 @@ const Dashboard = () => {
     {
       path: "/dashboard/login",
       component: () => <div />,
+    },
+    {
+      path: "/dashboard/moldsets",
+      component: () => <MoldSets />,
     },
     {
       path: "/dashboard/lines",

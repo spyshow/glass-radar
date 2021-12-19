@@ -112,8 +112,10 @@ const MainMenu = ({ app, theme }) => {
       <SubMenu key="sub1" icon={<OrderedListOutlined />} title="Lines">
         {menus(lines)}
       </SubMenu>
-      <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-        <Menu.Item key="6">Team 1</Menu.Item>
+      <SubMenu key="sub2" icon={<TeamOutlined />} title="Molds">
+        <Menu.Item key="6">
+          <Link to="/dashboard/moldsets">Mold Sets</Link>
+        </Menu.Item>
         <Menu.Item key="8">Team 2</Menu.Item>
       </SubMenu>
       {JSON.parse(localStorage.getItem("currentUser")).roles.indexOf(
