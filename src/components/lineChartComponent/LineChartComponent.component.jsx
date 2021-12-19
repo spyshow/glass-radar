@@ -25,7 +25,7 @@ echarts.use([
 ]);
 
 const LineChartComponent = ({ id, timeRange }) => {
-  console.log(timeRange);
+  console.log("28", timeRange);
   const oldStartDate = moment(timeRange[0]).subtract(
     moment(timeRange[1]).diff(moment(timeRange[0])),
     "milliseconds"
@@ -53,10 +53,10 @@ const LineChartComponent = ({ id, timeRange }) => {
   ) {
     return <div>No data</div>;
   }
-  console.log(lineData);
+  console.log("linedata", lineData);
 
   let palletizerOption = lineData.data.options.filter((option) => {
-    return option.type === "MULTI4";
+    return option.type === "MCAL4";
   });
   console.log(lineData);
   return (
