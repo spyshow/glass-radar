@@ -5041,6 +5041,7 @@ __metadata:
     react: ^16.13.1
     react-countup: ^4.3.3
     react-dom: ^16.13.1
+    react-icons: ^4.3.1
     react-pdf: ^5.2.0
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
@@ -13813,6 +13814,15 @@ fsevents@^1.2.7:
   version: 2.0.4
   resolution: "react-fast-compare@npm:2.0.4"
   checksum: 06046595f90a4e3e3a56f40a8078c00aa71bdb064ddb98343f577f546aa22e888831fd45f009c93b34707cc842b4c637737e956fd13d6f80607ee92fb9cf9a1c
+  languageName: node
+  linkType: hard
+
+"react-icons@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "react-icons@npm:4.3.1"
+  peerDependencies:
+    react: "*"
+  checksum: 2cc608acdd3e906aa3aaee290b8398220639677c949382d86e554020e5dab6a9f1ed7484418aa5272cb5c5c018e1fc9a323d433d901697a76530029f9ecb1263
   languageName: node
   linkType: hard
 
