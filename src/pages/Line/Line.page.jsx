@@ -6,7 +6,7 @@ import moment from "moment-timezone/builds/moment-timezone-with-data";
 
 //import JobCard from "../../components/JobCard/JobCard.component";
 import LineChartComponent from "../../components/LineChartComponent/LineChartComponent.component";
-
+import Top5Defects from "../../components/Top5Defects/Top5Defects.component";
 const Line = () => {
   let { id } = useParams();
   const { RangePicker } = DatePicker;
@@ -21,8 +21,8 @@ const Line = () => {
     fetchPolicy: "network-only",
   });
   const [timeRange, setTimeRange] = useState([
-    moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"),
-    moment().format("YYYY/MM/DD HH:mm:ss"),
+    moment().subtract(1, "hours"),
+    moment(),
   ]);
   console.log(machines.status);
   if (machines.status !== "success") {
@@ -30,11 +30,9 @@ const Line = () => {
   }
   console.log(machines);
   const onRangeChange = (range) => {
+    console.log("range", range);
     if (range === null) {
-      setTimeRange([
-        { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-        { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-      ]);
+      setTimeRange([{ _d: moment().subtract(1, "hours") }, { _d: moment() }]);
     }
     setTimeRange(range);
   };
@@ -77,23 +75,41 @@ const Line = () => {
           />,
         ]}
       />
-      {timeRange !== null ? (
-        <LineChartComponent
-          id={id}
-          timeRange={
-            timeRange === null || timeRange[0]
-              ? timeRange
-              : [
-                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-                  {
-                    _d: moment().format("YYYY/MM/DD HH:mm:ss"),
-                  },
-                ]
-          }
-        />
-      ) : (
-        <Empty description={<span>Please select a time range</span>} />
-      )}
+      {
+        (console.log("81", timeRange, timeRange !== null),
+        timeRange !== null ? (
+          <div>
+            <LineChartComponent
+              id={id}
+              timeRange={
+                timeRange === null || timeRange[0]
+                  ? timeRange
+                  : [
+                      { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                      {
+                        _d: moment().format("YYYY/MM/DD HH:mm:ss"),
+                      },
+                    ]
+              }
+            />
+            <Top5Defects
+              id={id}
+              timeRange={
+                timeRange === null || timeRange[0]
+                  ? timeRange
+                  : [
+                      { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                      {
+                        _d: moment().format("YYYY/MM/DD HH:mm:ss"),
+                      },
+                    ]
+              }
+            />
+          </div>
+        ) : (
+          <Empty description={<span>Please select a time range</span>} />
+        ))
+      }
     </div>
   );
 };
