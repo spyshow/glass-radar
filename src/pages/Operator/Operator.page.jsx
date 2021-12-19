@@ -42,13 +42,13 @@ export default function Operator() {
   function getMolds() {
     axios({
       method: "get",
-      url: process.env.REACT_APP_HOSTNAME + "/molds/" + machineId,
+      url: process.env.REACT_APP_HOSTNAME + "/scanmolds/" + machineId,
     }).then((result) => {
       setMoldData((previousState) => ({
         ...previousState.data,
         data: result.data,
       }));
-      console.log(moldData);
+      console.log("moldata", moldData);
     });
   }
 
@@ -57,13 +57,21 @@ export default function Operator() {
   }, 10000);
   let finishedData = [];
   if (moldData.data !== null) {
-    for (let i = 0; i < 128; i++) {
-      if (moldData.data.rejectedMolds.indexOf(i) > -1) {
-        finishedData[i] = { number: i, status: "rejected" };
-      } else if (moldData.data.mountedMolds.indexOf(i) > -1) {
-        finishedData[i] = { number: i, status: "mounted" };
+    for (let i = 0; i < moldData.data.mountedMolds.length; i++) {
+      if (moldData.data.mountedMolds[i] === 0) {
+        continue;
+      } else if (
+        moldData.data.rejectedMolds.indexOf(moldData.data.mountedMolds[i]) > -1
+      ) {
+        finishedData[i] = {
+          number: moldData.data.mountedMolds[i],
+          status: "rejected",
+        };
       } else {
-        finishedData[i] = { number: i, status: "not-mounted" };
+        finishedData[i] = {
+          number: moldData.data.mountedMolds[i],
+          status: "mounted",
+        };
       }
     }
   }
@@ -87,11 +95,16 @@ export default function Operator() {
         ))}
       </div>
 
-      <div className="periodic-table">
-        {finishedData.map((mold, i) => (
-          <MoldBox number={mold.number} status={mold.status} key={i} />
-        ))}
-      </div>
+      {console.log("finish", finishedData)}
+      {finishedData.length > 0 ? (
+        <div className="periodic-table">
+          {finishedData.map((mold, i) => (
+            <MoldBox number={mold.number} status={mold.status} key={i} />
+          ))}
+        </div>
+      ) : (
+        <Skeleton active avatar={false} paragraph={{ rows: 4 }} />
+      )}
     </div>
   );
 }
