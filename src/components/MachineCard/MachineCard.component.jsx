@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Card, Divider, Skeleton } from "antd";
+import { Card, Divider } from "antd";
 import ReactEChartsCore from "echarts-for-react/lib/core";
 import * as echarts from "echarts/core";
 import {

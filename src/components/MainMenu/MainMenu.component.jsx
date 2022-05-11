@@ -78,7 +78,6 @@ const MainMenu = ({ app, theme }) => {
               icon={<OrderedListOutlined />}
             >
               {line.machines.map((machine) => {
-                console.log(machine);
                 return (
                   <Menu.Item key={machine.id} icon={<ApartmentOutlined />}>
                     <Link to={`/dashboard/machine/${machine.id}`}>

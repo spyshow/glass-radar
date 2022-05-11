@@ -195,7 +195,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
       dataIndex: "operation",
       dataType: "text",
       render: (_, record) => {
-        console.log(record);
         const editable = isEditing(record);
         return editable ? (
           <span
