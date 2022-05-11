@@ -1,0 +1,49 @@
+.main-status-container {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  justify-content: space-around;
+}
+
+.avaliable {
+  color: green;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.mounted {
+  color: purple;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.unmounted {
+  color: red;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.inrepair {
+  color: blue;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.awaitExpertise {
+  color: orange;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.scrapped {
+  color: grey;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.delete {
+  margin-bottom: 20px;
+  margin-right: 6%;
+  float: right;
+}
