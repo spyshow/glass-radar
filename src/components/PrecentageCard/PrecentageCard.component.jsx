@@ -17,7 +17,6 @@ const PrecentageCard = ({
   oldDate,
 }) => {
   useEffect(() => newRejectedPrecentage.update(newPrecentage), [newPrecentage]);
-  console.log("new data", newPrecentage, oldPrecentage);
   const [infoShow, setInfoShow] = useState(false);
   const newRejectedPrecentage = useCountUp({
     end: newPrecentage,

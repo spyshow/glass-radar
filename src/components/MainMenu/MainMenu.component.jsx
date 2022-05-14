@@ -97,7 +97,6 @@ const MainMenu = ({ app, theme }) => {
     localStorage.setItem("currentUser", null);
     history.push("/login");
     openNotification("success", "Logout Successed!", "");
-    console.log("logout");
   }
 
   return (

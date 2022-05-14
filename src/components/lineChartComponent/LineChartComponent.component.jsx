@@ -26,12 +26,10 @@ echarts.use([
 ]);
 
 const LineChartComponent = ({ id, timeRange }) => {
-  console.log("28", timeRange);
   const oldStartDate = dayjs(timeRange[0]).subtract(
     dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
   );
-  console.log(oldStartDate.format("YYYY/MM/DD HH:mm:ss"));
 
   const chartEl = useRef(null);
   const lineData = useGet("line-data", id, {
@@ -44,7 +42,6 @@ const LineChartComponent = ({ id, timeRange }) => {
     realtime: "refetch",
     fetchPolicy: "network-only",
   });
-  console.log(lineData.status);
   if (lineData.status !== "success") {
     return <Skeleton active />;
   } else if (
@@ -54,12 +51,10 @@ const LineChartComponent = ({ id, timeRange }) => {
   ) {
     return <div>No data</div>;
   }
-  console.log("linedata", lineData);
 
   let palletizerOption = lineData.data.options.filter((option) => {
     return option.type === "MCAL4";
   });
-  console.log(lineData);
   return (
     <div className="container">
       {palletizerOption[0] &&

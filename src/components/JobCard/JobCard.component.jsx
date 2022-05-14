@@ -21,7 +21,6 @@ function JobCard({ lineId }) {
     realtime: "refetch",
     fetchPolicy: "network-only",
   });
-  console.log(job);
   if (job.status !== "success") {
     return <Skeleton active />;
   } else if (job.data.data || job.data.length === 0 || job.data === undefined) {

@@ -8,7 +8,6 @@ import MoldsCardView from "../MoldsCardView/MoldsCardView.component";
 import "./MoldSet.styles.css";
 
 const MoldSet = ({ id }) => {
-  console.log("test ", id);
   const [listView, setListView] = React.useState(false);
   const changeViewToList = () => {
     setListView(true);

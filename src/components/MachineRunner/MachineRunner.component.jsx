@@ -12,7 +12,6 @@ const MachineRunner = ({ mode, row }) => {
   const { data, create, remove } = useMutation("scanner");
   const machineInit = useMutation("machine-init");
   const obj = {};
-  console.log(row);
   const onStart = () => {
     create({ id: row.id }).then(() => {
       if (data === "scanning") {
@@ -32,7 +31,6 @@ const MachineRunner = ({ mode, row }) => {
     });
   };
   const onInit = () => {
-    console.log(row);
     machineInit.create(row).then(() => {
       if (data === "done") {
         openNotification("success", "DataBase created succesfully!");

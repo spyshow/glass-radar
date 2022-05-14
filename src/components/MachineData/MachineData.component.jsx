@@ -38,18 +38,12 @@ const MachineData = ({
   machine_sensors,
   timeRange,
 }) => {
-  console.log(
-    "timeRange",
-    dayjs(timeRange[0]).subtract(
-      dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
-      "milliseconds"
-    )
-  );
+
+  
   const oldStartDate = dayjs(timeRange[0]).subtract(
     dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
   );
-  console.log(machine_name, machine_sensors, timeRange);
   const chartEl = useRef(null);
   const machineData = useFind("machine-data", {
     query: {
@@ -65,7 +59,6 @@ const MachineData = ({
     fetchPolicy: "network-only",
   });
   // machineData : [chart data] , newPrecentage , oldPrecentage
-  console.log(machineData.status);
   if (machineData.status !== "success") {
     return <Skeleton active />;
   } else if (
@@ -75,7 +68,6 @@ const MachineData = ({
   ) {
     return <div>No data</div>;
   }
-  console.log(machineData);
   return (
     <div>
       <PrecentageCard

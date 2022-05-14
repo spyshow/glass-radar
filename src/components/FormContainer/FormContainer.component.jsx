@@ -43,7 +43,6 @@ const FormContainer = () => {
   const history = useHistory();
   // form submiting
   const onSubmit = async ({ email, password }) => {
-    console.log(email, password);
     try {
       if (!email || !password) {
         // Try to authenticate using an existing token
@@ -64,11 +63,9 @@ const FormContainer = () => {
               state: { error: "Login Success!" },
             });
           });
-        console.log("authing");
       }
     } catch (error) {
       // If we got an error, show the login page
-      console.log("error", error);
       openNotification(
         "error",
         "Login Error!",

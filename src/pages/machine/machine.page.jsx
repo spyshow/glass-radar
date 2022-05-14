@@ -21,8 +21,8 @@ const MachinePage = () => {
   const onRangeChange = (range) => {
     if (range === null) {
       setTimeRange([
-        { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
-        { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+        { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+        { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
       ]);
     }
     setTimeRange(range);
@@ -80,8 +80,8 @@ const MachinePage = () => {
             timeRange === null || timeRange[0]
               ? timeRange
               : [
-                  { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
-                  { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                  { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                  { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                 ]
           }
         />

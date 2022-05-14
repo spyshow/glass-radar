@@ -119,20 +119,17 @@ export default function MoldSetTableView({ moldsets }) {
   };
 
   const handleScrap = async (record) => {
-    console.log("123", record[0]);
     /* we will update all the molds to scrapped using hooks*/
     let molds = [];
     let data = record[0].molds.map((mold, index) => {
       molds.push({ moldId: mold.status[0].moldId });
     });
-    console.log("data", molds);
     if (record[0].status !== "unmounted") {
       openNotification(
         "error",
         record[0].name + ` have to be unmounted to scrap!`
       );
     } else {
-      console.log("data", molds);
       await patch(
         record[0].id,
         {

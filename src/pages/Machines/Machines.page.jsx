@@ -36,9 +36,7 @@ function Machines() {
     useState(false);
   const [disableMac, setDisableMac] = useState(false);
   const originData = useFind("machines");
-  console.log(originData.data);
   const onSubmit = async (values) => {
-    console.log(values);
     create(values).then(() => {
       openNotification("success", "Machine added succesfully!");
       setAddMachineModalVisible(false);
@@ -69,10 +67,8 @@ function Machines() {
   }
 
   let onTypeChange = (values) => {
-    console.log("316:", values);
     if (values === "MCAL4" || values === "MULTI4" || values === "MX4") {
       setDisableMac(true);
-      console.log(disableMac);
     } else {
       setDisableMac(false);
     }
@@ -219,7 +215,6 @@ function Machines() {
       key: "initilaization",
       dataIndex: "initilaization",
       render: (text, row, index) => {
-        console.log(text, row);
         return (
           <>
             <MachineStatus
@@ -236,7 +231,6 @@ function Machines() {
       key: "Operation",
       dataIndex: "Operation",
       render: (text, row, index) => {
-        console.log(row.id);
         return (
           <Space align="center" direction="horizontal" key={row.id}>
             <MachineRunner mode="init" row={row} key={1} />

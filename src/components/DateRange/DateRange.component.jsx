@@ -22,7 +22,6 @@ export default function DateRange({ machine, onChange }) {
   if (job.status !== "success") {
     return <Skeleton active />;
   }
-  console.log(job);
   return (
     <RangePicker
       key="5"

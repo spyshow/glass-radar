@@ -48,7 +48,6 @@ export default function Operator() {
         ...previousState.data,
         data: result.data,
       }));
-      console.log("moldata", moldData);
     });
   }
 
@@ -78,8 +77,7 @@ export default function Operator() {
   if (machines.status !== "success") {
     return <Skeleton active />;
   }
-  console.log(machines.data);
-  console.log(finishedData);
+
   return (
     <div>
       <Title level={2}>Operator Panel</Title>
@@ -95,7 +93,6 @@ export default function Operator() {
         ))}
       </div>
 
-      {console.log("finish", finishedData)}
       {finishedData.length > 0 ? (
         <div className="periodic-table">
           {finishedData.map((mold, i) => (

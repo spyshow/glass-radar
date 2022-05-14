@@ -7,7 +7,6 @@ const MachineStatus = ({ service, name, index }) => {
   const { data, status, error } = useGet(service, index, {
     query: { name: name },
   });
-  console.log(data);
   if (error) return "Failed to load resource Machine Status";
   return status === "loading" ? (
     "Loading..."

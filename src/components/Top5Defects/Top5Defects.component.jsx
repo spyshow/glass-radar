@@ -5,11 +5,7 @@ import { useGet } from "figbird";
 import "./Top5Defects.styles.css";
 
 export default function Top5Defects({ id, timeRange }) {
-  console.log(
-    "top5",
-    timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
-    timeRange[1].format("YYYY/MM/DD HH:mm:ss")
-  );
+  
   const top5Defects = useGet("top-5-defects", id, {
     query: {
       newStartDate: timeRange[0].format("YYYY/MM/DD HH:mm:ss"),
@@ -18,7 +14,6 @@ export default function Top5Defects({ id, timeRange }) {
     realtime: "refetch",
     fetchPolicy: "network-only",
   });
-  console.log("31", top5Defects);
   if (top5Defects.status !== "success") {
     return <Skeleton active />;
   } else if (top5Defects.data.length === 0 || top5Defects.data === undefined) {

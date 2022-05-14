@@ -24,20 +24,16 @@ const Line = () => {
     dayjs().subtract(1, "hours"),
     dayjs(),
   ]);
-  console.log(machines.status);
   if (machines.status !== "success") {
     return <Skeleton active />;
   }
-  console.log(machines);
   const onRangeChange = (range) => {
-    console.log("range", range);
     if (range === null) {
-      setTimeRange([{ _d: dayjs().subtract(1, "hours") }, { _d: dayjs() }]);
+      setTimeRange([{ $d: dayjs().subtract(1, "hours") }, { $d: dayjs() }]);
     }
     setTimeRange(range);
   };
-  console.log(dayjs().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"));
-  console.log(timeRange);
+
   return (
     <div>
       {" "}
@@ -76,7 +72,7 @@ const Line = () => {
         ]}
       />
       {
-        (console.log("81", timeRange, timeRange !== null),
+        
         timeRange !== null ? (
           <div>
             <LineChartComponent
@@ -85,9 +81,9 @@ const Line = () => {
                 timeRange === null || timeRange[0]
                   ? timeRange
                   : [
-                      { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                      { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                       {
-                        _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
+                        $d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
                       },
                     ]
               }
@@ -98,9 +94,9 @@ const Line = () => {
                 timeRange === null || timeRange[0]
                   ? timeRange
                   : [
-                      { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                      { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                       {
-                        _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
+                        $d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
                       },
                     ]
               }

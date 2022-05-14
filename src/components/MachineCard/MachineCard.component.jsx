@@ -43,7 +43,6 @@ const MachineCard = ({ lineId, machineId, machineName, index, option }) => {
   //   realtime: "refetch",
   //   fetchPolicy: "network-only",
   // });
-  // console.log(machineCard.status);
   // if (machineCard.status !== "success") {
   //   return <Skeleton active />;
   // } else if (
@@ -53,7 +52,6 @@ const MachineCard = ({ lineId, machineId, machineName, index, option }) => {
   // ) {
   //   return <div>No data</div>;
   // }
-  // console.log(machineCard.data);
 
   return (
     <Card

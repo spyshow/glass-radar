@@ -201,7 +201,7 @@ function Jobs() {
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        //console.log(info.file, info.fileList);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
@@ -213,7 +213,6 @@ function Jobs() {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     values.job_on = filesUploaded;
     values.active = false;
     values.total = 0;
@@ -222,7 +221,6 @@ function Jobs() {
       setModalVisible(false);
     });
   };
-  console.log(columns);
   return (
     <div>
       <PageHeader

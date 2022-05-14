@@ -21,7 +21,6 @@ import "./EditableTable.styles.css";
 const { Option } = Select;
 
 function tagRender(props) {
-  console.log(props);
   const { label, color, closable, onClose } = props;
 
   return (
@@ -57,9 +56,8 @@ const EditableCell = ({
   forigin,
   ...restProps
 }) => {
-  console.log("60:", onChange);
   const d = date
-    ? date["_d"]
+    ? date["$d"]
     : "Sun Mar 07 2021 09:16:31 GMT+0200 (Eastern European Standard Time)";
   let inputNode;
   switch (inputType) {
@@ -141,13 +139,12 @@ const EditableTable = ({ originData, originColumns, service }) => {
     for (let i = 0; i < columns.length; i++) {
       returnedRecored[columns[i].dataIndex] = record[columns[i].dataIndex];
     }
-    console.log(returnedRecored);
     form.setFieldsValue(returnedRecored);
     setEditingKey(record.id);
   };
 
   const handleDelete = async (record) => {
-    console.log("150", record.id, record["line.line_number"]);
+    //console.log("150", record.id, record["line.line_number"]);
     await remove(record.id, {
       line: record["line.line_number"],
     }).then((record) => {
@@ -156,7 +153,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
   };
 
   const handleSave = async (record) => {
-    console.log(record);
     try {
       let row = await form.validateFields();
       for (let i = 0; i < columns.length; i++) {
@@ -208,7 +204,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
               // eslint-disable-next-line no-script-url
               href="javascript:void;"
               onClick={() => {
-                console.log(record.active);
+                //console.log(record.active);
                 handleSave(record);
               }}
               style={{
@@ -253,7 +249,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
     return {
       ...col,
       onCell: (record) => {
-        console.log("255", col);
         return {
           record,
           active: record.active,
@@ -271,7 +266,6 @@ const EditableTable = ({ originData, originColumns, service }) => {
       },
     };
   });
-  console.log(originData.data);
   return (
     <Spin spinning={status === "loading" ? true : false}>
       <Form form={form} component={false}>

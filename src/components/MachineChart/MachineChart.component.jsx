@@ -22,7 +22,6 @@ const MachineChart = ({ key, machineName, machineId, lineId, index }) => {
     realtime: "refetch",
     fetchPolicy: "network-only",
   });
-  console.log(machineCard.status);
   if (machineCard.status !== "success") {
     return <Skeleton active />;
   } else if (
@@ -32,7 +31,6 @@ const MachineChart = ({ key, machineName, machineId, lineId, index }) => {
   ) {
     return <div>No data</div>;
   }
-  console.log(machineCard.data);
 
   return (
     <Card
