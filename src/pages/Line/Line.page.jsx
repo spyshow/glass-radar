@@ -29,7 +29,7 @@ const Line = () => {
   }
   const onRangeChange = (range) => {
     if (range === null) {
-      setTimeRange([{ $d: dayjs().subtract(1, "hours") }, { $d: dayjs() }]);
+      setTimeRange([{ _d: dayjs().subtract(1, "hours") }, { _d: dayjs() }]);
     }
     setTimeRange(range);
   };
@@ -52,16 +52,16 @@ const Line = () => {
                 dayjs(dayjs().format("YYYY/MM/DD HH:mm:ss")),
               ],
               Day: [
-                dayjs(dayjs().startOf("day").format("YYYY/MM/DD HH:mm:ss")),
-                dayjs(dayjs().endOf("day").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs().startOf("day").format("YYYY/MM/DD HH:mm:ss"),
+                dayjs().endOf("day").format("YYYY/MM/DD HH:mm:ss"),
               ],
               Week: [
-                dayjs(dayjs().startOf("week").format("YYYY/MM/DD HH:mm:ss")),
-                dayjs(dayjs().endOf("week").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs().startOf("week").format("YYYY/MM/DD HH:mm:ss"),
+                dayjs().endOf("week").format("YYYY/MM/DD HH:mm:ss"),
               ],
               month: [
-                dayjs(dayjs().startOf("month").format("YYYY/MM/DD HH:mm:ss")),
-                dayjs(dayjs().endOf("month").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs().startOf("month").format("YYYY/MM/DD HH:mm:ss"),
+                dayjs().endOf("month").format("YYYY/MM/DD HH:mm:ss"),
               ],
               "month ago": [],
             }}
@@ -71,41 +71,38 @@ const Line = () => {
           />,
         ]}
       />
-      {
-        
-        timeRange !== null ? (
-          <div>
-            <LineChartComponent
-              id={id}
-              timeRange={
-                timeRange === null || timeRange[0]
-                  ? timeRange
-                  : [
-                      { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
-                      {
-                        $d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
-                      },
-                    ]
-              }
-            />
-            <Top5Defects
-              id={id}
-              timeRange={
-                timeRange === null || timeRange[0]
-                  ? timeRange
-                  : [
-                      { $d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
-                      {
-                        $d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
-                      },
-                    ]
-              }
-            />
-          </div>
-        ) : (
-          <Empty description={<span>Please select a time range</span>} />
-        ))
-      }
+      {timeRange !== null ? (
+        <div>
+          <LineChartComponent
+            id={id}
+            timeRange={
+              timeRange === null || timeRange[0]
+                ? timeRange
+                : [
+                    { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                    {
+                      _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
+                    },
+                  ]
+            }
+          />
+          <Top5Defects
+            id={id}
+            timeRange={
+              timeRange === null || timeRange[0]
+                ? timeRange
+                : [
+                    { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                    {
+                      _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
+                    },
+                  ]
+            }
+          />
+        </div>
+      ) : (
+        <Empty description={<span>Please select a time range</span>} />
+      )}
     </div>
   );
 };
