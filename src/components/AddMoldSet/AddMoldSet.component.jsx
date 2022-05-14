@@ -12,7 +12,7 @@ import {
 } from "formik-antd";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import moment from "moment";
+import * as dayjs from "dayjs";
 
 import "./AddMoldSet.styles.css";
 
@@ -61,7 +61,7 @@ const AddMoldSet = ({ ok }) => {
           numberOfTotalGobs: 0,
           status: {
             status: values.status,
-            startdate: moment(),
+            startdate: dayjs(),
           },
           note: "",
         });
@@ -82,7 +82,7 @@ const AddMoldSet = ({ ok }) => {
           numberOfTotalGobs: 0,
           status: {
             status: values.status,
-            startdate: moment(),
+            startdate: dayjs(),
           },
           note: "",
         });

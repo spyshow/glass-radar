@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button, Popconfirm } from "antd";
 import { useMutation } from "figbird";
-import moment from "moment";
+import * as dayjs from "dayjs";
 
 import {
   AiFillTool,
@@ -15,7 +15,7 @@ import openNotification from "../Notification/Notification.component";
 import "./MoldSetTableView.styles.css";
 
 export default function MoldSetTableView({ moldsets }) {
-  const { status, patch, remove } = useMutation("moldsets");
+  const { patch, remove } = useMutation("moldsets");
   const columns = [
     {
       title: "Name",
@@ -72,19 +72,18 @@ export default function MoldSetTableView({ moldsets }) {
       title: "Date of Reception",
       dataIndex: "date_of_reception",
       key: "date_of_reception",
-      sorter: (a, b) =>
-        moment(a.date_of_reception) - moment(b.date_of_reception),
+      sorter: (a, b) => dayjs(a.date_of_reception) - dayjs(b.date_of_reception),
       render: (date_of_reception) =>
-        moment(date_of_reception).format("DD/MM/YYYY"),
+        dayjs(date_of_reception).format("DD/MM/YYYY"),
     },
     {
       title: "Date of Scrap",
       dataIndex: "date_of_scrap",
       key: "date_of_scrap",
-      sorter: (a, b) => moment(a.date_of_scrap) - moment(b.date_of_scrap),
+      sorter: (a, b) => dayjs(a.date_of_scrap) - dayjs(b.date_of_scrap),
       render: (date_of_scrap) =>
         date_of_scrap
-          ? moment(date_of_scrap).format("DD/MM/YYYY")
+          ? dayjs(date_of_scrap).format("DD/MM/YYYY")
           : "not scrapped yet",
     },
     {
@@ -182,34 +181,36 @@ export default function MoldSetTableView({ moldsets }) {
           <div className="main-status-container">
             <div className="avaliable">
               <AiOutlineCheck color="green" size="1.5em" />
-              Available:
-              {record.moldStatus.available}
+
+              {`Available: ${record.moldStatus.available}`}
             </div>
             <div className="mounted">
               <GiFactory color="purple" size="1.5em" />
-              Mounted:
-              {record.moldStatus.mounted}
+
+              {`Mounted: ${record.moldStatus.mounted}`}
             </div>
             <div className="unmounted">
               <AiOutlineExclamationCircle size="1.5em" color="red" />
-              Unmounted:
-              {record.moldStatus.unmounted}
+
+              {`Unmounted: ${record.moldStatus.unmounted}`}
             </div>
             <div className="inrepair">
               <AiFillTool size="1.5em" color="blue" />
-              In Repair:
-              {record.moldStatus.inrepairlocal +
-                record.moldStatus.inrepairexternal}
+
+              {`In Repair: ${
+                record.moldStatus.inrepairlocal +
+                record.moldStatus.inrepairexternal
+              }`}
             </div>
             <div className="awaitExpertise">
               <AiOutlineSolution size="1.5em" color="orange" />
-              Await Expertise:
-              {record.moldStatus.awaitexpertise}
+
+              {`Await Expertise: ${record.moldStatus.awaitexpertise}`}
             </div>
             <div className="scrapped">
               <GiTrashCan color="gray" size="1.5em" />
-              scrapped:
-              {record.moldStatus.scrapped}
+
+              {`scrapped:  ${record.moldStatus.scrapped}`}
             </div>
           </div>
         ),

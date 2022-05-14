@@ -3451,6 +3451,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"antd-dayjs-webpack-plugin@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "antd-dayjs-webpack-plugin@npm:1.0.6"
+  peerDependencies:
+    dayjs: "*"
+  checksum: ed930b14dfc8798988730f8fa557b5ade37130189200525b36fbad2c870d675b8eb9f0fff54207ea653ebad74d45d8b42b54c42c7383ae869a3ac44e925b9cfa
+  languageName: node
+  linkType: hard
+
 "antd@npm:^4.6.5":
   version: 4.18.6
   resolution: "antd@npm:4.18.6"
@@ -4836,14 +4845,14 @@ __metadata:
     "@use-it/interval": ^1.0.0
     "@vvo/tzdb": ^6.2.0
     antd: ^4.6.5
+    antd-dayjs-webpack-plugin: ^1.0.6
     axios: ^0.21.1
+    dayjs: ^1.11.2
     echarts: 5.0.1
     echarts-for-react: ^3.0.1
     figbird: ^0.8.1
     formik: ^2.1.5
     formik-antd: ^2.0.1
-    moment: ^2.29.1
-    moment-timezone: ^0.5.32
     react: ^16.13.1
     react-countup: ^4.3.3
     react-dom: ^16.13.1
@@ -4855,6 +4864,8 @@ __metadata:
     recoil: ^0.0.13
     socket.io-client: ^2.3.0
     yup: ^0.29.3
+  peerDependencies:
+    dayjs: ^1.11.2
   languageName: unknown
   linkType: soft
 
@@ -5721,10 +5732,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.x":
-  version: 1.10.7
-  resolution: "dayjs@npm:1.10.7"
-  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+"dayjs@npm:^1.11.2":
+  version: 1.11.2
+  resolution: "dayjs@npm:1.11.2"
+  checksum: 78f8bd04a9e5f5554aa06eacda65a7d59e162d39f621a46fd34fb3b51367c3662426d86b4e2f4ac535f81e0c4d5af3e8a83b37e672412eb556267d726c61f8f3
   languageName: node
   linkType: hard
 
@@ -10697,16 +10708,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.32":
-  version: 0.5.34
-  resolution: "moment-timezone@npm:0.5.34"
-  dependencies:
-    moment: ">= 2.9.0"
-  checksum: 12a1d3d52e4ba509cf1fa36bbda59d898a08fa80ab35f6c358747e93aec1f07e617cec647eaf2e8acf5f9132e581d4704d34a9edffa9a80c5cd04bf23b277595
-  languageName: node
-  linkType: hard
-
-"moment@npm:>= 2.9.0, moment@npm:^2.24.0, moment@npm:^2.25.3, moment@npm:^2.29.1":
+"moment@npm:^2.24.0, moment@npm:^2.25.3":
   version: 2.29.1
   resolution: "moment@npm:2.29.1"
   checksum: 1e14d5f422a2687996be11dd2d50c8de3bd577c4a4ca79ba5d02c397242a933e5b941655de6c8cb90ac18f01cc4127e55b4a12ae3c527a6c0a274e455979345e

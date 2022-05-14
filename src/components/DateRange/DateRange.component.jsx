@@ -1,6 +1,6 @@
 import React from "react";
 import { DatePicker, Skeleton } from "antd";
-import moment from "moment";
+import * as dayjs from "dayjs";
 import { useFind } from "figbird";
 const { RangePicker } = DatePicker;
 
@@ -11,7 +11,7 @@ export default function DateRange({ machine, onChange }) {
       line: machine.data["line.line_number"],
       active: true,
       createdAt: {
-        $lt: moment(),
+        $lt: dayjs(),
       },
       $sort: {
         createdAt: -1,
@@ -27,11 +27,11 @@ export default function DateRange({ machine, onChange }) {
     <RangePicker
       key="5"
       ranges={{
-        "This Hour": [moment().subtract(1, "hours"), moment()],
-        Day: [moment().startOf("day"), moment().endOf("day")],
-        Week: [moment().startOf("week"), moment().endOf("week")],
-        month: [moment().startOf("month"), moment().endOf("month")],
-        "begining of Job": [job.data.date, moment()],
+        "This Hour": [dayjs().subtract(1, "hours"), dayjs()],
+        Day: [dayjs().startOf("day"), dayjs().endOf("day")],
+        Week: [dayjs().startOf("week"), dayjs().endOf("week")],
+        month: [dayjs().startOf("month"), dayjs().endOf("month")],
+        "begining of Job": [job.data.date, dayjs()],
       }}
       showTime
       format="YYYY/MM/DD HH:mm:ss"

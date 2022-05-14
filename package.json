@@ -18,13 +18,12 @@
     "@vvo/tzdb": "^6.2.0",
     "antd": "^4.6.5",
     "axios": "^0.21.1",
+    "dayjs": "^1.11.2",
     "echarts": "5.0.1",
     "echarts-for-react": "^3.0.1",
     "figbird": "^0.8.1",
     "formik": "^2.1.5",
     "formik-antd": "^2.0.1",
-    "moment": "^2.29.1",
-    "moment-timezone": "^0.5.32",
     "react": "^16.13.1",
     "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
@@ -57,5 +56,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "antd-dayjs-webpack-plugin": "^1.0.6"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.2"
+  },
+  "resolutions": {
+    "dayjs": "^1.11.2"
   }
 }

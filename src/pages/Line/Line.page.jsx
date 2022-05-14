@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageHeader, Skeleton, DatePicker, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useFind } from "figbird";
-import moment from "moment-timezone/builds/moment-timezone-with-data";
+import * as dayjs from "dayjs";
 
 //import JobCard from "../../components/JobCard/JobCard.component";
 import LineChartComponent from "../../components/LineChartComponent/LineChartComponent.component";
@@ -21,8 +21,8 @@ const Line = () => {
     fetchPolicy: "network-only",
   });
   const [timeRange, setTimeRange] = useState([
-    moment().subtract(1, "hours"),
-    moment(),
+    dayjs().subtract(1, "hours"),
+    dayjs(),
   ]);
   console.log(machines.status);
   if (machines.status !== "success") {
@@ -32,11 +32,11 @@ const Line = () => {
   const onRangeChange = (range) => {
     console.log("range", range);
     if (range === null) {
-      setTimeRange([{ _d: moment().subtract(1, "hours") }, { _d: moment() }]);
+      setTimeRange([{ _d: dayjs().subtract(1, "hours") }, { _d: dayjs() }]);
     }
     setTimeRange(range);
   };
-  console.log(moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"));
+  console.log(dayjs().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss"));
   console.log(timeRange);
   return (
     <div>
@@ -50,22 +50,22 @@ const Line = () => {
             key="5"
             ranges={{
               "This Hour": [
-                moment(
-                  moment().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss")
+                dayjs(
+                  dayjs().subtract(1, "hours").format("YYYY/MM/DD HH:mm:ss")
                 ),
-                moment(moment().format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().format("YYYY/MM/DD HH:mm:ss")),
               ],
               Day: [
-                moment(moment().startOf("day").format("YYYY/MM/DD HH:mm:ss")),
-                moment(moment().endOf("day").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().startOf("day").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().endOf("day").format("YYYY/MM/DD HH:mm:ss")),
               ],
               Week: [
-                moment(moment().startOf("week").format("YYYY/MM/DD HH:mm:ss")),
-                moment(moment().endOf("week").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().startOf("week").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().endOf("week").format("YYYY/MM/DD HH:mm:ss")),
               ],
               month: [
-                moment(moment().startOf("month").format("YYYY/MM/DD HH:mm:ss")),
-                moment(moment().endOf("month").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().startOf("month").format("YYYY/MM/DD HH:mm:ss")),
+                dayjs(dayjs().endOf("month").format("YYYY/MM/DD HH:mm:ss")),
               ],
               "month ago": [],
             }}
@@ -85,9 +85,9 @@ const Line = () => {
                 timeRange === null || timeRange[0]
                   ? timeRange
                   : [
-                      { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                      { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                       {
-                        _d: moment().format("YYYY/MM/DD HH:mm:ss"),
+                        _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
                       },
                     ]
               }
@@ -98,9 +98,9 @@ const Line = () => {
                 timeRange === null || timeRange[0]
                   ? timeRange
                   : [
-                      { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                      { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                       {
-                        _d: moment().format("YYYY/MM/DD HH:mm:ss"),
+                        _d: dayjs().format("YYYY/MM/DD HH:mm:ss"),
                       },
                     ]
               }

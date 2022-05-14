@@ -27,7 +27,7 @@ import {
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import moment from "moment";
+import * as dayjs from "dayjs";
 import openNotification from "../../components/Notification/Notification.component";
 
 import "./Jobs.styles.css";
@@ -110,7 +110,7 @@ function Jobs() {
       dataType: "date",
       width: "15%",
       editable: false,
-      date: moment(),
+      date: dayjs(),
       sorter: {
         compare: (a, b) => {
           return a.date.localeCompare(b.date);
@@ -270,7 +270,7 @@ function Jobs() {
           initialValues={{
             name: "",
             speed: "",
-            date: moment(),
+            date: dayjs(),
             total: 0,
             total_ordered: 0,
           }}

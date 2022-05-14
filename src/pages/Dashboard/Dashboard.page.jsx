@@ -1,6 +1,5 @@
 import React from "react";
 import { useFeathers } from "figbird";
-
 import { Layout } from "antd";
 
 // import { useRecoilState } from "recoil";
@@ -19,6 +18,7 @@ import Users from "../Users/Users.page";
 import Jobs from "../Jobs/Jobs.page";
 import Operator from "../Operator/Operator.page";
 import MoldSets from "../MoldSets/MoldSets.page";
+import MoldSet from "../../components/MoldSet/MoldSet.component";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -53,6 +53,10 @@ const Dashboard = () => {
     {
       path: "/dashboard/moldsets",
       component: () => <MoldSets />,
+    },
+    {
+      path: "/dashboard/moldset/:id",
+      component: () => <MoldSet />,
     },
     {
       path: "/dashboard/lines",

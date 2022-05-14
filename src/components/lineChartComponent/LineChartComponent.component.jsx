@@ -11,7 +11,8 @@ import {
 import { LineChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 //import { SVGRenderer } from "echarts/renderers";
-import moment from "moment-timezone/builds/moment-timezone-with-data";
+import * as dayjs from "dayjs";
+
 import MachineCard from "../MachineCard/MachineCard.component";
 
 import "./LineChartComponent.styles.css";
@@ -26,8 +27,8 @@ echarts.use([
 
 const LineChartComponent = ({ id, timeRange }) => {
   console.log("28", timeRange);
-  const oldStartDate = moment(timeRange[0]).subtract(
-    moment(timeRange[1]).diff(moment(timeRange[0])),
+  const oldStartDate = dayjs(timeRange[0]).subtract(
+    dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
   );
   console.log(oldStartDate.format("YYYY/MM/DD HH:mm:ss"));
@@ -35,10 +36,10 @@ const LineChartComponent = ({ id, timeRange }) => {
   const chartEl = useRef(null);
   const lineData = useGet("line-data", id, {
     query: {
-      newStartDate: moment(timeRange[0]),
-      newEndDate: moment(timeRange[1]),
+      newStartDate: dayjs(timeRange[0]),
+      newEndDate: dayjs(timeRange[1]),
       oldStartDate: oldStartDate,
-      oldEndDate: moment(timeRange[0]),
+      oldEndDate: dayjs(timeRange[0]),
     },
     realtime: "refetch",
     fetchPolicy: "network-only",

@@ -11,9 +11,8 @@ import {
 } from "echarts/components";
 import { LineChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
-import { useGet } from "figbird";
-import moment from "moment";
+//import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
+//import { useGet } from "figbird";
 
 import "./MachineCard.styles.css";
 
@@ -30,7 +29,7 @@ echarts.use([
 const MachineCard = ({ lineId, machineId, machineName, index, option }) => {
   const { Meta } = Card;
   const chartEl = useRef(null);
-  const oldDate = moment().subtract(5, "hours").hour();
+  //const oldDate = dayjs().subtract(5, "hours").hour();
   index = index ? index : null;
   // const machineCard = useGet("machine-card", machineId, {
   //   query: {

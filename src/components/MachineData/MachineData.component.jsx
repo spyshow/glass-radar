@@ -13,7 +13,7 @@ import {
 } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { SVGRenderer } from "echarts/renderers";
-import moment from "moment";
+import * as dayjs from "dayjs";
 
 import PrecentageCard from "./../PrecentageCard/PrecentageCard.component";
 import "./MachineData.styles.css";
@@ -35,8 +35,8 @@ const MachineData = ({
   machine_sensors,
   timeRange,
 }) => {
-  const oldStartDate = moment(timeRange[0]).subtract(
-    moment(timeRange[1]).diff(moment(timeRange[0])),
+  const oldStartDate = dayjs(timeRange[0]).subtract(
+    dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
   );
   console.log(machine_name, machine_sensors, timeRange);
@@ -72,7 +72,7 @@ const MachineData = ({
         machine_name={machine_name}
         newPrecentage={machineData.newPrecentage}
         oldPrecentage={machineData.oldPrecentage}
-        oldDate={moment(timeRange[0]._d).from(oldStartDate, true)}
+        oldDate={dayjs(timeRange[0]._d).from(oldStartDate, true)}
       />
       <ReactEChartsCore
         echarts={echarts}

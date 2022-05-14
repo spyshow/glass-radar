@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageHeader, Skeleton, Button, DatePicker, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useGet } from "figbird";
-import moment from "moment-timezone/builds/moment-timezone-with-data";
+import * as dayjs from "dayjs";
 
 import MachineData from "../../components/MachineData/MachineData.component";
 
@@ -21,8 +21,8 @@ const MachinePage = () => {
   const onRangeChange = (range) => {
     if (range === null) {
       setTimeRange([
-        { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-        { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+        { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+        { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
       ]);
     }
     setTimeRange(range);
@@ -57,10 +57,10 @@ const MachinePage = () => {
           <RangePicker
             key="5"
             ranges={{
-              "This Hour": [moment().subtract(1, "hours"), moment()],
-              Day: [moment().startOf("day"), moment().endOf("day")],
-              Week: [moment().startOf("week"), moment().endOf("week")],
-              month: [moment().startOf("month"), moment().endOf("month")],
+              "This Hour": [dayjs().subtract(1, "hours"), dayjs()],
+              Day: [dayjs().startOf("day"), dayjs().endOf("day")],
+              Week: [dayjs().startOf("week"), dayjs().endOf("week")],
+              month: [dayjs().startOf("month"), dayjs().endOf("month")],
               "month ago": [],
             }}
             showTime
@@ -80,8 +80,8 @@ const MachinePage = () => {
             timeRange === null || timeRange[0]
               ? timeRange
               : [
-                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
-                  { _d: moment().format("YYYY/MM/DD HH:mm:ss") },
+                  { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
+                  { _d: dayjs().format("YYYY/MM/DD HH:mm:ss") },
                 ]
           }
         />
