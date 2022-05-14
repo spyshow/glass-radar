@@ -14,6 +14,7 @@ import {
 import { BarChart } from "echarts/charts";
 import { SVGRenderer } from "echarts/renderers";
 import * as dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 import PrecentageCard from "./../PrecentageCard/PrecentageCard.component";
 import "./MachineData.styles.css";
@@ -29,12 +30,21 @@ echarts.use([
   SVGRenderer,
 ]);
 
+dayjs.extend(relativeTime);
+
 const MachineData = ({
   machine_name,
   machine_type,
   machine_sensors,
   timeRange,
 }) => {
+  console.log(
+    "timeRange",
+    dayjs(timeRange[0]).subtract(
+      dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
+      "milliseconds"
+    )
+  );
   const oldStartDate = dayjs(timeRange[0]).subtract(
     dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
@@ -45,10 +55,10 @@ const MachineData = ({
     query: {
       machine_name: machine_name,
       machine_type: machine_type,
-      newStartDate: timeRange[0]._d,
+      newStartDate: timeRange[0].$d,
       oldStartDate: oldStartDate,
-      oldEndDate: timeRange[0]._d,
-      newEndDate: timeRange[1]._d,
+      oldEndDate: timeRange[0].$d,
+      newEndDate: timeRange[1].$d,
       machine_sensors: machine_sensors,
     },
     realtime: "refetch",
@@ -72,7 +82,7 @@ const MachineData = ({
         machine_name={machine_name}
         newPrecentage={machineData.newPrecentage}
         oldPrecentage={machineData.oldPrecentage}
-        oldDate={dayjs(timeRange[0]._d).from(oldStartDate, true)}
+        oldDate={dayjs(timeRange[0].$d).from(oldStartDate, true)}
       />
       <ReactEChartsCore
         echarts={echarts}
