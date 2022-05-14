@@ -3,11 +3,12 @@ import { PageHeader, Button, Skeleton } from "antd";
 import { useGet } from "figbird";
 import { TableOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import MoldsTableView from "../../components/MoldsTableView/MoldsTableView.component";
-import MoldsCardView from "../../components/MoldsCardView/MoldsCardView.component";
-import "./MoldsView.styles.css";
+import MoldsTableView from "../MoldsTableView/MoldsTableView.component";
+import MoldsCardView from "../MoldsCardView/MoldsCardView.component";
+import "./MoldSet.styles.css";
 
-const MoldsView = ({ id }) => {
+const MoldSet = ({ id }) => {
+  console.log("test ", id);
   const [listView, setListView] = React.useState(false);
   const changeViewToList = () => {
     setListView(true);
@@ -58,4 +59,4 @@ const MoldsView = ({ id }) => {
   );
 };
 
-export default MoldsView;
+export default MoldSet;

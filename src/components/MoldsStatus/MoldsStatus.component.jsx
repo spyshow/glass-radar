@@ -8,9 +8,9 @@ import {
 import { GiFactory, GiTrashCan } from "react-icons/gi";
 import { Tooltip } from "antd";
 
-import "./MoldStatus.styles.css";
+import "./MoldsStatus.styles.css";
 
-const MoldStatus = ({ moldStatus }) => {
+const MoldsStatus = ({ moldStatus }) => {
   return (
     <div className="main-status-container">
       <div className="mold-status-container">
@@ -83,4 +83,4 @@ const MoldStatus = ({ moldStatus }) => {
   );
 };
 
-export default MoldStatus;
+export default MoldsStatus;
