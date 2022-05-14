@@ -101,11 +101,11 @@ const MainMenu = ({ app, theme }) => {
   }
 
   return (
-    <Menu theme={theme} defaultSelectedKeys={["1"]} mode="inline">
-      <Menu.Item key="1" icon={<PieChartOutlined />} onClick={handleLogout}>
+    <Menu theme={theme} defaultSelectedKeys={["main1"]} mode="inline">
+      <Menu.Item key="main1" icon={<PieChartOutlined />} onClick={handleLogout}>
         Logout
       </Menu.Item>
-      <SubMenu key="2" icon={<DesktopOutlined />} title="operator">
+      <SubMenu key="main2" icon={<DesktopOutlined />} title="operator">
         {operatorMenu(lines)}
       </SubMenu>
       <SubMenu key="sub1" icon={<OrderedListOutlined />} title="Lines">
