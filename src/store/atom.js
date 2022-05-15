@@ -19,3 +19,8 @@ export const chartDataState = atom({
   key: "chartDataState",
   default: [],
 });
+
+export const authState = atom({
+  key: "authState",
+  default: "",
+});

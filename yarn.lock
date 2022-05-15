@@ -4861,7 +4861,7 @@ __metadata:
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
-    recoil: ^0.0.13
+    recoil: ^0.7.3-alpha.2
     socket.io-client: ^2.3.0
     yup: ^0.29.3
   peerDependencies:
@@ -7819,6 +7819,13 @@ fsevents@^1.2.7:
     duplexer: ^0.1.1
     pify: ^4.0.1
   checksum: 6451ba2210877368f6d9ee9b4dc0d14501671472801323bf81fbd38bdeb8525f40a78be45a59d0182895d51e6b60c6314b7d02bd6ed40e7225a01e8d038aac1b
+  languageName: node
+  linkType: hard
+
+"hamt_plus@npm:1.0.2":
+  version: 1.0.2
+  resolution: "hamt_plus@npm:1.0.2"
+  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
   languageName: node
   linkType: hard
 
@@ -13849,13 +13856,19 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "recoil@npm:0.0.13"
+"recoil@npm:^0.7.3-alpha.2":
+  version: 0.7.3-alpha.2
+  resolution: "recoil@npm:0.7.3-alpha.2"
+  dependencies:
+    hamt_plus: 1.0.2
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
-  checksum: 466629dc52796fd64adfcc6073484ae05dd2a5dcd231d41e1f2f2ac3418a95d9d36999e69e63bc97acb989c15e4b07206b727ce15059f47cf7b89b9888afc794
+    react: ">=16.13.1"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 3af4b8ef88f0602515bd2730a8dba12f9aa866db5ce1310e5dc8a431b2e5bd4b5e16b9bc9b2e496b0024b78ece80ebfd61797eb4e64b6cbc62e4e23833d02c6a
   languageName: node
   linkType: hard
 
