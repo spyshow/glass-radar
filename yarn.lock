@@ -4859,7 +4859,7 @@ __metadata:
     dayjs: ^1.11.2
     echarts: 5.0.1
     echarts-for-react: ^3.0.1
-    figbird: ^0.8.1
+    figbird: ^0.10.1
     formik: ^2.1.5
     formik-antd: ^2.0.1
     react: ^16.13.1
@@ -7195,13 +7195,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"figbird@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "figbird@npm:0.8.1"
+"figbird@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "figbird@npm:0.10.1"
   dependencies:
-    sift: ^13.2.0
+    sift: ^13.5.4
     tiny-atom: ^5.0.0-pre.2
-  checksum: 6dd209e3816b584fedaeed962cdbe744fb1e863ab321a1905543fb0ffa0385139c0e241dbfee9abd28cdeb24fef8c9ee0a6a5c62c32a1e5a3cef53ae42b974ac
+  checksum: dbf1a4cd42bd1ddf66c1a78cf44b2e38845228e7123962aa83756db11f6f9f9d174c4ab79fa72521bc3f0515802771ddbf708e962faa27c0b9dfc8ae4e8183f8
   languageName: node
   linkType: hard
 
@@ -14716,7 +14716,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sift@npm:^13.2.0":
+"sift@npm:^13.5.4":
   version: 13.5.4
   resolution: "sift@npm:13.5.4"
   checksum: e914062d05c91a8674d96398a631c3d87ff2b79fa1ed939487c28438422b1e80c0dda7a33389dc23d537a70f4600e33c0806e4ed7258c22f3885d1e109473ad0

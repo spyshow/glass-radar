@@ -21,7 +21,7 @@
     "dayjs": "^1.11.2",
     "echarts": "5.0.1",
     "echarts-for-react": "^3.0.1",
-    "figbird": "^0.8.1",
+    "figbird": "^0.10.1",
     "formik": "^2.1.5",
     "formik-antd": "^2.0.1",
     "react": "^16.13.1",
