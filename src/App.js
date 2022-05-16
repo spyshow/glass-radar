@@ -1,15 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import feathers from "@feathersjs/client";
 //import socketio from "@feathersjs/socketio-client";
 import io from "socket.io-client";
 //import auth from "@feathersjs/authentication-client";
-import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute.component";
+import RouterWrap from "./RouterWrap";
 import { Provider } from "figbird";
 import "./App.css";
-
-import Dashboard from "./pages/Dashboard/Dashboard.page";
-import Login from "./pages/Login/Login.page";
 
 const socket = io(process.env.REACT_APP_HOSTNAME, {
   transports: ["websocket"],
@@ -28,17 +25,11 @@ app.configure(
 //app.configure(feathers.hooks("authentication"));
 
 function App() {
-  app.authenticate().catch(() => <Redirect to={{ pathname: "/login" }} />);
+  app.authenticate().catch(() => <Navigate to="/login" />);
 
   return (
     <Provider feathers={app}>
-      <BrowserRouter>
-        <Switch>
-          <PrivateRoute exact path="/" roles="user" component={Dashboard} />
-          <PrivateRoute path="/dashboard" roles="user" component={Dashboard} />
-          <Route path="/login" component={Login} />
-        </Switch>
-      </BrowserRouter>
+      <RouterWrap />
     </Provider>
   );
 }
