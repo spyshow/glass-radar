@@ -9,7 +9,7 @@ import {
   CopyOutlined,
   OrderedListOutlined,
 } from "@ant-design/icons";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFind } from "figbird";
 import openNotification from "../Notification/Notification.component";
 
@@ -17,7 +17,7 @@ import "./MainMenu.styles.css";
 
 const MainMenu = ({ app, theme }) => {
   const { SubMenu } = Menu;
-  let history = useHistory();
+  let navigate = useNavigate();
   let menus = () => {};
   let operatorMenu = () => {};
   const lines = useFind("lines", {
@@ -95,7 +95,7 @@ const MainMenu = ({ app, theme }) => {
   function handleLogout() {
     app.logout();
     localStorage.setItem("currentUser", null);
-    history.push("/login");
+    navigate("/login");
     openNotification("success", "Logout Successed!", "");
   }
 

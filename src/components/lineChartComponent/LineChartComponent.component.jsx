@@ -72,7 +72,13 @@ const LineChartComponent = ({ id, timeRange }) => {
           />
           {lineData.data.options.map((option) => {
             if (option.id !== "Palletizer") {
-              return <MachineCard option={option} machineName={option.id} />;
+              return (
+                <MachineCard
+                  key={option.id}
+                  option={option}
+                  machineName={option.id}
+                />
+              );
             }
           })}
         </>
