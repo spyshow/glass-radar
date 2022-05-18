@@ -9,6 +9,7 @@ import {
   Upload,
   message,
   Checkbox,
+  Skeleton,
 } from "antd";
 import { useFind, useMutation } from "figbird";
 import {
@@ -41,15 +42,16 @@ const { Dragger } = Upload;
 //options for the user's roles
 const options = {
   lines: [
-    { value: "M11", name: "M1.1" },
-    { value: "M12", name: "M1.2" },
-    { value: "M21", name: "M2.1" },
-    { value: "M22", name: "M2.2" },
+    { value: "M11", label: "M1.1" },
+    { value: "M12", label: "M1.2" },
+    { value: "M21", label: "M2.1" },
+    { value: "M22", label: "M2.2" },
   ],
   active: [
-    { value: "true", name: "true" },
-    { value: "false", name: "false" },
+    { value: "true", label: "true" },
+    { value: "false", label: "false" },
   ],
+  moldsets: [],
 };
 
 //form layout
@@ -90,6 +92,7 @@ function Jobs() {
   const [jobOnVisible, setJobOnVisible] = useState(false);
   const [filesUploaded, setFilesUploaded] = useState("");
   const originData = useFind("jobs");
+  const moldsets = useFind("moldsets");
 
   let columns = [
     {
@@ -179,6 +182,36 @@ function Jobs() {
       ),
     },
     {
+      title: "Blank set",
+
+      dataType: "select",
+      width: "10%",
+      editable: true,
+      filter: true,
+      options: options["moldsets"],
+      render: (record) => record.blankMoldsetid.name,
+      sorter: {
+        compare: (a, b) => {
+          console.log("A", a);
+          return a.blank_moldsetid - b.blank_moldsetid;
+        },
+      },
+    },
+    {
+      title: "Blow set",
+      dataType: "select",
+      width: "10%",
+      editable: true,
+      filter: true,
+      options: options.moldsets,
+      render: (record) => record.blowMoldsetid.name,
+      sorter: {
+        compare: (a, b) => {
+          return a.blow_moldsetid - b.blow_moldsetid;
+        },
+      },
+    },
+    {
       title: "Active",
       dataIndex: "active",
       dataType: "select",
@@ -189,6 +222,18 @@ function Jobs() {
       render: (active) => <Checkbox checked={active} />,
     },
   ];
+
+  if (moldsets.status === "loading") {
+    return <Skeleton active />;
+  }
+
+  options.moldsets = moldsets.data.map((moldset) => {
+    return {
+      value: moldset.id,
+      label: moldset.name,
+    };
+  });
+  console.log(options);
 
   //upload props
   const uploadProps = {
@@ -221,6 +266,9 @@ function Jobs() {
       setModalVisible(false);
     });
   };
+  console.log("options", options);
+  console.log("columns", columns);
+
   return (
     <div>
       <PageHeader
@@ -339,6 +387,26 @@ function Jobs() {
                     uploading company data or other band files
                   </p>
                 </Dragger>
+              </Form.Item>
+              <Form.Item name="blank_moldsetid" label="Blank set">
+                <Select
+                  name="blank_moldsetid"
+                  placeholder="Blank set"
+                  prefix={<FieldNumberOutlined />}
+                  value={values.blank_moldsetid}
+                  style={{ width: "100%" }}
+                  options={options.moldsets}
+                />
+              </Form.Item>
+              <Form.Item name="blow_moldsetid" label="Blow set">
+                <Select
+                  name="blow_moldsetid"
+                  placeholder="Blow set"
+                  prefix={<FieldNumberOutlined />}
+                  value={values.blow_moldsetid}
+                  style={{ width: "100%" }}
+                  options={options.moldsets}
+                />
               </Form.Item>
               <Form.Item name="active" label="Active">
                 <Checkbox checked={values.active}>active</Checkbox>

@@ -202,7 +202,7 @@ const EditableTable = ({ originData, originColumns, service }) => {
           >
             <a
               // eslint-disable-next-line no-script-url
-              href="javascript:void;"
+              href="#!"
               onClick={() => {
                 //console.log(record.active);
                 handleSave(record);
