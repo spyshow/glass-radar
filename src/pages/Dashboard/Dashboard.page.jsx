@@ -36,53 +36,53 @@ const Dashboard = () => {
   //   setSidebarCollapsed(!sidebarCollapsed);
   // };
 
-  const routes = [
-    {
-      path: "/",
-      component: () => <div>home</div>,
-      exact: true,
-    },
-    {
-      path: "/operator/:machineId&:lineId",
-      component: () => <Operator />,
-    },
-    {
-      path: "/login",
-      component: () => <div />,
-    },
-    {
-      path: "/moldsets",
-      component: () => <MoldSets />,
-    },
-    {
-      path: "/moldset/:id",
-      component: () => <MoldSet />,
-    },
-    {
-      path: "/lines",
-      component: () => <Lines />,
-    },
-    {
-      path: "/line/:id",
-      component: () => <Line />,
-    },
-    {
-      path: "/machine/:id",
-      component: () => <Machine />,
-    },
-    {
-      path: "/machines",
-      component: () => <Machines />,
-    },
-    {
-      path: "/users",
-      component: () => <Users />,
-    },
-    {
-      path: "/jobs",
-      component: () => <Jobs />,
-    },
-  ];
+  // const routes = [
+  //   {
+  //     path: "/",
+  //     component: () => <div>home</div>,
+  //     exact: true,
+  //   },
+  //   {
+  //     path: "/operator/:machineId&:lineId",
+  //     component: () => <Operator />,
+  //   },
+  //   {
+  //     path: "/login",
+  //     component: () => <div />,
+  //   },
+  //   {
+  //     path: "/moldsets",
+  //     component: () => <MoldSets />,
+  //   },
+  //   {
+  //     path: "/moldset/:id",
+  //     component: () => <MoldSet />,
+  //   },
+  //   {
+  //     path: "/lines",
+  //     component: () => <Lines />,
+  //   },
+  //   {
+  //     path: "/line/:id",
+  //     component: () => <Line />,
+  //   },
+  //   {
+  //     path: "/machine/:id",
+  //     component: () => <Machine />,
+  //   },
+  //   {
+  //     path: "/machines",
+  //     component: () => <Machines />,
+  //   },
+  //   {
+  //     path: "/users",
+  //     component: () => <Users />,
+  //   },
+  //   {
+  //     path: "/jobs",
+  //     component: () => <Jobs />,
+  //   },
+  // ];
 
   return (
     <React.Fragment>

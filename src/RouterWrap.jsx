@@ -12,6 +12,7 @@ import Jobs from "./pages/Jobs/Jobs.page";
 import Operator from "./pages/Operator/Operator.page";
 import MoldSets from "./pages/MoldSets/MoldSets.page";
 import MoldSet from "./components/MoldSet/MoldSet.component";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
 
 export default function RouterWrap() {
   const routes = [
@@ -63,17 +64,18 @@ export default function RouterWrap() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/*"} element={<Dashboard />} />
-
         <Route path={"/login"} element={<Login />} />
-        <Route path={"/dashboard"} element={<Dashboard />}>
-          {routes.map((route) => (
-            <Route
-              path={route.path}
-              key={route.path}
-              element={route.component}
-            />
-          ))}
+        <Route element={<PrivateRoute />}>
+          <Route path={"/*"} element={<Dashboard />} />
+          <Route path={"/dashboard"} element={<Dashboard />}>
+            {routes.map((route) => (
+              <Route
+                path={route.path}
+                key={route.path}
+                element={route.component}
+              />
+            ))}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
