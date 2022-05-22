@@ -392,12 +392,15 @@ function Machines() {
       {originData.status === "loading" && lines.status === "loading" ? (
         <div />
       ) : (
-        <EditableTable
-          originData={originData}
-          originColumns={columns}
-          service="machines"
-          options={options}
-        />
+        <>
+          {console.log("columns", columns)}
+          <EditableTable
+            originData={originData}
+            originColumns={columns}
+            service="machines"
+            options={options}
+          />
+        </>
       )}
     </div>
   );

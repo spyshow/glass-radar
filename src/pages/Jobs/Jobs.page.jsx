@@ -39,21 +39,6 @@ import EditableTable from "../../components/EditableTable/EditableTable.componen
 //upload props
 const { Dragger } = Upload;
 
-//options for the user's roles
-const options = {
-  lines: [
-    { value: "M11", label: "M1.1" },
-    { value: "M12", label: "M1.2" },
-    { value: "M21", label: "M2.1" },
-    { value: "M22", label: "M2.2" },
-  ],
-  active: [
-    { value: "true", label: "true" },
-    { value: "false", label: "false" },
-  ],
-  moldsets: [],
-};
-
 //form layout
 const layout = {
   labelCol: {
@@ -92,8 +77,32 @@ function Jobs() {
   const [jobOnVisible, setJobOnVisible] = useState(false);
   const [filesUploaded, setFilesUploaded] = useState("");
   const originData = useFind("jobs");
+  let options;
   const moldsets = useFind("moldsets");
-
+  let prepareData = async (data) => {
+    console.log("data", data?.data);
+    options = {
+      lines: [
+        { value: "M11", label: "M1.1" },
+        { value: "M12", label: "M1.2" },
+        { value: "M21", label: "M2.1" },
+        { value: "M22", label: "M2.2" },
+      ],
+      active: [
+        { value: "true", label: "true" },
+        { value: "false", label: "false" },
+      ],
+      moldsets: [{ value: "def", label: "def" }],
+    };
+    options.moldsets = await data?.map((moldset) => {
+      return {
+        value: moldset.id,
+        label: moldset.name,
+      };
+    });
+  };
+  //options for the user's roles
+  prepareData(moldsets.data);
   let columns = [
     {
       title: "Name",
@@ -124,7 +133,7 @@ function Jobs() {
       title: "Line",
       dataIndex: "line",
       dataType: "select",
-      width: "10%",
+      width: "3%",
       editable: true,
       options: options["lines"],
       sorter: {
@@ -137,7 +146,7 @@ function Jobs() {
       title: "Speed",
       dataIndex: "speed",
       dataType: "number",
-      width: "10%",
+      width: "3%",
       editable: true,
       sorter: {
         compare: (a, b) => a.speed - b.speed,
@@ -147,7 +156,7 @@ function Jobs() {
       title: "Lehr Time",
       dataIndex: "lehr_time",
       dataType: "number",
-      width: "10%",
+      width: "3%",
       editable: true,
       sorter: {
         compare: (a, b) => a.lehr_time - b.lehr_time,
@@ -157,7 +166,7 @@ function Jobs() {
       title: "Total ordered",
       dataIndex: "total_ordered",
       dataType: "number",
-      width: "15%",
+      width: "10%",
       editable: true,
       sorter: {
         compare: (a, b) => a.total_ordered - b.total_ordered,
@@ -188,11 +197,10 @@ function Jobs() {
       width: "10%",
       editable: true,
       filter: true,
-      options: options["moldsets"],
+      options: options.moldsets,
       render: (record) => record.blankMoldsetid.name,
       sorter: {
         compare: (a, b) => {
-          console.log("A", a);
           return a.blank_moldsetid - b.blank_moldsetid;
         },
       },
@@ -216,7 +224,7 @@ function Jobs() {
       dataIndex: "active",
       dataType: "select",
       options: options["active"],
-      width: "10%",
+      width: "5%",
       editable: true,
       sorter: (a, b) => a.active - b.active,
       render: (active) => <Checkbox checked={active} />,
@@ -226,14 +234,6 @@ function Jobs() {
   if (moldsets.status === "loading") {
     return <Skeleton active />;
   }
-
-  options.moldsets = moldsets.data.map((moldset) => {
-    return {
-      value: moldset.id,
-      label: moldset.name,
-    };
-  });
-  console.log(options);
 
   //upload props
   const uploadProps = {
@@ -427,12 +427,15 @@ function Jobs() {
       {originData.status === "loading" ? (
         <div />
       ) : (
-        <EditableTable
-          originData={originData}
-          originColumns={columns}
-          service="jobs"
-          options={options}
-        />
+        <>
+          {console.log("columns", columns)}
+          <EditableTable
+            originData={originData}
+            originColumns={columns}
+            service="jobs"
+            options={options}
+          />
+        </>
       )}
     </div>
   );
