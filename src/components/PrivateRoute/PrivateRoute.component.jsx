@@ -8,7 +8,6 @@ const PrivateRoute = ({ roles, ...rest }) => {
   let currentUser = localStorage.getItem("accessToken")
     ? JSON.parse(localStorage.getItem("currentUser"))
     : "";
-  console.log(currentUser.roles, roles);
   return currentUser?.roles?.find((role) => roles?.includes(role)) ? (
     <Outlet />
   ) : currentUser ? (
