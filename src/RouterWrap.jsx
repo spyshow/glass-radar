@@ -20,12 +20,12 @@ export default function RouterWrap() {
     {
       path: "/dashboard/",
       component: <div>home</div>,
-      roles: ["user"],
+      roles: ["User"],
     },
     {
       path: "/dashboard/operator/:machineId&:lineId",
       component: <Operator />,
-      roles: ["admin", "operator"],
+      roles: ["Admin", "Operator"],
     },
     {
       path: "/dashboard/login",
@@ -34,27 +34,32 @@ export default function RouterWrap() {
     {
       path: "/dashboard/moldsets",
       component: <MoldSets />,
-      roles: ["admin", "mold admin"],
+      roles: ["Admin", "Mold Admin"],
     },
     {
       path: "/dashboard/moldset/:id",
       component: <MoldSet />,
+      roles: ["Admin", "Mold Admin"],
     },
     {
       path: "/dashboard/lines",
       component: <Lines />,
+      roles: ["Admin", "Moderator"],
     },
     {
       path: "/dashboard/line/:id",
       component: <Line />,
+      roles: ["Admin", "Moderator"],
     },
     {
       path: "/dashboard/machine/:id",
       component: <Machine />,
+      roles: ["Admin", "Moderator"],
     },
     {
       path: "/dashboard/machines",
       component: <Machines />,
+      roles: ["Admin", "Moderator"],
     },
     {
       path: "/dashboard/users",
@@ -70,15 +75,21 @@ export default function RouterWrap() {
       <Routes>
         <Route path={"/login"} element={<Login />} />
         <Route path={"/unauthorized"} element={<Unauthorized />} />
-        <Route element={<PrivateRoute roles={["user"]} />}>
+        <Route
+          element={
+            <PrivateRoute roles={["Admin", "Operator", "Mold Admin", "User"]} />
+          }
+        >
           <Route path={"/*"} element={<Dashboard />} />
           <Route path={"/dashboard"} element={<Dashboard />}>
             {routes.map((route) => (
-              <Route
-                path={route.path}
-                key={route.path}
-                element={route.component}
-              />
+              <Route element={<PrivateRoute roles={route.roles} />}>
+                <Route
+                  path={route.path}
+                  key={route.path}
+                  element={route.component}
+                />
+              </Route>
             ))}
           </Route>
         </Route>
