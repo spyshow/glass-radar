@@ -12,6 +12,7 @@ import Jobs from "./pages/Jobs/Jobs.page";
 import Operator from "./pages/Operator/Operator.page";
 import MoldSets from "./pages/MoldSets/MoldSets.page";
 import MoldSet from "./components/MoldSet/MoldSet.component";
+import Unauthorized from "./pages/Unauthorized/Unauthorized.page";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
 
 export default function RouterWrap() {
@@ -19,10 +20,12 @@ export default function RouterWrap() {
     {
       path: "/dashboard/",
       component: <div>home</div>,
+      roles: ["user"],
     },
     {
       path: "/dashboard/operator/:machineId&:lineId",
       component: <Operator />,
+      roles: ["admin", "operator"],
     },
     {
       path: "/dashboard/login",
@@ -31,6 +34,7 @@ export default function RouterWrap() {
     {
       path: "/dashboard/moldsets",
       component: <MoldSets />,
+      roles: ["admin", "mold admin"],
     },
     {
       path: "/dashboard/moldset/:id",
@@ -65,7 +69,8 @@ export default function RouterWrap() {
     <BrowserRouter>
       <Routes>
         <Route path={"/login"} element={<Login />} />
-        <Route element={<PrivateRoute />}>
+        <Route path={"/unauthorized"} element={<Unauthorized />} />
+        <Route element={<PrivateRoute roles={["user"]} />}>
           <Route path={"/*"} element={<Dashboard />} />
           <Route path={"/dashboard"} element={<Dashboard />}>
             {routes.map((route) => (

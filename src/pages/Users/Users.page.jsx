@@ -32,9 +32,10 @@ const timezones = timezoneArray();
 //options for the user's roles
 const options = {
   roles: [
-    { value: "user", name: "user" },
-    { value: "moderator", name: "moderator", color: "blue" },
-    { value: "admin", name: "admin" },
+    { value: "Operator", name: "operator", color: "red" },
+    { value: "Moderator", name: "moderator", color: "blue" },
+    { value: "Mold Admin", name: "mold admin", color: "blue" },
+    { value: "Admin", name: "admin" },
   ],
   timezone: timezones,
 };
@@ -89,11 +90,17 @@ let columns = [
         {tags.map((tag) => {
           let color = "";
           switch (tag) {
-            case "moderator":
+            case "Moderator":
               color = "blue";
               break;
-            case "admin":
+            case "Mold Admin":
+              color = "blue";
+              break;
+            case "Admin":
               color = "volcano";
+              break;
+            case "Operator":
+              color = "red";
               break;
             default:
               color = "green";

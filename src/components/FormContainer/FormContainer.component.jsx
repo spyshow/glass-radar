@@ -3,7 +3,7 @@ import { Form, Input, Checkbox, SubmitButton, ResetButton } from "formik-antd";
 import { Formik } from "formik";
 import { Row, Col } from "antd";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useFeathers } from "figbird";
 import {
   UserOutlined,
@@ -41,6 +41,8 @@ const layout = {
 const FormContainer = () => {
   const app = useFeathers();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"; // to return from the page you were on before logging in
   // form submiting
   const onSubmit = async ({ email, password }) => {
     try {
@@ -58,7 +60,8 @@ const FormContainer = () => {
           .then((user) => {
             openNotification("success", "Login Successed!", "");
             localStorage.setItem("currentUser", JSON.stringify(user.postgres));
-            navigate("/dashboard", {
+            navigate(from, {
+              replace: true,
               state: { error: "Login Success!" },
             });
           });
