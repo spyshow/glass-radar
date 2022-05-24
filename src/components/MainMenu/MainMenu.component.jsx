@@ -117,7 +117,7 @@ const MainMenu = ({ app, theme }) => {
         <Menu.Item key="8">Team 2</Menu.Item>
       </SubMenu>
       {JSON.parse(localStorage.getItem("currentUser")).roles.indexOf(
-        "admin"
+        "Admin"
       ) !== -1 ? (
         <SubMenu key="9" icon={<SettingOutlined />} title="Admin">
           <Menu.Item key="10" icon={<OrderedListOutlined />}>
