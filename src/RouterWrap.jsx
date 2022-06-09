@@ -64,10 +64,12 @@ export default function RouterWrap() {
     {
       path: "/dashboard/users",
       component: <Users />,
+      roles: ["Admin"],
     },
     {
       path: "/dashboard/jobs",
       component: <Jobs />,
+      roles: ["Admin", "Moderator"],
     },
   ];
   return (
@@ -82,11 +84,14 @@ export default function RouterWrap() {
         >
           <Route path={"/*"} element={<Dashboard />} />
           <Route path={"/dashboard"} element={<Dashboard />}>
-            {routes.map((route) => (
-              <Route element={<PrivateRoute roles={route.roles} />}>
+            {routes.map((route, index) => (
+              <Route
+                element={<PrivateRoute roles={route.roles} />}
+                key={route.path + index}
+              >
                 <Route
                   path={route.path}
-                  key={route.path}
+                  key={route.path + index}
                   element={route.component}
                 />
               </Route>
