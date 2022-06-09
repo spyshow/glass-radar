@@ -71,11 +71,10 @@ const MachinePage = () => {
       ></PageHeader>
       {timeRange !== null ? (
         <MachineData
+          machine={machine.data}
           machine_name={
             machine.data.machine_name + "_" + machine.data["line.line_number"]
           }
-          machine_type={machine.data.type}
-          machine_sensors={machine.data.sensors}
           timeRange={
             timeRange === null || timeRange[0]
               ? timeRange

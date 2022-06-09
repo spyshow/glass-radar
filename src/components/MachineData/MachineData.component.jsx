@@ -32,14 +32,7 @@ echarts.use([
 
 dayjs.extend(relativeTime);
 
-const MachineData = ({
-  machine_name,
-  machine_type,
-  machine_sensors,
-  timeRange,
-}) => {
-
-  
+const MachineData = ({ machine, timeRange }) => {
   const oldStartDate = dayjs(timeRange[0]).subtract(
     dayjs(timeRange[1]).diff(dayjs(timeRange[0])),
     "milliseconds"
@@ -47,38 +40,43 @@ const MachineData = ({
   const chartEl = useRef(null);
   const machineData = useFind("machine-data", {
     query: {
-      machine_name: machine_name,
-      machine_type: machine_type,
+      machine_name: machine.machine_name + "_" + machine["line.line_number"],
+      machine_type: machine.type,
       newStartDate: timeRange[0].$d,
       oldStartDate: oldStartDate,
       oldEndDate: timeRange[0].$d,
       newEndDate: timeRange[1].$d,
-      machine_sensors: machine_sensors,
+      machine_sensors: machine.sensors,
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
   });
   // machineData : [chart data] , newPrecentage , oldPrecentage
+
   if (machineData.status !== "success") {
+    console.log(machineData);
     return <Skeleton active />;
   } else if (
     machineData.data.data ||
     machineData.data.length === 0 ||
     machineData.data === undefined
   ) {
+    console.log(machineData.data);
     return <div>No data</div>;
   }
+
   return (
     <div>
+      {console.log(machineData)}
       <PrecentageCard
-        machine_name={machine_name}
+        machine_name={machine.machine_name}
         newPrecentage={machineData.newPrecentage}
         oldPrecentage={machineData.oldPrecentage}
         oldDate={dayjs(timeRange[0].$d).from(oldStartDate, true)}
       />
       <ReactEChartsCore
         echarts={echarts}
-        id={machine_name}
+        id={machine.machine_name}
         ref={chartEl}
         replaceMerge={["xAxis", "yAxis", "series"]}
         option={machineData.data[0]}
