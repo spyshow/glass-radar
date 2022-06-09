@@ -18,13 +18,14 @@ import {
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import ReactAntColorPicker from "@jswork/react-ant-color-picker";
+
 import openNotification from "../../components/Notification/Notification.component";
 import MachineStatus from "../../components/MachineStatus/MachineStatus.component";
 import MachineRunner from "../../components/MachineRunner/MachineRunner.component";
+import EditableTable from "../../components/EditableTable/EditableTable.component";
 
 import "./Machines.styles.css";
-
-import EditableTable from "../../components/EditableTable/EditableTable.component";
 
 const { Option } = Select;
 
@@ -34,7 +35,12 @@ function Machines() {
   const [modalAddMachineVisible, setAddMachineModalVisible] = useState(false);
   const [modalMachineStatusVisible, setMachineStatusModalVisible] =
     useState(false);
-  const [disableMac, setDisableMac] = useState(false);
+  // const [primaryColor, setPrimaryColor] = useState({
+  //   color: { r: 26, g: 14, b: 85, a: 1 },
+  // });
+  // const [secondaryColor, setSecondaryColor] = useState({});
+  // const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [disableChannel, setDisableChannel] = useState(false);
   const originData = useFind("machines");
   const onSubmit = async (values) => {
     create(values).then(() => {
@@ -42,6 +48,26 @@ function Machines() {
       setAddMachineModalVisible(false);
     });
   };
+
+  //handle color change
+  // const handleColorClick = () => {
+  //   setDisplayColorPicker(!displayColorPicker);
+  // };
+
+  // const handleColorClose = () => {
+  //   setDisplayColorPicker(false);
+  // };
+
+  // const handleColorChange = (color, type) => {
+  //   console.log("color", color);
+  //   switch (type) {
+  //     case "primary":
+  //       setPrimaryColor(color.rgb);
+  //       break;
+  //     case "secondary":
+  //       setSecondaryColor(color.rgb);
+  //   }
+  // };
 
   //options for the machine's types
   const options = {
@@ -68,9 +94,9 @@ function Machines() {
 
   let onTypeChange = (values) => {
     if (values === "MCAL4" || values === "MULTI4" || values === "MX4") {
-      setDisableMac(true);
+      setDisableChannel(true);
     } else {
-      setDisableMac(false);
+      setDisableChannel(false);
     }
   };
 
@@ -127,16 +153,16 @@ function Machines() {
         },
       },
     },
-    //TODO make mac editable
+    //TODO make channel editable
     {
-      title: "Mac",
-      dataIndex: "mac",
+      title: "Channel",
+      dataIndex: "channel",
       dataType: "text",
       width: "15%",
       editable: false,
       sorter: {
         compare: (a, b) => {
-          return a.mac.localeCompare(b.mac);
+          return a.channel.localeCompare(b.channel);
         },
       },
     },
@@ -329,14 +355,14 @@ function Machines() {
                   <Option value="Display">Display</Option>
                 </Select>
               </Form.Item>
-              <Form.Item name="mac" label="Mac Address">
+              <Form.Item name="channel" label="Channel">
                 <Input
-                  disabled={disableMac ? true : false}
+                  disabled={disableChannel ? true : false}
                   defaultValue={null}
-                  name="mac"
-                  placeholder="Mac Address"
+                  name="channel"
+                  placeholder="Channel"
                   prefix={<TagOutlined />}
-                  value={values.mac}
+                  value={values.channel}
                 />
               </Form.Item>
               <Form.Item name="scantime" label="Scan Time">
@@ -355,6 +381,28 @@ function Machines() {
                   value={values.sequence}
                 />
               </Form.Item>
+              {/* <Form.Item name="primeColor" label="Prime Color">
+                <ReactAntColorPicker
+                  value={primaryColor}
+                  onChange={handleColorChange}
+                />
+              </Form.Item> */}
+              {/* <Form.Item name="secondaryColor" label="Secondary  Color">
+                <div>
+                  <div className="swatch" onClick={handleColorClick}>
+                    <div className="color" />
+                  </div>
+                  {displayColorPicker ? (
+                    <div className="popover">
+                      <div className="cover" onClick={handleColorClose} />
+                      <SketchPicker
+                        color={primaryColor}
+                        onChange={handleColorChange("secondary", primaryColor)}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              </Form.Item> */}
               <Row>
                 <Col offset={6} span={4}>
                   <SubmitButton>Submit</SubmitButton>
