@@ -15,6 +15,7 @@ import {
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "figbird";
+import { Colorpicker, ColorPickerValue } from "antd-colorpicker";
 
 import openNotification from "../Notification/Notification.component";
 import "./EditableTable.styles.css";
@@ -56,6 +57,21 @@ const EditableCell = ({
   forigin,
   ...restProps
 }) => {
+  const [primaryColor, setPrimaryColor] = useState({});
+  const [secondaryColor, setSecondaryColor] = useState({});
+  const handleColorChange = (color, type) => {
+    console.log("color", color);
+    switch (type) {
+      case "primary":
+        setPrimaryColor(color);
+        break;
+      case "secondary":
+        setSecondaryColor(color);
+        break;
+      default:
+        break;
+    }
+  };
   const d = date
     ? date["$d"]
     : "Sun Mar 07 2021 09:16:31 GMT+0200 (Eastern European Standard Time)";
@@ -70,6 +86,16 @@ const EditableCell = ({
     /*************************** */
     /* TODO: [ ]edit date not good :  https://github.com/Hacker0x01/react-datepicker/issues/1120/
     /*************************** */
+    case "color":
+      inputNode = (
+        <Colorpicker
+          value={primaryColor}
+          onChange={(color) => handleColorChange(color, "primary")}
+          popup
+          onColorResult={(color) => color.hex}
+        />
+      );
+      break;
     case "boolean":
       inputNode = <Checkbox defaultChecked={active} checked={!active} />;
       break;
