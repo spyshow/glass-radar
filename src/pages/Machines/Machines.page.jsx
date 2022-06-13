@@ -18,12 +18,13 @@ import {
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import ReactAntColorPicker from "@jswork/react-ant-color-picker";
+import { Colorpicker, ColorPickerValue } from "antd-colorpicker";
 
 import openNotification from "../../components/Notification/Notification.component";
 import MachineStatus from "../../components/MachineStatus/MachineStatus.component";
 import MachineRunner from "../../components/MachineRunner/MachineRunner.component";
 import EditableTable from "../../components/EditableTable/EditableTable.component";
+import ChartPreview from "../../components/ChartPreview/ChartPreview.component";
 
 import "./Machines.styles.css";
 
@@ -35,10 +36,8 @@ function Machines() {
   const [modalAddMachineVisible, setAddMachineModalVisible] = useState(false);
   const [modalMachineStatusVisible, setMachineStatusModalVisible] =
     useState(false);
-  // const [primaryColor, setPrimaryColor] = useState({
-  //   color: { r: 26, g: 14, b: 85, a: 1 },
-  // });
-  // const [secondaryColor, setSecondaryColor] = useState({});
+  const [primaryColor, setPrimaryColor] = useState("#000000");
+  const [secondaryColor, setSecondaryColor] = useState("#000000");
   // const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [disableChannel, setDisableChannel] = useState(false);
   const originData = useFind("machines");
@@ -48,26 +47,21 @@ function Machines() {
       setAddMachineModalVisible(false);
     });
   };
+  const initialValues = { color: { r: 26, g: 14, b: 85, a: 1 } };
 
-  //handle color change
-  // const handleColorClick = () => {
-  //   setDisplayColorPicker(!displayColorPicker);
-  // };
-
-  // const handleColorClose = () => {
-  //   setDisplayColorPicker(false);
-  // };
-
-  // const handleColorChange = (color, type) => {
-  //   console.log("color", color);
-  //   switch (type) {
-  //     case "primary":
-  //       setPrimaryColor(color.rgb);
-  //       break;
-  //     case "secondary":
-  //       setSecondaryColor(color.rgb);
-  //   }
-  // };
+  const handleColorChange = (color, type) => {
+    console.log("color", color);
+    switch (type) {
+      case "primary":
+        setPrimaryColor(color);
+        break;
+      case "secondary":
+        setSecondaryColor(color);
+        break;
+      default:
+        break;
+    }
+  };
 
   //options for the machine's types
   const options = {
@@ -158,7 +152,7 @@ function Machines() {
       title: "Channel",
       dataIndex: "channel",
       dataType: "text",
-      width: "15%",
+      width: "5%",
       editable: false,
       sorter: {
         compare: (a, b) => {
@@ -170,7 +164,7 @@ function Machines() {
       title: "Scan Time",
       dataIndex: "scantime",
       dataType: "number",
-      width: "15%",
+      width: "10%",
       editable: true,
       sorter: {
         compare: (a, b) => a.scanTime - b.scanTime,
@@ -180,11 +174,49 @@ function Machines() {
       title: "Sequence",
       dataIndex: "sequence",
       dataType: "number",
-      width: "15%",
+      width: "10%",
       editable: true,
       sorter: {
         compare: (a, b) => a.sequence - b.sequence,
       },
+    },
+    {
+      title: "Primary Color",
+      dataIndex: "primaryColor",
+      dataType: "color",
+      width: "10%",
+      editable: true,
+      render: (color) => (
+        <div
+          style={{
+            backgroundColor: `${color}`,
+            width: "50px",
+            height: "20px",
+            display: "inline-flex",
+            border: "2px solid rgb(255, 255, 255)",
+            boxShadow: "rgb(204 204 204) 0px 0px 0px 1px",
+          }}
+        />
+      ),
+    },
+    {
+      title: "Secondary Color",
+      dataIndex: "secondaryColor",
+      dataType: "color",
+      width: "10%",
+      editable: true,
+      render: (color) => (
+        <div
+          style={{
+            backgroundColor: `${color}`,
+            width: "50px",
+            height: "20px",
+            display: "inline-flex",
+            border: "2px solid rgb(255, 255, 255)",
+            boxShadow: "rgb(204 204 204) 0px 0px 0px 1px",
+          }}
+        />
+      ),
     },
   ];
 
@@ -310,99 +342,113 @@ function Machines() {
           onSubmit={onSubmit}
         >
           {({ values, handleSubmit }) => (
-            <Form {...layout} onSubmit={handleSubmit}>
-              <Form.Item name="machine_name" label="Name">
-                <Input
-                  name="machine_name"
-                  placeholder="Machine Name"
-                  prefix={<TagOutlined />}
-                  value={values.machine_name}
-                />
-              </Form.Item>
-              <Form.Item name="lineId" label="Line">
-                <Select
-                  loading={lines.data.status}
-                  prefix={<ClusterOutlined />}
-                  options={options["lines"]}
-                  name="lineId"
-                  style={{ width: "100%" }}
-                  value={values.lineId}
-                />
-              </Form.Item>
-              <Form.Item name="url" label="URL">
-                <Input
-                  name="url"
-                  placeholder="URL"
-                  prefix={<LinkOutlined />}
-                  value={values.url}
-                />
-              </Form.Item>
-              <Form.Item name="type" label="Type">
-                <Select
-                  prefix={<ClusterOutlined />}
-                  name="type"
-                  style={{ width: "100%" }}
-                  value={values.type}
-                  onChange={onTypeChange}
-                >
-                  <Option value="IS">IS</Option>
-                  <Option value="LI">LI</Option>
-                  <Option value="MCAL4">MCAL4</Option>
-                  <Option value="MULTI4">MULTI4</Option>
-                  <Option value="MX4">MX4</Option>
-                  <Option value="VI">VI</Option>
-                  <Option value="PALLETIZER">Palletizer</Option>
-                  <Option value="Display">Display</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item name="channel" label="Channel">
-                <Input
-                  disabled={disableChannel ? true : false}
-                  defaultValue={null}
-                  name="channel"
-                  placeholder="Channel"
-                  prefix={<TagOutlined />}
-                  value={values.channel}
-                />
-              </Form.Item>
-              <Form.Item name="scantime" label="Scan Time">
-                <InputNumber
-                  name="scantime"
-                  placeholder="Scan Time"
-                  prefix={<FieldTimeOutlined />}
-                  value={values.scantime}
-                />
-              </Form.Item>
-              <Form.Item name="sequence" label="Sequence">
-                <InputNumber
-                  name="sequence"
-                  placeholder="Sequence"
-                  prefix={<NodeExpandOutlined />}
-                  value={values.sequence}
-                />
-              </Form.Item>
-              {/* <Form.Item name="primeColor" label="Prime Color">
-                <ReactAntColorPicker
-                  value={primaryColor}
-                  onChange={handleColorChange}
-                />
-              </Form.Item> */}
-              {/* <Form.Item name="secondaryColor" label="Secondary  Color">
-                <div>
-                  <div className="swatch" onClick={handleColorClick}>
-                    <div className="color" />
-                  </div>
-                  {displayColorPicker ? (
-                    <div className="popover">
-                      <div className="cover" onClick={handleColorClose} />
-                      <SketchPicker
-                        color={primaryColor}
-                        onChange={handleColorChange("secondary", primaryColor)}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              </Form.Item> */}
+            <Form
+              {...layout}
+              onSubmit={handleSubmit}
+              initialValues={initialValues}
+            >
+              <Row>
+                <Col offset={3} span={12}>
+                  <Form.Item name="machine_name" label="Name">
+                    <Input
+                      name="machine_name"
+                      placeholder="Machine Name"
+                      prefix={<TagOutlined />}
+                      value={values.machine_name}
+                    />
+                  </Form.Item>
+                  <Form.Item name="lineId" label="Line">
+                    <Select
+                      loading={lines.data.status}
+                      prefix={<ClusterOutlined />}
+                      options={options["lines"]}
+                      name="lineId"
+                      style={{ width: "100%" }}
+                      value={values.lineId}
+                    />
+                  </Form.Item>
+                  <Form.Item name="url" label="URL">
+                    <Input
+                      name="url"
+                      placeholder="URL"
+                      prefix={<LinkOutlined />}
+                      value={values.url}
+                    />
+                  </Form.Item>
+                  <Form.Item name="type" label="Type">
+                    <Select
+                      prefix={<ClusterOutlined />}
+                      name="type"
+                      style={{ width: "100%" }}
+                      value={values.type}
+                      onChange={onTypeChange}
+                    >
+                      <Option value="IS">IS</Option>
+                      <Option value="LI">LI</Option>
+                      <Option value="MCAL4">MCAL4</Option>
+                      <Option value="MULTI4">MULTI4</Option>
+                      <Option value="MX4">MX4</Option>
+                      <Option value="VI">VI</Option>
+                      <Option value="PALLETIZER">Palletizer</Option>
+                      <Option value="Display">Display</Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item name="channel" label="Channel">
+                    <Input
+                      disabled={disableChannel ? true : false}
+                      defaultValue={null}
+                      name="channel"
+                      placeholder="Channel"
+                      prefix={<TagOutlined />}
+                      value={values.channel}
+                    />
+                  </Form.Item>
+                  <Form.Item name="scantime" label="Scan Time">
+                    <InputNumber
+                      name="scantime"
+                      placeholder="Scan Time"
+                      prefix={<FieldTimeOutlined />}
+                      value={values.scantime}
+                    />
+                  </Form.Item>
+                  <Form.Item name="sequence" label="Sequence">
+                    <InputNumber
+                      name="sequence"
+                      placeholder="Sequence"
+                      prefix={<NodeExpandOutlined />}
+                      value={values.sequence}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row>
+                <Col offset={3} span={12}>
+                  <Form.Item name="primeColor" label="Prime ">
+                    <Colorpicker
+                      value={primaryColor}
+                      onChange={(color) => handleColorChange(color, "primary")}
+                      popup
+                      onColorResult={(color) => color.hex}
+                    />
+                  </Form.Item>
+                  <Form.Item name="secondaryColor" label="Secondary ">
+                    <Colorpicker
+                      value={secondaryColor}
+                      onChange={(color) =>
+                        handleColorChange(color, "secondary")
+                      }
+                      popup
+                      onColorResult={(color) => color.hex}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col offset={0} span={4}>
+                  <ChartPreview
+                    primaryColor={primaryColor}
+                    secondaryColor={secondaryColor}
+                  />
+                </Col>
+              </Row>
               <Row>
                 <Col offset={6} span={4}>
                   <SubmitButton>Submit</SubmitButton>
