@@ -47,6 +47,8 @@ const MachineData = ({ machine, timeRange }) => {
       oldEndDate: timeRange[0].$d,
       newEndDate: timeRange[1].$d,
       machine_sensors: machine.sensors,
+      primary: machine.primaryColor,
+      secondary: machine.secondaryColor,
     },
     realtime: "refetch",
     fetchPolicy: "network-only",
@@ -67,7 +69,7 @@ const MachineData = ({ machine, timeRange }) => {
 
   return (
     <div>
-      {console.log(machineData)}
+      {console.log(machineData.data[0])}
       <PrecentageCard
         machine_name={machine.machine_name}
         newPrecentage={machineData.newPrecentage}
