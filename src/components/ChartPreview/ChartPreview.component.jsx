@@ -10,7 +10,6 @@ import {
 } from "echarts/components";
 import { LineChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import chroma from "chroma-js";
 
 import autoColorPicker from "../../helper/color.js";
 

@@ -18,7 +18,7 @@ import {
 } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Colorpicker, ColorPickerValue } from "antd-colorpicker";
+import { Colorpicker } from "antd-colorpicker";
 
 import openNotification from "../../components/Notification/Notification.component";
 import MachineStatus from "../../components/MachineStatus/MachineStatus.component";
