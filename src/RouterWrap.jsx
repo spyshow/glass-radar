@@ -14,12 +14,13 @@ import MoldSets from "./pages/MoldSets/MoldSets.page";
 import MoldSet from "./components/MoldSet/MoldSet.component";
 import Unauthorized from "./pages/Unauthorized/Unauthorized.page";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
+import Home from "./pages/Home/Home.component";
 
 export default function RouterWrap() {
   const routes = [
     {
       path: "/dashboard/",
-      component: <div>home</div>,
+      component: <Home />,
       roles: ["User"],
     },
     {

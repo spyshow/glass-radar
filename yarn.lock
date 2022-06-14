@@ -4960,6 +4960,7 @@ __metadata:
     axios: ^0.21.1
     chroma-js: ^2.4.2
     dayjs: ^1.11.2
+    dynamic-antd-theme: ^0.8.7
     echarts: ^5.3.2
     echarts-for-react: ^3.0.2
     figbird: ^0.10.1
@@ -6317,6 +6318,13 @@ __metadata:
     readable-stream: ^2.0.0
     stream-shift: ^1.0.0
   checksum: 3c2ed2223d956a5da713dae12ba8295acb61d9acd966ccbba938090d04f4574ca4dca75cca089b5077c2d7e66101f32e6ea9b36a78ca213eff574e7a8b8accf2
+  languageName: node
+  linkType: hard
+
+"dynamic-antd-theme@npm:^0.8.7":
+  version: 0.8.7
+  resolution: "dynamic-antd-theme@npm:0.8.7"
+  checksum: 4e59da7f69fa8fdec2e74c27a7209482454f079982eec9803d7524d37c856119c1aba685905e65d0609677a652b1c3652feca2dfe294a0b7cc4775adfe5d924f
   languageName: node
   linkType: hard
 
