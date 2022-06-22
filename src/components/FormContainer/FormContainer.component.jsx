@@ -57,9 +57,10 @@ const FormContainer = () => {
             email: email,
             password: password,
           })
-          .then((user) => {
+          .then(({ user }) => {
+            console.log(user);
             openNotification("success", "Login Successed!", "");
-            localStorage.setItem("currentUser", JSON.stringify(user.postgres));
+            localStorage.setItem("currentUser", JSON.stringify(user));
             navigate(from, {
               replace: true,
               state: { error: "Login Success!" },
