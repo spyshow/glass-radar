@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import feathers from "@feathersjs/client";
 
 import Login from "./pages/Login/Login.page";
 import Dashboard from "./pages/Dashboard/Dashboard.page";
@@ -17,6 +18,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
 import Home from "./pages/Home/Home.component";
 
 export default function RouterWrap() {
+  const app = feathers();
+
   const routes = [
     {
       path: "/dashboard/",
@@ -73,6 +76,16 @@ export default function RouterWrap() {
       roles: ["Admin", "Moderator"],
     },
   ];
+
+  app.configure(
+    feathers.authentication({
+      storage: window.localStorage,
+      storageKey: "accessToken",
+    })
+  );
+
+  app.authenticate().catch(() => <Navigate to="/login" />);
+
   return (
     <BrowserRouter>
       <Routes>
