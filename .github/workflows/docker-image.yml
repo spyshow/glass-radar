@@ -11,22 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-<<<<<<< HEAD
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.4.1
       - run: npm i
       - run: npm run build
 
-=======
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3.4.1
-    - run: cd src
-    - run: cd components
-    - run: ls
-    - run: npm install
-    - run: npm run build
-    
->>>>>>> ea7064f46a3b480c30a13e567806a96362f965e8
   buildContainer:
     needs: build
     runs-on: ubuntu-latest
