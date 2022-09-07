@@ -24,7 +24,7 @@ export default function RouterWrap() {
     {
       path: "/dashboard/",
       component: <Home />,
-      roles: ["User"],
+      roles: ["Admin", "User"],
     },
     {
       path: "/dashboard/operator/:machineId&:lineId",
@@ -51,7 +51,7 @@ export default function RouterWrap() {
       roles: ["Admin", "Moderator"],
     },
     {
-      path: "/dashboard/line/:id",
+      path: "/dashboard/line/:id&:name",
       component: <Line />,
       roles: ["Admin", "Moderator"],
     },

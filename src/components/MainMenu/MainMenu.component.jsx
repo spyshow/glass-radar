@@ -31,7 +31,8 @@ const MainMenu = ({ app, theme }) => {
   if (lines.status === "success") {
     operatorMenu = (lines) => {
       return lines.data.map((line) => {
-        return line.machines.map((machine) => {
+        console.log(line);
+        return line.machines?.map((machine) => {
           if (
             machine.machine_name === "MX4" ||
             machine.machine_name === "COMBI"
@@ -62,7 +63,9 @@ const MainMenu = ({ app, theme }) => {
               title={line.line_number}
               icon={<OrderedListOutlined />}
             >
-              <Link to={`/dashboard/line/${line.id}`}>{line.line_number}</Link>
+              <Link to={`/dashboard/line/${line.id}&${line.line_number}`}>
+                {line.line_number}
+              </Link>
             </Menu.Item>
           );
         } else {
