@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: mskelton/setup-yarn@v1
-      - run: npm i
+      - uses: actions/setup-node@v3.4.1
       - run: npm ci
       - run: npm run build
 
