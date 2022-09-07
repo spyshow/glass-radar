@@ -27,7 +27,7 @@ const Line = () => {
   if (machines.status !== "success") {
     return <Skeleton active />;
   }
-  const onRangeChange = (range) => {
+  const onRangeChange = ( range) => {
     if (range === null) {
       setTimeRange([{ $d: dayjs().subtract(1, "hours") }, { $d: dayjs() }]);
     }
