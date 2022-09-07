@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "release" ]
+  pull_request:
+    branches: [ "release" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3.4.1
+    - run: npm ci
+    - run: npm run build
+    
+  buildContainer:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@main
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}}
