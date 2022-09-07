@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: cd src
-      - run: ls
+      - run: find . -name LineChartComponent.component.jsx
       - uses: actions/setup-node@v3.4.1
       - run: npm ci
       - run: npm run build
