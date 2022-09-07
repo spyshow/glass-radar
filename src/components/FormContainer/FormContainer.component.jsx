@@ -57,11 +57,7 @@ const FormContainer = () => {
             email: email,
             password: password,
           })
-<<<<<<< HEAD
-          .then((user) => {
-=======
           .then(({ user }) => {
->>>>>>> a363c9dcce80b5d68f06e11ab25abb6df8b358df
             console.log(user);
             openNotification("success", "Login Successed!", "");
             localStorage.setItem("currentUser", JSON.stringify(user));
