@@ -29,5 +29,11 @@ jobs:
       - name: check dir
         run: |
           ls
+          cd src
+          ls
+          cd components
+          ls
+          cd LineChartComponent
+          ls
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}}
