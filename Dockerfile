@@ -11,7 +11,7 @@ COPY package*.json /app/
 RUN npm install
 COPY ./ /app/
 ARG configuration=production
-RUN export NODE_OPTIONS="--max-old-space-size=12288"
+RUN export NODE_OPTIONS="--max-old-space-size=122288"
 RUN npm run build 
 RUN ls -la
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
