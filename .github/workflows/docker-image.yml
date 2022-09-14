@@ -33,3 +33,6 @@ jobs:
         run:  docker login -u $DOCKER_USER -p $DOCKER_PASS
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}}
+      - name: docker push
+        run: |
+          docker push spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}}
