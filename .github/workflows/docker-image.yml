@@ -31,7 +31,8 @@ jobs:
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}} --tag spyshow/glass-radar-ui:latest
+        run: docker build . --file Dockerfile -t spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}} -t spyshow/glass-radar-ui:latest
       - name: docker push
         run: |
           docker push spyshow/glass-radar-ui:${{ steps.package-version.outputs.current-version}}
+          docker push spyshow/glass-radar-ui:latest
