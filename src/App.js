@@ -7,8 +7,8 @@ import io from "socket.io-client";
 import RouterWrap from "./RouterWrap";
 import { Provider } from "figbird";
 import "./App.css";
- 
-const socket = io(process.env.REACT_APP_HOSTNAME, {
+
+const socket = io(process.env.REACT_APP_HOSTNAME + ":3030", {
   transports: ["websocket"],
   forceNew: true,
 });
