@@ -182,7 +182,9 @@ function Jobs() {
         <Button
           type="link"
           onClick={() => {
-            setJobOnLink("http://"+process.env.API_APP_HOSTNAME+":3030/uploads/" + link);
+            setJobOnLink(
+              "http://" + process.env.REACT_APP_HOSTNAME + "/uploads/" + link
+            );
             setJobOnVisible(true);
           }}
         >
@@ -242,7 +244,7 @@ function Jobs() {
     headers: {
       Authorization: localStorage.getItem("accessToken"),
     },
-    action: process.env.API_APP_HOSTNAME + "/upload",
+    action: process.env.REACT_APP_HOSTNAME + "/upload",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {

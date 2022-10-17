@@ -11,6 +11,7 @@ COPY package*.json /app/
 RUN npm install
 COPY ./ /app/
 ARG configuration=production
+ENV REACT_APP_HOSTNAME="192.168.0.164:3030"
 RUN export NODE_OPTIONS="--max-old-space-size=122288"
 RUN npm run build 
 RUN ls -la

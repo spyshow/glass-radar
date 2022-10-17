@@ -8,7 +8,7 @@ import RouterWrap from "./RouterWrap";
 import { Provider } from "figbird";
 import "./App.css";
 
-const socket = io("192.168.0.164:3030", {
+const socket = io(process.env.REACT_APP_HOSTNAME, {
   transports: ["websocket"],
   forceNew: true,
 });
