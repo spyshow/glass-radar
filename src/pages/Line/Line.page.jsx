@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { PageHeader, Skeleton, DatePicker, Empty } from "antd";
+import { DatePicker } from "../../components/";
+import { PageHeader, Skeleton, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useFind } from "figbird";
 import * as dayjs from "dayjs";
@@ -27,7 +28,7 @@ const Line = () => {
   if (machines.status !== "success") {
     return <Skeleton active />;
   }
-  const onRangeChange = ( range) => {
+  const onRangeChange = (range) => {
     if (range === null) {
       setTimeRange([{ $d: dayjs().subtract(1, "hours") }, { $d: dayjs() }]);
     }

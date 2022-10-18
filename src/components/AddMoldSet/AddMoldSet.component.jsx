@@ -2,14 +2,8 @@ import React from "react";
 import { Row, Col } from "antd";
 import { useMutation } from "figbird";
 import openNotification from "../../components/Notification/Notification.component";
-import {
-  Form,
-  Select,
-  DatePicker,
-  Input,
-  SubmitButton,
-  ResetButton,
-} from "formik-antd";
+import { DatePicker } from "../index";
+import { Form, Select, Input, SubmitButton, ResetButton } from "formik-antd";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as dayjs from "dayjs";
