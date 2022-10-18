@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import { DatePicker } from "./components";
+import { DatePicker } from "../index";
 import {
   Table,
   Input,
