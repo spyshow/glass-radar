@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { DatePicker } from "./components";
-import { PageHeader, Skeleton, Button, Empty } from "antd";
+import { PageHeader, Skeleton, Button, DatePicker, Empty } from "antd";
 import { useParams } from "react-router-dom";
 import { useGet } from "figbird";
 import * as dayjs from "dayjs";

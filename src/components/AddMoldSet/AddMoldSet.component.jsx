@@ -5,11 +5,11 @@ import openNotification from "../../components/Notification/Notification.compone
 import {
   Form,
   Select,
+  DatePicker,
   Input,
   SubmitButton,
   ResetButton,
 } from "formik-antd";
-import { DatePicker } from './components';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as dayjs from "dayjs";

@@ -1,6 +1,5 @@
 import React from "react";
-import { Skeleton } from "antd";
-import { DatePicker } from "./components";
+import { DatePicker, Skeleton } from "antd";
 import * as dayjs from "dayjs";
 import { useFind } from "figbird";
 const { RangePicker } = DatePicker;
