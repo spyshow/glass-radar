@@ -2,10 +2,10 @@ import React from "react";
 import { Row, Col } from "antd";
 import { useMutation } from "figbird";
 import openNotification from "../../components/Notification/Notification.component";
+import { DatePicker } from './components';
 import {
   Form,
   Select,
-  DatePicker,
   Input,
   SubmitButton,
   ResetButton,
