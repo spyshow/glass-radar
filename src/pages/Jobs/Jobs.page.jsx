@@ -182,9 +182,7 @@ function Jobs() {
         <Button
           type="link"
           onClick={() => {
-            setJobOnLink(
-              "http://" + process.env.REACT_APP_HOSTNAME + "/uploads/" + link
-            );
+            setJobOnLink(process.env.REACT_APP_HOSTNAME + "/uploads/" + link);
             setJobOnVisible(true);
           }}
         >
