@@ -86,7 +86,7 @@ const LineChartComponent = ({ id, timeRange }) => {
         <Empty description={<span>Please select a proper time range</span>} />
       )}
     </div>
-  ); 
+  );
 };
 
 export default LineChartComponent;

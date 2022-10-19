@@ -55,7 +55,7 @@ export default function Operator() {
     getMolds();
   }, 10000);
   let finishedData = [];
-  if (moldData.data !== null) {
+  if (moldData.data?.mountedMolds.length !== 0) {
     for (let i = 0; i < moldData.data.mountedMolds.length; i++) {
       if (moldData.data.mountedMolds[i] === 0) {
         continue;
