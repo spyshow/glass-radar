@@ -34,7 +34,6 @@ const Line = () => {
     }
     setTimeRange(range);
   };
-  console.log(machines);
   return (
     <div>
       {machines.data.length === 0 ? (
