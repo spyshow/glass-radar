@@ -74,7 +74,10 @@ const MainMenu = ({ app, theme }) => {
               key={line.id}
               className="sub-menu"
               title={
-                <Link to={`/dashboard/line/${line.id}`} className="sub-menu">
+                <Link
+                  to={`/dashboard/line/${line.id}&${line.line_number}`}
+                  className="sub-menu"
+                >
                   {line.line_number}
                 </Link>
               }
